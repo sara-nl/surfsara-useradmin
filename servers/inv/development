@@ -1,9 +1,4 @@
-[development:children]
-opennebula
-useradmin
-
-[opennebula]
-192.168.111.170
+localhost ansible_python_interpreter=/usr/local/bin/python
 
 [useradmin]
 192.168.111.171

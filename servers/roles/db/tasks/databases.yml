@@ -1,5 +1,5 @@
 - name: create database user
-  postgresql_user: user={{ item.db_user }} password={{ item.db_password | vault }} role_attr_flags={{ item.db_user_roles }}
+  postgresql_user: user={{ item.db_user }} password={{ item.db_password }} role_attr_flags={{ item.db_user_roles }}
   become_user: postgres
   with_items:
     - "{{ postgres.databases }}"

@@ -5,6 +5,7 @@
   with_items:
     - postgresql-{{ postgres.version }}
     - postgresql-client-{{ postgres.version }}
+    - python-psycopg2
   notify: restart postgresql
   tags: postgresql
 

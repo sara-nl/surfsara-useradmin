@@ -1,11 +1,11 @@
 ---
 
 dev_host: "192.168.111.171/32"
-db_name: surfsara_conext_development
-db_user: surfsara_conext
-db_password: AJF03lOC17hiCIS4dIcXz_2FzvSbERMd_q5mwileHzLy6hUufIRtNtL3cAmuxB87V4s4euNCavpN
+db_name: useradmin_development
+db_user: useradmin
+db_password: useradmin
 
 postgres:
-  pg_hba:
+  version: "9.4"
   databases:
     - { db_name: "{{ db_name }}", db_user: "{{ db_user }}", db_password: "{{ db_password }}", db_user_roles: "LOGIN,CREATEDB" }
