@@ -1,7 +1,7 @@
 ---
 
 env: development
-virtual_hostname: 192.168.111.171
+virtual_host: 192.168.111.171
 
 postgres:
   version: "9.4"
