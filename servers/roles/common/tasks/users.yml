@@ -1,0 +1,31 @@
+---
+
+- name: Create SURFsara user
+  user: name=surfsara comment="SURFsara user" shell=/bin/bash
+  tags: users
+
+- name: SURFsara additional authorized_keys
+  authorized_key: user=surfsara key="{{ lookup('file', 'ssh/%s.pub' % item) }}" manage_dir=no state=present
+  with_items: "{{ admins }}"
+  tags:
+    - users
+
+- name: Source .bashrc in .bash_profile
+  lineinfile:
+      dest: /home/surfsara/.bash_profile
+      regexp: "if [ -f ~/.bashrc ]; then . ~/.bashrc; fi"
+      line: "if [ -f ~/.bashrc ]; then . ~/.bashrc; fi"
+      create: yes
+  tags: users
+
+- name: Administrators accounts
+  user: name={{ item }} comment="Administrator" shell=/bin/bash groups=adm,sudo
+  with_items: "{{ admins }}"
+  tags:
+    - users
+
+- name: Administrators authorized_keys
+  authorized_key: user={{ item }} key="{{ lookup('file', 'ssh/%s.pub' % item) }}" manage_dir=yes
+  with_items: "{{ admins }}"
+  tags:
+    - users

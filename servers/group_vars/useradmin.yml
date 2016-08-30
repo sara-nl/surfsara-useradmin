@@ -1,5 +1,7 @@
 ---
 
+env: development
+
 dev_host: "192.168.111.171/32"
 db_name: useradmin_development
 db_user: useradmin
@@ -9,3 +11,7 @@ postgres:
   version: "9.4"
   databases:
     - { db_name: "{{ db_name }}", db_user: "{{ db_user }}", db_password: "{{ db_password }}", db_user_roles: "LOGIN,CREATEDB" }
+
+admins:
+  - bforma
+  - svdiepen

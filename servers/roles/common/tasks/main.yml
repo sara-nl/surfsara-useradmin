@@ -16,4 +16,28 @@
     - debconf-utils
     - screen
     - htop
+    - build-essential
   tags: common
+
+- name: Copy tmp sudoers file
+  copy: src=sudoers dest=/etc/sudoers.tmp owner=root group=root mode=0440
+  register: copy_tmp_sudoers
+  tags: admins
+
+- name: Copy sudoers file
+  shell: visudo -q -c -f /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers
+  when: copy_tmp_sudoers.changed
+  tags: admins
+
+- name: Copy tmp vagrant sudoers file
+  copy: src=vagrant_sudoers dest=/etc/sudoers.d/vagrant.tmp owner=root group=root mode=0440
+  register: copy_vagrant_sudoers
+  when: env == 'development'
+  tags: admins
+
+- name: Copy vagrant sudoers file
+  shell: visudo -q -c -f /etc/sudoers.d/vagrant.tmp && cp /etc/sudoers.d/vagrant.tmp /etc/sudoers.d/vagrant
+  when: env == 'development' and copy_vagrant_sudoers.changed
+  tags: admins
+
+- include: users.yml

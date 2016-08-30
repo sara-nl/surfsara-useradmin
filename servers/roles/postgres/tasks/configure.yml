@@ -6,6 +6,7 @@
     - postgresql-{{ postgres.version }}
     - postgresql-client-{{ postgres.version }}
     - python-psycopg2
+    - libpq-dev
   notify: restart postgresql
   tags: postgresql
 

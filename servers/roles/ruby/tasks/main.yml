@@ -1,0 +1,19 @@
+---
+- name: Install ruby packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ruby
+    - ruby-dev
+  tags: ruby
+
+- name: Set GEM_HOME
+  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_HOME" line="export GEM_HOME=$HOME/.gem"
+  tags: ruby
+
+- name: Set GEM_PATH
+  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_PATH" line="export GEM_PATH=$HOME/.gem"
+  tags: ruby
+
+- name: Set .gem/bin PATH
+  lineinfile: dest=/home/surfsara/.bashrc regexp=".gem/bin" line="export PATH=$PATH:$HOME/.gem/bin"
+  tags: ruby
