@@ -18,3 +18,11 @@ gem install bundler
 cd /var/www/useradmin/current
 bundle install
 ```
+
+To run Mujina (IDP):
+
+```
+sudo su - surfsara
+cd mujina/mujina-idp
+mvn jetty:run
+```
