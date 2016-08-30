@@ -16,6 +16,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "useradmin" do |machine|
     machine.vm.network :private_network, ip: "192.168.111.171"
-    machine.vm.synced_folder '../useradmin/', '/var/www/useradmin/current'
+    machine.vm.synced_folder '../useradmin/', '/var/www/useradmin/current', owner: "surfsara", group: "surfsara"
   end
 end
