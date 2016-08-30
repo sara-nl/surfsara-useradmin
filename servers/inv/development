@@ -1,0 +1,9 @@
+[development:children]
+opennebula
+useradmin
+
+[opennebula]
+192.168.111.170
+
+[useradmin]
+192.168.111.171

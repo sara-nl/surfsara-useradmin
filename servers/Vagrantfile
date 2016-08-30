@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/jessie64"
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+
+  config.vm.define "opennebula" do |machine|
+    machine.vm.network :private_network, ip: "192.168.111.170"
+  end
+
+  config.vm.define "useradmin" do |machine|
+    machine.vm.network :private_network, ip: "192.168.111.171"
+  end
+end

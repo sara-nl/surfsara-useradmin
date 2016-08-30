@@ -1,0 +1,5 @@
+---
+- hosts: useradmin
+  become: yes
+  roles:
+    - common

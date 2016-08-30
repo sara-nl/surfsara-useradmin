@@ -1,0 +1,19 @@
+---
+
+- name: Upgrade packages to latest version
+  apt: upgrade=yes update_cache=true cache_valid_time=3600
+  tags: common
+
+- name: Install base packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - openssh-server
+    - sudo
+    - python-software-properties
+    - curl
+    - vim
+    - python-pycurl
+    - debconf-utils
+    - screen
+    - htop
+  tags: common

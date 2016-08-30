@@ -1,0 +1,36 @@
+---
+
+- name: install postgresql
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - postgresql-{{ postgres.version }}
+    - postgresql-client-{{ postgres.version }}
+  notify: restart postgresql
+  tags: postgresql
+
+# Allow up to 16GB of shared memory. Enough for any reasonable Postgres configuration.
+- name: PostgreSQL Linux kernel parameters
+  sysctl: name={{ item.key }} value={{ item.value }} state=present reload=yes
+  with_dict:
+    kernel.shmmax: 17179869184
+    kernel.shmall: 4194304
+  notify: restart postgresql
+  tags: postgresql
+
+# Defaults are based on https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server
+- name: Configure postgres
+  lineinfile: dest=/etc/postgresql/{{ postgres.version }}/main/postgresql.conf regexp="^#?{{ item.key }}" line="{{ item.key }} = {{ item.value }}" state=present
+  become_user: postgres
+  with_dict:
+    max_connections: "{{ postgres.max_connections | default(100) }}"
+    shared_buffers: "{{ postgres.shared_buffers | default('24MB') }}"
+    effective_cache_size: "{{ postgres.effective_cache_size | default('128MB') }}"
+    checkpoint_segments: "{{ postgres.checkpoint_segments | default(3) }}"
+    log_min_duration_statement: "{{ postgres.log_min_duration_statement | default(100) }}"
+    log_statement: "{{ postgres.log_statement | default(\"'ddl'\") }}"
+    log_line_prefix: "{{ postgres.log_line_prefix | default(\"'%t:%r:%u@%d:[%p]: '\") }}"
+    debug_print_parse: "{{ postgres.debug_print_parse | default('off') }}"
+    debug_print_rewritten: "{{ postgres.debug_print_rewritten | default('off') }}"
+    debug_print_plan: "{{ postgres.debug_print_plan | default('off') }}"
+  notify: restart postgresql
+  tags: postgresql

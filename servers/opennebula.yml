@@ -1,0 +1,5 @@
+---
+- hosts: opennebula
+  become: yes
+  roles:
+    - common
