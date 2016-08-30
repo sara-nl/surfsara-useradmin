@@ -1,0 +1,13 @@
+- name: Clone Mujina repository
+  git:
+    repo: https://github.com/OpenConext/Mujina.git
+    dest: /home/surfsara/mujina
+  become_user: surfsara
+  tags: mujina
+
+- name: Build Mujina
+  shell: mvn clean install
+  args:
+    chdir: /home/surfsara/mujina
+  become_user: surfsara
+  tags: mujina

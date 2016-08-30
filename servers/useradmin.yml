@@ -3,8 +3,10 @@
   become: yes
   roles:
     - common
+    - git
     - postgres
     - ruby
     - apache
     - passenger
     - { role: 'java', when: env == 'development' }
+    - { role: 'mujina', when: env == 'development' }
