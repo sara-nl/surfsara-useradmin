@@ -1,0 +1,2 @@
+- name: restart shibboleth
+  service: name=shibd state=restarted

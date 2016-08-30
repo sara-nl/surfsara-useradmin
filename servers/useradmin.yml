@@ -8,5 +8,6 @@
     - ruby
     - apache
     - passenger
+    - shibboleth
     - { role: 'java', when: env == 'development' }
     - { role: 'mujina', when: env == 'development' }

@@ -1,0 +1,21 @@
+- name: Install Shibboleth
+  apt: name=libapache2-mod-shib2 state=present
+  tags: shibboleth
+
+- name: Configure Shibboleth
+  template: src={{ item }} dest=/etc/shibboleth/{{ item }}
+  with_items:
+    - attribute-map.xml
+    - shibboleth2.xml
+    - localLogout.html
+  notify:
+    - restart shibboleth
+    - restart apache
+  tags: shibboleth
+
+- name: Add Shibboleth to Apache
+  copy: src=shib.conf dest=/etc/apache2/conf-available/shib.conf
+  notify:
+    - restart shibboleth
+    - restart apache
+  tags: shibboleth
