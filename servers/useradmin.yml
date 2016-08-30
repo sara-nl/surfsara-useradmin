@@ -5,3 +5,5 @@
     - common
     - postgres
     - ruby
+    - apache
+    - passenger

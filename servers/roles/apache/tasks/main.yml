@@ -1,0 +1,42 @@
+---
+
+- name: Install apache
+  action: apt pkg={{ item }} state=present
+  with_items:
+    - apache2
+  notify: restart apache
+  tags:
+    - apache
+
+- name: Enable apache module
+  apache2_module: name={{ item }} state=present
+  notify: restart apache
+  with_items:
+    - headers
+    - rewrite
+    - ssl
+  tags:
+    - apache
+
+- name: Remove default vhost
+  file: path=/etc/apache2/sites-enabled/{{ item }} state=absent
+  with_items:
+    - 000-default
+    - 000-default-ssl
+    - 000-default.conf
+    - 000-default-ssl.conf
+  notify: restart apache
+  tags:
+    - apache
+
+- name: Create useradmin vhost
+  template: src=useradmin-vhost.j2 dest=/etc/apache2/sites-available/useradmin.conf
+  notify: restart apache
+  tags:
+    - apache
+
+- name: Enable vhosts
+  file: src=/etc/apache2/sites-available/useradmin.conf dest=/etc/apache2/sites-enabled/useradmin.conf state=link
+  notify: restart apache
+  tags:
+    - apache

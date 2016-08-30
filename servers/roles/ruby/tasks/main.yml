@@ -7,13 +7,13 @@
   tags: ruby
 
 - name: Set GEM_HOME
-  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_HOME" line="export GEM_HOME=$HOME/.gem"
+  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_HOME" line="export GEM_HOME={{ ruby.gem_home }}"
   tags: ruby
 
 - name: Set GEM_PATH
-  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_PATH" line="export GEM_PATH=$HOME/.gem"
+  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_PATH" line="export GEM_PATH={{ ruby.gem_home }}"
   tags: ruby
 
 - name: Set .gem/bin PATH
-  lineinfile: dest=/home/surfsara/.bashrc regexp=".gem/bin" line="export PATH=$PATH:$HOME/.gem/bin"
+  lineinfile: dest=/home/surfsara/.bashrc regexp=".gem/bin" line="export PATH=$PATH:{{ ruby.gem_home }}/bin"
   tags: ruby

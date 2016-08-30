@@ -1,17 +1,25 @@
 ---
 
 env: development
-
-dev_host: "192.168.111.171/32"
-db_name: useradmin_development
-db_user: useradmin
-db_password: useradmin
+virtual_hostname: 192.168.111.171
 
 postgres:
   version: "9.4"
-  databases:
-    - { db_name: "{{ db_name }}", db_user: "{{ db_user }}", db_password: "{{ db_password }}", db_user_roles: "LOGIN,CREATEDB" }
+  database:
+    host: 127.0.0.1/32
+    name: useradmin_development
+    user: useradmin
+    password: useradmin
+    user_roles: "LOGIN,CREATEDB"
 
 admins:
   - bforma
   - svdiepen
+
+ruby:
+  gem_home: /home/surfsara/.gem
+
+passenger:
+  max_pool_size: 10
+  max_instances_per_app: 5
+  friendly_error_pages: "on"

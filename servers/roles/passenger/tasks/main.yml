@@ -1,0 +1,29 @@
+---
+
+- name: Copy apt get signing key
+  apt_key: keyserver=keyserver.ubuntu.com id=561F9B9CAC40B2F7
+  tags:
+    - passenger
+
+- name: Passenger repository
+  apt_repository: repo='deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main' state=present update_cache=yes
+  tags:
+    - passenger
+
+- name: Install passenger package
+  apt: name=libapache2-mod-passenger state=present update_cache=yes
+  notify: restart apache
+  tags:
+    - passenger
+
+- name: Remove old passenger configuration file
+  file: path=/etc/apache2/conf.d/passenger state=absent
+  notify: restart apache
+  tags:
+    - passenger
+
+- name: Configuration
+  template: src=passenger.conf.j2 dest=/etc/apache2/mods-available/passenger.conf owner=root group=root mode=0644
+  notify: restart apache
+  tags:
+    - passenger

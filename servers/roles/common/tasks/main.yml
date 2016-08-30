@@ -17,6 +17,7 @@
     - screen
     - htop
     - build-essential
+    - apt-transport-https
   tags: common
 
 - name: Copy tmp sudoers file
