@@ -8,14 +8,39 @@
     - attribute-map.xml
     - shibboleth2.xml
     - localLogout.html
+    - metadata-surfconext.xml
   notify:
     - restart shibboleth
     - restart apache
   tags: shibboleth
 
-- name: Add Shibboleth to Apache
+- name: Install Apache Shibboleth configuration
   copy: src=shib.conf dest=/etc/apache2/conf-available/shib.conf
   notify:
     - restart shibboleth
     - restart apache
+  tags: shibboleth
+
+- name: Enable Apache Shibboleth
+  file: src=/etc/apache2/conf-available/shib.conf dest=/etc/apache2/conf-enabled/shib.conf state=link
+  notify: restart apache
+  tags:
+    - shibboleth
+
+- name: Install SURFconext signing certificate
+  copy: src=engine.surfconext.nl.pem dest=/etc/shibboleth/engine.surfconext.nl.pem mode=0600
+  notify:
+    - restart shibboleth
+    - restart apache
+  tags: shibboleth
+
+- name: Install development certificates
+  copy: src=development-certificates/{{ item }} dest=/etc/shibboleth/{{ item }} mode=0600
+  with_items:
+    - shib.crt
+    - shib.key
+  notify:
+    - restart shibboleth
+    - restart apache
+  when: env == 'development'
   tags: shibboleth

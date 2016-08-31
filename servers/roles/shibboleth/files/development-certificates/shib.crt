@@ -1,0 +1,124 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            f7:81:1c:52:c7:4a:7b:c0
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=NL, ST=Noord-Holland, L=Amsterdam, O=SURFsara
+        Validity
+            Not Before: Aug 31 13:24:02 2016 GMT
+            Not After : Aug 31 13:24:02 2026 GMT
+        Subject: C=NL, ST=Noord-Holland, L=Amsterdam, O=SURFsara
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (4096 bit)
+                Modulus (4096 bit):
+                    00:db:1f:a1:35:51:55:e2:dd:b4:29:5f:0b:12:ce:
+                    ba:be:ed:bb:f7:fc:34:81:89:ec:94:50:8f:b5:9b:
+                    b3:81:0c:f9:95:4b:9f:e2:38:dc:66:b6:1f:3b:67:
+                    28:73:69:37:87:03:5c:e1:c6:06:6d:dc:33:94:76:
+                    ba:61:af:ab:e3:60:22:5c:71:f6:92:5e:33:32:95:
+                    94:ed:d0:56:9e:31:74:01:96:26:4a:0e:b6:37:8b:
+                    c4:46:8d:55:46:4e:df:ca:2a:d6:86:ae:76:fb:96:
+                    22:b6:18:0a:32:59:35:40:c9:c5:fa:59:05:45:03:
+                    4c:7b:80:b1:d0:89:35:6c:89:cd:9b:3d:01:e5:98:
+                    10:54:f7:ee:9a:04:81:de:e6:dc:c0:82:3d:da:f9:
+                    b5:4f:03:6e:2f:89:5a:86:8a:d7:0a:25:8d:62:94:
+                    a3:5b:4b:c8:16:ad:98:ef:ef:91:9a:43:eb:1c:c3:
+                    c9:6b:23:2d:91:31:b1:16:3d:8f:3a:20:06:a9:1f:
+                    df:e5:39:ab:0e:2a:29:02:c4:f7:fb:9b:cb:34:76:
+                    ef:57:c9:2f:e8:82:bd:e5:3c:44:a5:c6:9a:82:d1:
+                    20:be:0e:83:a7:00:aa:0c:71:4c:eb:49:a1:1d:0f:
+                    1c:92:ee:7b:ac:8e:d6:00:33:68:3c:86:ee:4e:b8:
+                    4d:c0:2d:78:fc:a4:c5:7a:27:c7:21:68:02:1c:c8:
+                    1f:0d:e8:68:f0:73:41:15:9f:0a:3a:7f:9a:44:26:
+                    50:fa:b4:eb:11:7a:db:7b:11:4a:82:8e:16:43:9b:
+                    10:56:6e:f1:3d:d0:5a:06:b3:62:61:8e:73:40:18:
+                    c9:f4:85:27:89:16:51:4f:89:cf:ba:57:1c:0e:8f:
+                    13:a1:22:2f:23:d0:1a:ca:1f:e6:f0:f3:71:6e:a4:
+                    23:aa:d3:8a:df:43:14:b5:f8:e4:e0:58:f7:b9:0e:
+                    ee:96:0e:c6:3b:8b:13:6c:99:94:4d:6a:e2:97:07:
+                    e3:f6:16:f1:55:ea:69:ab:d6:ca:31:92:91:53:f6:
+                    f6:b9:01:ab:1b:15:07:56:1f:ad:c3:60:bc:6a:9e:
+                    a0:01:6a:de:be:c1:7b:bd:e6:81:49:81:31:25:13:
+                    98:44:11:37:50:65:31:fe:9f:a0:45:4f:8b:0d:4d:
+                    71:26:02:ed:8f:66:ef:de:40:1a:7c:11:85:ae:d4:
+                    6d:33:d8:c7:cb:32:b9:c3:cb:2c:02:5a:c5:62:49:
+                    00:4e:88:82:c6:4e:ea:6c:84:47:67:0b:b7:73:d4:
+                    21:d0:1b:53:c4:6c:a8:43:33:e8:8d:9d:3f:d7:37:
+                    94:9b:9e:07:65:94:0d:c1:b2:dc:5f:a8:f7:e1:7e:
+                    bb:c5:ab
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                95:1A:62:CF:93:8B:90:6E:3A:43:05:07:8C:55:E6:1C:28:FF:4B:54
+            X509v3 Authority Key Identifier: 
+                keyid:95:1A:62:CF:93:8B:90:6E:3A:43:05:07:8C:55:E6:1C:28:FF:4B:54
+                DirName:/C=NL/ST=Noord-Holland/L=Amsterdam/O=SURFsara
+                serial:F7:81:1C:52:C7:4A:7B:C0
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha1WithRSAEncryption
+        c1:99:df:70:46:a9:09:d4:6f:fe:7d:4c:c6:8c:81:45:a4:66:
+        65:8c:86:19:aa:87:98:d7:94:b8:aa:32:06:43:d8:e2:98:3a:
+        4d:35:f3:32:c6:1b:8a:62:d9:30:78:f4:67:dc:49:47:de:a6:
+        a5:c4:41:a0:bc:19:c1:f2:4e:fe:de:b5:1c:18:fd:74:bd:25:
+        e6:80:5d:b4:62:b7:8c:b3:33:59:eb:c6:f8:8d:88:b3:54:fa:
+        1f:22:ee:57:8d:e8:0e:cb:f6:30:87:f8:1f:42:d6:73:03:3c:
+        48:1b:54:a3:1e:c3:21:63:d8:bd:bf:ef:88:c8:49:87:53:6e:
+        e3:9f:8d:e5:03:f1:cc:57:d0:9b:f6:97:b5:ba:0d:a9:9c:55:
+        c1:00:bc:54:dc:b6:d9:9a:de:55:47:0f:66:39:b5:70:ff:fd:
+        92:3e:5a:35:89:aa:4a:93:2f:21:b0:aa:c0:02:37:e9:df:81:
+        14:01:d2:67:f5:c9:fd:37:5c:b2:ab:73:27:d0:e1:30:86:b9:
+        06:cc:df:e0:b5:b7:5f:2b:3b:85:28:03:bf:d1:65:a5:6f:17:
+        86:ef:f3:ae:ee:5d:48:ff:04:d3:a1:24:dd:ea:6a:78:2f:6d:
+        26:7c:01:6a:f5:19:de:cb:05:f0:24:64:30:5e:87:63:ce:99:
+        4a:be:fc:26:3f:49:a2:36:a8:e8:96:bd:57:0d:d7:b0:46:8c:
+        a5:0c:29:13:3f:7b:e3:7a:94:ac:14:ba:f4:d5:dc:77:07:22:
+        62:06:26:8f:5d:d1:a5:7a:c9:8d:e3:0c:55:15:23:23:e5:f6:
+        fc:df:96:da:62:75:d2:63:20:0a:d6:61:8d:10:18:0d:02:c2:
+        5c:6d:f9:87:69:2a:ad:9f:0c:6e:38:0d:41:99:37:0b:e0:2e:
+        c5:35:2d:5f:d1:b9:40:49:6d:e4:11:c9:32:f7:4d:dc:1f:c6:
+        cd:7f:5b:07:2d:d1:ea:f6:7d:5c:4a:9b:71:c5:ec:ca:e3:1b:
+        8b:e6:be:bc:2c:0d:73:62:5c:82:bf:43:26:36:38:f0:40:8d:
+        7f:72:a8:8f:00:e4:a1:df:ef:0e:c4:d2:57:8a:bb:99:cb:37:
+        a7:3a:70:39:33:4f:6f:d6:64:f1:80:26:d3:4c:ba:3e:4e:61:
+        02:d5:d2:27:a4:17:b5:0b:34:d0:4a:89:f2:dc:c9:29:01:c4:
+        31:66:5d:21:fc:a1:03:d0:a5:7e:8c:71:51:80:5a:be:56:a7:
+        4b:33:a2:0e:b3:fa:7e:31:cc:b1:7b:9d:89:d2:61:3d:55:da:
+        fc:ed:bc:1c:ee:c4:26:40:be:2e:14:06:78:00:d4:6a:ca:12:
+        84:8e:b1:56:08:a0:3e:c1
+-----BEGIN CERTIFICATE-----
+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
+-----END CERTIFICATE-----

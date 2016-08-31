@@ -19,4 +19,9 @@
   ErrorDocument 404 "404 Not Found"
   ErrorDocument 403 "403 Access Denied"
 
+  <Location />
+    AuthType shibboleth
+    ShibRequestSetting requireSession 1
+    Require valid-user
+  </Location>
 </VirtualHost>
