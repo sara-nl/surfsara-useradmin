@@ -1,54 +1,36 @@
 class InvitesController < ApplicationController
   def index
-    @invites = invites
+    @invites = Invite.all
   end
 
   def show
-    @invite = invite
+    @invite = Invite.find(params[:id])
   end
 
   def new
-    @invite = Invite.new
+    form Invite::Create
   end
 
   def edit
-    @invite = invite
+    form Invite::Update
   end
 
   def create
-    @invite = Invite.new(invite_params)
-
-    if @invite.save
-      redirect_to @invite, notice: 'Invite was successfully created.'
-    else
-      render :new
+    run Invite::Create do |op|
+      return redirect_to(op.model)
     end
+
+    render :new
   end
 
   def update
-    if @invite.update(invite_params)
-      redirect_to @invite, notice: 'Invite was successfully updated.'
-    else
-      render :edit
+    run Invite::Create do |op|
+      return redirect_to(op.model)
     end
+
+    render :edit
   end
 
   def destroy
-    @invite.destroy
-    redirect_to invites_url, notice: 'Invite was successfully destroyed.'
-  end
-
-  private
-
-  def invite
-    Invite.find(params[:id])
-  end
-
-  def invites
-    Invite.all
-  end
-
-  def invite_params
-    params.require(:invite).permit(:email, :token, :accepted_by, :accepted_at)
   end
 end
