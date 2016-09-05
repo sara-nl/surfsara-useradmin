@@ -1,0 +1,24 @@
+= form_for @invite do |f|
+  - @invite.errors
+    #error_explanation
+      h2 = "#{pluralize(@invite.errors.count, "error")} prohibited this invite from being saved:"
+      ul- @invite.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :email
+    = f.text_field :email
+
+  .field
+    = f.label :token
+    = f.text_field :token
+
+  .field
+    = f.label :accepted_by
+    = f.text_field :accepted_by
+
+  .field
+    = f.label :accepted_at
+    = f.datetime_select :accepted_at
+
+  .actions = f.submit

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Email:
+  = @invite.email
+p
+  strong Token:
+  = @invite.token
+p
+  strong Accepted by:
+  = @invite.accepted_by
+p
+  strong Accepted at:
+  = @invite.accepted_at
+
+= link_to 'Edit', edit_invite_path(@invite)
+'|
+= link_to 'Back', invites_path

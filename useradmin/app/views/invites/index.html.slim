@@ -1,0 +1,27 @@
+h1 Listing invites
+
+table
+  thead
+    tr
+      th Email
+      th Token
+      th Accepted by
+      th Accepted at
+      th
+      th
+      th
+
+  tbody
+    - @invites.each do |invite|
+      tr
+        td = invite.email
+        td = invite.token
+        td = invite.accepted_by
+        td = invite.accepted_at
+        td = link_to 'Show', invite
+        td = link_to 'Edit', edit_invite_path(invite)
+        td = link_to 'Destroy', invite, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Invite', new_invite_path
