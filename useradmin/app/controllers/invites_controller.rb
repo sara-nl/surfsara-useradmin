@@ -24,7 +24,7 @@ class InvitesController < ApplicationController
   end
 
   def update
-    run Invite::Create do |op|
+    run Invite::Update do |op|
       return redirect_to(op.model)
     end
 
@@ -32,5 +32,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
+    run Invite::Destroy
+    redirect_to invites_path
   end
 end
