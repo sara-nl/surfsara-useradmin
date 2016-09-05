@@ -17,7 +17,7 @@ class InvitesController < ApplicationController
 
   def create
     run Invite::Create do |op|
-      return redirect_to(op.model)
+      return redirect_to(op.model), notice: 'Success!'
     end
 
     render :new
