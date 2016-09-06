@@ -1,5 +1,7 @@
 class Invite < ActiveRecord::Base
   class Update < Operation
+    include Model
+
     model Invite, :find
 
     contract do

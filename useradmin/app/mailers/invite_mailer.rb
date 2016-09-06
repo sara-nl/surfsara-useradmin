@@ -1,8 +1,6 @@
 class InviteMailer < ApplicationMailer
-  def invitation(email)
-    mail(to: email) do |format|
-      format.html
-      format.text
-    end
+  def invitation(email, token)
+    @token = token
+    mail(to: email, token: 'foo')
   end
 end
