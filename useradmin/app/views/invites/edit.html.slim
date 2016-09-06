@@ -1,8 +1,6 @@
-h1 Editing invite
+h1.page-header
+  | Editing invite
+  = link_to 'Back', invites_path, class: 'btn btn-link pull-right'
+  = link_to 'Show', @form, class: 'btn btn-link pull-right'
 
 == render 'form'
-
-= link_to 'Show', @invite
-'|
-= link_to 'Back', invites_path
-

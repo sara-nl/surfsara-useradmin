@@ -2,14 +2,31 @@ doctype html
 html
   head
     title Useradmin
+    = stylesheet_link_tag 'https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', media: 'all', 'data-turbolinks-track' => true
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
   body
-    .messages
-      - flash.each do |type, message|
-        div class=['alert', type]
-          = message
+    .container.container-surfsara
+      .surfsara-header
+        .surfsara-logo
+          = image_tag 'logo.png'
 
-    = yield
+        .surfsara-buttons
+          | Welcome, you are currently logged in as TODO
+
+      .messages
+        - flash.each do |type, message|
+          div class=['alert', "alert-#{type}"]
+            = message
+
+      .row
+        .col-sm-2
+          .well.well-sm
+            ul.nav.nav-pills.nav-stacked
+              li.active = link_to 'Invites', invites_path
+              li = link_to 'Profile', ''
+
+        .col-sm-10
+          = yield

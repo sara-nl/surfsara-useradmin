@@ -1,16 +1,23 @@
-p
-  strong Email:
-  = @invite.email
-p
-  strong Token:
-  = @invite.token
-p
-  strong Accepted by:
-  = @invite.accepted_by
-p
-  strong Accepted at:
-  = @invite.accepted_at
+h1.page-header
+  = "Invite - #{@invite.email}"
+  = link_to 'Back', invites_path, class: 'btn btn-link pull-right'
+  = link_to 'Edit', edit_invite_path(@invite), class: 'btn btn-link pull-right'
 
-= link_to 'Edit', edit_invite_path(@invite)
-'|
-= link_to 'Back', invites_path
+h3 General
+
+table.table
+  tr
+    td Email
+    td = @invite.email
+
+  tr
+    td Group
+    td -
+
+  tr
+    td Status
+    td = t("invite.status.#{@invite.status}")
+
+  tr
+    td Status
+    td = l(@invite.created_at, format: :short)

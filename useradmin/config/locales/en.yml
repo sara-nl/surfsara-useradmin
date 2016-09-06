@@ -4,3 +4,5 @@ en:
       success: '%{model} sucessfully created'
     update:
       success: '%{model} sucessfully updated'
+    destroy:
+      confirm: Are you sure?

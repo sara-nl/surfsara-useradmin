@@ -1,27 +1,28 @@
-h1 Listing invites
+h1.page-header
+  | Invites
+  = link_to 'New Invite', new_invite_path, class: 'btn btn-primary pull-right'
 
-table
+table.table.table-hover
   thead
     tr
       th Email
-      th Token
-      th Accepted by
-      th Accepted at
-      th
-      th
+      th Group
+      th Status
+      th Date
       th
 
   tbody
     - @invites.each do |invite|
       tr
-        td = invite.email
-        td = invite.token
-        td = invite.accepted_by
-        td = invite.accepted_at
-        td = link_to 'Show', invite
-        td = link_to 'Edit', edit_invite_path(invite)
-        td = link_to 'Destroy', invite, data: { confirm: 'Are you sure?' }, method: :delete
+        td
+          strong = link_to invite.email, invite
+        td -
+        td = t("invite.status.#{invite.status}")
+        td = l(invite.created_at, format: :short)
+        td.actions
+          .btn-group.btn-group-xs.pull-right
+            .btn.btn-default = link_to edit_invite_path(invite) do
+              i.glyphicon.glyphicon-pencil
 
-br
-
-= link_to 'New Invite', new_invite_path
+            .btn.btn-default = link_to invite, data: { confirm: t('actions.destroy.confirm') }, method: :delete do
+              i.glyphicon.glyphicon-trash

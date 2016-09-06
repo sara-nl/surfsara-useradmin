@@ -1,0 +1,11 @@
+$dark-red: #a94442;
+
+.field_with_errors {
+  label {
+    color: $dark-red;
+  }
+
+  input {
+    border-color: $dark-red;
+  }
+}

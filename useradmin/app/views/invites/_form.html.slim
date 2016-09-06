@@ -1,13 +1,16 @@
 = form_for @form do |f|
   - if @form.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@form.errors.count, "error")} prohibited this invite from being saved:"
-      ul
+    #error_explanation.panel.panel-danger
+      .panel-heading
+        = "#{pluralize(@form.errors.count, "error")} prohibited this invite from being saved:"
+      ul.list-group
         - @form.errors.full_messages.each do |message|
-          li = message
+          li.list-group-item = message
 
-  .field
+  .form-group
     = f.label :email
-    = f.text_field :email
+    = f.text_field :email, class: 'form-control'
 
-  .actions = f.submit
+  hr
+
+  .actions = f.submit 'Submit', class: 'btn btn-success'
