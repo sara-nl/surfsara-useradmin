@@ -17,7 +17,8 @@ class InvitesController < ApplicationController
 
   def create
     run Invite::Create do |op|
-      return redirect_to(op.model), notice: 'Success!'
+      flash[:notice] = t('actions.create.success', model: Invite.model_name)
+      return redirect_to(op.model)
     end
 
     render :new
@@ -25,6 +26,7 @@ class InvitesController < ApplicationController
 
   def update
     run Invite::Update do |op|
+      flash[:notice] = t('actions.update.success', model: Invite.model_name)
       return redirect_to(op.model)
     end
 

@@ -9,6 +9,7 @@ class Invite < ActiveRecord::Base
     def process(params)
       validate(params[:invite]) do
         contract.save
+        InviteMailer.invitation(model.email).deliver_now
       end
     end
   end
