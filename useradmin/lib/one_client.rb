@@ -1,7 +1,7 @@
 require 'opennebula'
 
 module OneClient
-  CREDENTIALS = "useradmin:useradmin"
+  CREDENTIALS = "useradmin:e6a583c7d32d21dab89a2f8a8f0e9c943262599b"
   ENDPOINT    = "http://localhost:2633/RPC2"
 
   User = Struct.new(:id, :name, :group_ids)
