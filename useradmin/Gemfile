@@ -31,6 +31,9 @@ group :development, :test do
   # Unit testing with rspec
   gem 'rspec-rails'
   gem 'rspec-its'
+  # Capture http requests
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :development do

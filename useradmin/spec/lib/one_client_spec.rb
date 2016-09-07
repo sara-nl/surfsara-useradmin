@@ -1,7 +1,7 @@
 require "spec_helper"
 require_relative "../../lib/one_client"
 
-describe OneClient do
+describe OneClient, :integration do
   describe '.users' do
     subject(:users) { OneClient.users }
 
