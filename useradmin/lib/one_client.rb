@@ -10,10 +10,6 @@ module OneClient
   class << self
     include OpenNebula
 
-    def client
-      @client ||= Client.new(CREDENTIALS, ENDPOINT)
-    end
-
     def users
       retrieve(user_pool).map do |user|
         User.new(user.id, user.name, user.groups)
@@ -27,6 +23,10 @@ module OneClient
     end
 
     private
+
+    def client
+      @client ||= Client.new(CREDENTIALS, ENDPOINT)
+    end
 
     def user_pool
       @user_pool ||= UserPool.new(client)
