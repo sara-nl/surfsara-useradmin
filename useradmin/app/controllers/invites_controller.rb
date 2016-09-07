@@ -1,6 +1,7 @@
 class InvitesController < ApplicationController
   def index
-    @invites = Invite.all
+    params[:current_user] = current_user
+    present Invite::Index
   end
 
   def show
@@ -18,6 +19,7 @@ class InvitesController < ApplicationController
       return redirect_to(op.model)
     end
 
+    @groups = groups
     render :new
   end
 

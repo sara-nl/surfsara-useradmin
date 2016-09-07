@@ -4,7 +4,7 @@ class MockRemoteUser
   end
 
    def call(env)
-    env['REMOTE_USER'] = '123abc'
+    env['REMOTE_USER'] = 'admin123'
     @app.call(env)
   end
 end

@@ -12,9 +12,14 @@
     = f.text_field :email, class: 'form-control'
 
 
-  .form-group
-    = f.label :group_id
-    = f.select :group_id, @groups, {include_blank: true}, class: 'form-control'
+  .row
+    .form-group.col-md-6
+      = f.label :group_id
+      = f.select :group_id, @groups, {include_blank: true}, class: 'form-control'
+
+    .form-group.col-md-6
+      = f.label :role
+      = f.select :role, ['admin', 'member'], {include_blank: true}, class: 'form-control'
 
   hr
 

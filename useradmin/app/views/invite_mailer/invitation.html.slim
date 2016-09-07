@@ -1,2 +1,4 @@
-h1 = "Invitation for group `#{@group}`"
-p = @token
+h1 = "Invitation for group `#{@model.group_name}` with role `#{@model.role}`"
+p
+  | token:
+  = @token

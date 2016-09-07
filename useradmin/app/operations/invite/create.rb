@@ -2,10 +2,14 @@ require 'digest/sha1'
 
 class Invite < ActiveRecord::Base
   class Create < Operation
+    include Model
+    model Invite, :create
+
     contract do
       property :email, validates: { presence: true }
       property :group_id, validates: { presence: true }
       property :group_name
+      property :role, validates: { presence: true }
     end
 
     def process(params)
@@ -20,7 +24,7 @@ class Invite < ActiveRecord::Base
     private
 
     def send_invitation!
-      InviteMailer.invitation(@model.email, random_token, group_name).deliver_now
+      InviteMailer.invitation(@model, random_token).deliver_now
     end
 
     def encrypted_token

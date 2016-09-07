@@ -1,25 +1,31 @@
-h1.page-header
-  | Invites
-  = link_to 'New Invite', new_invite_path, class: 'btn btn-primary pull-right'
+- if current_user.role
+  h1.page-header
+    | Invites
+    = link_to 'New Invite', new_invite_path, class: 'btn btn-primary pull-right'
 
-table.table.table-hover
-  thead
-    tr
-      th Email
-      th Group
-      th Status
-      th Date
-      th
-
-  tbody
-    - @invites.each do |invite|
+  table.table.table-hover
+    thead
       tr
-        td
-          strong = link_to invite.email, invite
-        td = invite.group_name
-        td = t("invite.status.#{invite.status}")
-        td = l(invite.created_at, format: :short)
-        td.actions
-          .btn-group.btn-group-xs.pull-right
-            .btn.btn-default = link_to invite, data: { confirm: t('actions.destroy.confirm') }, method: :delete do
-              i.glyphicon.glyphicon-trash
+        th Email
+        th Group
+        th Role
+        th Status
+        th Date
+        th
+
+    tbody
+      - @model.each do |invite|
+        tr
+          td
+            strong = link_to invite.email, invite
+          td = invite.group_name
+          td = invite.role
+          td = t("invite.status.#{invite.status}")
+          td = l(invite.created_at, format: :short)
+          td.actions
+            .btn-group.btn-group-xs.pull-right
+              .btn.btn-default = link_to invite, data: { confirm: t('actions.destroy.confirm') }, method: :delete do
+                i.glyphicon.glyphicon-trash
+
+- else
+  div.alert.alert-info = t('.user_without_groups_notice')

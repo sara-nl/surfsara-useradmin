@@ -6,3 +6,6 @@ en:
       success: '%{model} sucessfully updated'
     destroy:
       confirm: Are you sure?
+  invites:
+    index:
+      user_without_groups_notice: You don't have any HPC groups to manage invites for.
