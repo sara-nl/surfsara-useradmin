@@ -1,6 +1,7 @@
 class InviteMailer < ApplicationMailer
-  def invitation(email, token)
+  def invitation(email, token, group)
     @token = token
-    mail(to: email, token: 'foo')
+    @group = group
+    mail(to: email)
   end
 end

@@ -1,7 +1,6 @@
 class Invite < ActiveRecord::Base
   class Destroy < Operation
     include Model
-
     model Invite, :find
 
     def process(_)

@@ -16,13 +16,10 @@ table.table.table-hover
       tr
         td
           strong = link_to invite.email, invite
-        td -
+        td = invite.group_name
         td = t("invite.status.#{invite.status}")
         td = l(invite.created_at, format: :short)
         td.actions
           .btn-group.btn-group-xs.pull-right
-            .btn.btn-default = link_to edit_invite_path(invite) do
-              i.glyphicon.glyphicon-pencil
-
             .btn.btn-default = link_to invite, data: { confirm: t('actions.destroy.confirm') }, method: :delete do
               i.glyphicon.glyphicon-trash

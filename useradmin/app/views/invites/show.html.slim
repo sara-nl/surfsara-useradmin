@@ -1,7 +1,6 @@
 h1.page-header
   = "Invite - #{@invite.email}"
   = link_to 'Back', invites_path, class: 'btn btn-link pull-right'
-  = link_to 'Edit', edit_invite_path(@invite), class: 'btn btn-link pull-right'
 
 h3 General
 
@@ -12,12 +11,12 @@ table.table
 
   tr
     td Group
-    td -
+    td = "#{@invite.group_name} (id: #{@invite.group_id})"
 
   tr
     td Status
     td = t("invite.status.#{@invite.status}")
 
   tr
-    td Status
+    td Date
     td = l(@invite.created_at, format: :short)

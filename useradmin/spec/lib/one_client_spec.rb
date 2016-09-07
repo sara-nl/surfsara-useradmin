@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../../lib/one_client"
+require_relative "../../app/lib/one_client"
 
 describe OneClient, :integration do
   describe '.users' do

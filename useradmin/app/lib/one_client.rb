@@ -11,14 +11,18 @@ module OneClient
     include OpenNebula
 
     def users
-      retrieve(user_pool).map do |user|
-        User.new(user.id, user.name, user.groups)
+      Rails.cache.fetch('one_client/users', expires_in: 5.minutes) do
+        retrieve(user_pool).map do |user|
+          User.new(user.id, user.name, user.groups)
+        end
       end
     end
 
     def groups
-      retrieve(group_pool).map do |group|
-        Group.new(group.id, group.name)
+      Rails.cache.fetch('one_client/groups', expires_in: 5.minutes) do
+        retrieve(group_pool).map do |group|
+          Group.new(group.id, group.name)
+        end
       end
     end
 

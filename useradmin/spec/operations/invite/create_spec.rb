@@ -5,14 +5,22 @@ describe Invite::Create do
   let(:res) { run.first }
   let(:op) { run.last }
   let(:email_address) { 'john.doe@example.com' }
+  let(:one_user) { OneClient::User.new(1, 'testuser', [10]) }
+  let(:one_group) { OneClient::Group.new(10, 'testgroup') }
+
+  before do
+    allow(OneClient).to receive(:groups).and_return([one_group])
+  end
 
   context 'with valid input' do
-    let(:params) { {invite: {email: email_address}} }
+    let(:params) { {invite: {email: email_address, group_id: one_group.id}} }
 
     it 'persists valid input' do
       expect(res).to be_truthy
       expect(op.model.persisted?).to be_truthy
       expect(op.model.email).to eq email_address
+      expect(op.model.group_id).to eq one_group.id
+      expect(op.model.group_name).to eq one_group.name
     end
 
     describe 'token' do
@@ -36,7 +44,7 @@ describe Invite::Create do
   end
 
   context 'with invalid input' do
-    let(:params) { {invite: {email: nil}} }
+    let(:params) { {invite: {}} }
 
     it 'rejects invalid input' do
       expect(res).to be_falsey

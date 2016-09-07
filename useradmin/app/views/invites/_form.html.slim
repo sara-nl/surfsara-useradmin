@@ -11,6 +11,11 @@
     = f.label :email
     = f.text_field :email, class: 'form-control'
 
+
+  .form-group
+    = f.label :group_id
+    = f.select :group_id, @groups, {include_blank: true}, class: 'form-control'
+
   hr
 
   .actions = f.submit 'Submit', class: 'btn btn-success'

@@ -8,11 +8,8 @@ class InvitesController < ApplicationController
   end
 
   def new
+    @groups = groups
     @form = Invite.new
-  end
-
-  def edit
-    form Invite::Update
   end
 
   def create
@@ -24,17 +21,16 @@ class InvitesController < ApplicationController
     render :new
   end
 
-  def update
-    run Invite::Update do |op|
-      flash[:success] = t('actions.update.success', model: Invite.model_name)
-      return redirect_to(op.model)
-    end
-
-    render :edit
-  end
-
   def destroy
     run Invite::Destroy
     redirect_to invites_path
+  end
+
+  private
+
+  def groups
+    OneClient.groups
+      .sort_by { |g| g.name }
+      .map { |g| [g.name, g.id] }
   end
 end
