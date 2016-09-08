@@ -16,3 +16,7 @@ useradmin:useradmin
 === Run specs
 
 rspec
+
+
+=== Mail in development
+mailcatcher --ip 0.0.0.0

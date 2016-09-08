@@ -43,6 +43,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {
     host: '192.168.111.171'
   }
+  config.action_mailer.asset_host = '192.168.111.171'
   config.action_mailer.smtp_settings = {
     address: '192.168.111.171',
     port: 1025
