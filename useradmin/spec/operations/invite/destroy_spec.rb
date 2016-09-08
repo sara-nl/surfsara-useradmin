@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Invite::Destroy do
-  let!(:invite) { Invite::Create.(invite: { email: 'john.doe@example.com' }).model }
+  let!(:invite) { Invite::Create.(invite: { email: 'john.doe@example.com', group_id: 1, role: Role.admin }).model }
 
   it 'is destroyed' do
     expect { Invite::Destroy.run(id: invite.id) }

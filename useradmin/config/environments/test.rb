@@ -39,4 +39,12 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.action_mailer.default_url_options = {
+    host: 'localhost'
+  }
+
+  config.one_client = ActiveSupport::OrderedOptions.new
+  config.one_client.credentials = "useradmin:useradmin"
+  config.one_client.endpoint = "http://localhost:2633/RPC2"
 end
