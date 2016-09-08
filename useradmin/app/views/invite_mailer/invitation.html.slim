@@ -1,4 +1,8 @@
-h1 = "Invitation for group `#{@model.group_name}` with role `#{@model.role}`"
-p
-  | token:
-  = @token
+= image_tag 'logo.png'
+
+h1 = "HPC Cloud invitation"
+
+p Hello,
+p You've been invited to become #{@model.role} of the group "#{@model.group_name}".
+p Please follow the link below to connect your SURFconext account the the HPC cloud.
+p = link_to 'Click here to accept this invitation', accept_invite_url(@token)

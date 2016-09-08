@@ -28,6 +28,10 @@ class InvitesController < ApplicationController
     redirect_to invites_path
   end
 
+  def accept
+    render text: 'Your invitation has been accepted...'
+  end
+
   private
 
   def groups
