@@ -7,17 +7,16 @@
         - @form.errors.full_messages.each do |message|
           li.list-group-item = message
 
-  .form-group
-    = f.label :email
-    = f.text_field :email, class: 'form-control'
-
-
   .row
-    .form-group.col-md-6
+    .form-group.col-sm-6
+      = f.label :email
+      = f.text_field :email, class: 'form-control'
+
+    .form-group.col-sm-4
       = f.label :group_id
       = f.select :group_id, @groups, {include_blank: true}, class: 'form-control'
 
-    .form-group.col-md-6
+    .form-group.col-sm-2
       = f.label :role
       = f.select :role, ['admin', 'member'], {include_blank: true}, class: 'form-control'
 
