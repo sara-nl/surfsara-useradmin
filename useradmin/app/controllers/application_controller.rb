@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
   helper_method :current_user
   def current_user
-    # CurrentUser.new(request.headers['REMOTE_USER'])
-    CurrentUser.new('admin123')
+    CurrentUser.new(request.headers['REMOTE_USER'])
+    # CurrentUser.new('admin123')
     # CurrentUser.new('otheruser123')
   end
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     end
 
     def role
-      return 'admin' if user_id == 'admin123'
+      return 'admin' if user_id == 'admin'
       return 'groupadmin' if user_id == 'groupadmin123'
     end
 
