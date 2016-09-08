@@ -34,6 +34,8 @@ group :development, :test do
   # Capture http requests
   gem 'webmock'
   gem 'vcr'
+  # Test coverage reporting
+  gem 'simplecov', require: false
 end
 
 group :development do
