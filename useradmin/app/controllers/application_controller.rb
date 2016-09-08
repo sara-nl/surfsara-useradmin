@@ -8,19 +8,25 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
   helper_method :current_user
   def current_user
-    CurrentUser.new(request.headers['REMOTE_USER'])
-    # CurrentUser.new('admin123')
-    # CurrentUser.new('otheruser123')
+    CurrentUser.new(request.headers)
   end
 
-  CurrentUser = Struct.new(:user_id) do
-    def name
-      user_id
+  CurrentUser = Struct.new(:headers) do
+    def uid
+      shibboleth_headers['Shib-uid']
+    end
+
+    def common_name
+      shibboleth_headers['Shib-commonName']
     end
 
     def role
-      return 'admin' if user_id == 'admin'
-      return 'groupadmin' if user_id == 'groupadmin123'
+      return 'admin' if uid == 'admin'
+      return 'groupadmin' if uid == 'groupadmin123'
+    end
+
+    def shibboleth_headers
+      Hash[headers.select { |k, _| k.starts_with?('Shib-') }]
     end
 
     def admin?

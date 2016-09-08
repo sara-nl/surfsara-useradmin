@@ -14,7 +14,9 @@ html
           = link_to image_tag('logo.png'), root_path
 
         .surfsara-buttons
-          = "Welcome, you are currently logged in as #{current_user.name}"
+          | Welcome, you are logged in as
+          strong= " #{current_user.common_name}"
+          | .
 
       .messages
         - flash.each do |type, message|
@@ -25,8 +27,8 @@ html
         .col-sm-2
           .well.well-sm
             ul.nav.nav-pills.nav-stacked
-              li.active = link_to 'Invites', invites_path
-              li = link_to 'Profile', ''
+              li class=(params[:controller] == 'invites' ? 'active' : '') = link_to 'Invites', invites_path
+              li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to 'Profile', profile_path
 
         .col-sm-10
           = yield

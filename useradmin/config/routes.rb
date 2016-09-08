@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     get :accept, on: :member
   end
 
+  resource :profile
+
   root 'invites#index'
 end

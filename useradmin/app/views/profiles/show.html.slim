@@ -1,0 +1,8 @@
+h1.page-header
+  | Profile
+
+dl
+  - current_user.shibboleth_headers.each do |k, v|
+    dt= k
+    dd= v
+    br
