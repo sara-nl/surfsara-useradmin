@@ -36,6 +36,10 @@ group :development, :test do
   gem 'vcr'
   # Test coverage reporting
   gem 'simplecov', require: false
+  # Integration testing
+  gem 'capybara', require: false
+  gem 'capybara-webkit', require: false
+  gem 'capybara-screenshot', require: false
 end
 
 group :development do
