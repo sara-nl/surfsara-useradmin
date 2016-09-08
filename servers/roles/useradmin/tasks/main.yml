@@ -1,4 +1,4 @@
-- name: Capybara dependencies
+- name: Install development dependencies
   apt: pkg={{ item }} state=latest
   with_items:
     - qt5-default
@@ -6,4 +6,12 @@
     - gstreamer1.0-plugins-base
     - gstreamer1.0-tools
     - gstreamer1.0-x
+    # - libsqlite3-dev
+  when: env == 'development'
   tags: useradmin
+
+# - name: Install MailCatcher
+#   gem: name=mailcatcher
+#   become_user: surfsara
+#   when: env == 'development'
+#   tags: useradmin
