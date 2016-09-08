@@ -3,6 +3,10 @@ require 'webmock/rspec'
 require 'vcr'
 require 'simplecov'
 
+SimpleCov.add_filter 'vendor'
+SimpleCov.add_filter 'config'
+SimpleCov.add_filter 'lib/tasks'
+SimpleCov.add_filter 'spec'
 SimpleCov.start
 
 VCR.configure do |config|
