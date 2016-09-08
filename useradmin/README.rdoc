@@ -5,6 +5,7 @@
 Download VM: `https://s3.amazonaws.com/opennebula-sandbox/OpenNebula-Sandbox-5.0.ova`
 Import into virtualbox
 `yum update`
+forward port 2633 for API access
 
 Login: root
 Password: opennebula

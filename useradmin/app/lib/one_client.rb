@@ -1,9 +1,6 @@
 require 'opennebula'
 
 module OneClient
-  CREDENTIALS = "useradmin:useradmin"
-  ENDPOINT    = "http://localhost:2633/RPC2"
-
   User = Struct.new(:id, :name, :group_ids)
   Group = Struct.new(:id, :name)
 
@@ -29,7 +26,10 @@ module OneClient
     private
 
     def client
-      @client ||= Client.new(CREDENTIALS, ENDPOINT)
+      @client ||= Client.new(
+        Rails.application.config.one_client.credentials,
+        Rails.application.config.one_client.endpoint
+      )
     end
 
     def user_pool
