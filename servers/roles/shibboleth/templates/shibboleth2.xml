@@ -41,7 +41,7 @@
             (Set discoveryProtocol to "WAYF" for legacy Shibboleth WAYF support.)
             You can also override entityID on /Login query string, or in RequestMap/htaccess.
             -->
-            <SSO entityID="http://{{ virtual_host }}:8080/SingleSignOnService">SAML2</SSO>
+            <SSO entityID="http://mock-idp">SAML2</SSO>
 
             <!-- SAML and local-only logout. -->
             <Logout>SAML2 Local</Logout>
@@ -75,9 +75,7 @@
                 styleSheet2="https://os.surfconext.nl/css/oauth_ie.css"
                 supportContact="coin-beheer@surfnet.nl"/>
 
-        <MetadataProvider id="SurfConextMetadata"
-                          type="FilesystemMetadataProvider"
-                          metadataFile="metadata-surfconext.xml" />
+        <MetadataProvider type="XML" file="/etc/shibboleth/metadata-surfconext.xml" />
 
         <!-- Map to extract attributes from SAML assertions. -->
         <AttributeExtractor type="XML" validate="true" path="attribute-map.xml"/>

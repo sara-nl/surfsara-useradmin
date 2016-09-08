@@ -14,8 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" validUntil="2020-01-01T08:25:48Z"
-                     entityID="http://mock-idp" ID="testIdP">
+<md:EntityDescriptor
+  xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+  validUntil="2020-01-01T08:25:48Z"
+  entityID="http://mock-idp"
+  ID="testIdP">
   <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
     <md:KeyDescriptor xmlns:ds="http://www.w3.org/2000/09/xmldsig#" use="signing">
       <ds:KeyInfo>
@@ -59,7 +62,7 @@
     <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
     <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
     <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified</md:NameIDFormat>
-    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
                             Location="http://{{ virtual_host }}:8080/SingleSignOnService"/>
   </md:IDPSSODescriptor>
 </md:EntityDescriptor>
