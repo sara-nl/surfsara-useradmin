@@ -18,3 +18,4 @@
 
 - include: apache.yml
 - include: passenger.yml
+- include: shibboleth.yml

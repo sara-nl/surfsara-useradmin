@@ -1,0 +1,10 @@
+- name: Configure useradmin Shibboleth
+  template: src={{ item }} dest=/etc/shibboleth/{{ item }}
+  with_items:
+    - attribute-map.xml
+    - shibboleth2.xml
+    - metadata-surfconext.xml
+  notify:
+    - restart shibboleth
+    - restart apache
+  tags: shibboleth

@@ -5,10 +5,7 @@
 - name: Configure Shibboleth
   template: src={{ item }} dest=/etc/shibboleth/{{ item }}
   with_items:
-    - attribute-map.xml
-    - shibboleth2.xml
     - localLogout.html
-    - metadata-surfconext.xml
   notify:
     - restart shibboleth
     - restart apache
