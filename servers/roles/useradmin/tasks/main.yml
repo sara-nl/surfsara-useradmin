@@ -15,3 +15,6 @@
 #   become_user: surfsara
 #   when: env == 'development'
 #   tags: useradmin
+
+- include: apache.yml
+- include: passenger.yml

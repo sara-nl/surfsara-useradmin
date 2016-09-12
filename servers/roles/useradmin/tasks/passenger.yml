@@ -1,0 +1,5 @@
+- name: Configure passenger for useradmin
+  template: src=passenger.conf.j2 dest=/etc/apache2/mods-available/passenger.conf owner=root group=root mode=0644
+  notify: restart apache
+  tags:
+    - passenger
