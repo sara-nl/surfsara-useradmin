@@ -9,3 +9,11 @@ en:
   invites:
     index:
       user_without_groups_notice: You don't have any HPC groups to manage invites for.
+  invite_mailer:
+    invitation:
+      title: HPC Cloud invitation
+      body: >
+        <p>Hello,</p>
+        <p>You've been invited to become %{role} of the group "%{group}".</p>
+        <p>Please follow the link below to connect your SURFconext account the the HPC cloud.</p>
+        <p><a href="%{link}">Click here to accept this invitation</a></p>

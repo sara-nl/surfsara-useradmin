@@ -1,8 +1,5 @@
 = image_tag 'logo.png'
 
-h1 = "HPC Cloud invitation"
+h1 = t('.title')
 
-p Hello,
-p You've been invited to become #{@model.role} of the group "#{@model.group_name}".
-p Please follow the link below to connect your SURFconext account the the HPC cloud.
-p = link_to 'Click here to accept this invitation', accept_invite_url(@token)
+= raw t('.body', role: @model.role, group: @model.group_name, link: accept_invite_url(@token))
