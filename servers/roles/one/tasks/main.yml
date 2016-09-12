@@ -1,0 +1,18 @@
+---
+- name: Copy apt get signing key
+  apt_key: url=http://downloads.opennebula.org/repo/Debian/repo.key
+  tags:
+    - one
+
+- name: Opennebula repository
+  apt_repository: repo='deb http://downloads.opennebula.org/repo/5.0/Debian/8 stable opennebula' state=present update_cache=yes
+  tags:
+    - one
+
+- name: install Opennebula packages
+  apt: name={{ item }} state=installed
+  with_items:
+    - opennebula
+    - opennebula-sunstone
+  tags:
+    - one

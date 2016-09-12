@@ -1,0 +1,12 @@
+---
+env: development
+virtual_host: 192.168.111.170
+
+admins:
+  - bforma
+  - svdiepen
+
+passenger:
+  max_pool_size: 1
+  max_instances_per_app: 1
+  friendly_error_pages: "on"

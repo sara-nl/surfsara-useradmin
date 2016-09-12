@@ -1,0 +1,11 @@
+- name: Create opennebula vhost
+  template: src=vhost.conf.j2 dest=/etc/apache2/sites-available/opennebula.conf
+  notify: restart apache
+  tags:
+    - apache
+
+- name: Enable opennebula vhost
+  file: src=/etc/apache2/sites-available/opennebula.conf dest=/etc/apache2/sites-enabled/opennebula.conf state=link
+  notify: restart apache
+  tags:
+    - apache

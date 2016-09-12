@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+  ServerName {{ virtual_host }}
+  ServerAdmin tech+surfsara.opennebula@zilverline.com
+  DocumentRoot /usr/lib/one/sunstone/public
+  PassengerAppRoot /usr/lib/one/sunstone
+
+  <Directory /usr/lib/one/sunstone/public>
+    AllowOverride all
+    Options -MultiViews
+    Require all granted
+  </Directory>
+</VirtualHost>
