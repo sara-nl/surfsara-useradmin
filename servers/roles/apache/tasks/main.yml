@@ -28,15 +28,3 @@
   notify: restart apache
   tags:
     - apache
-
-- name: Create useradmin vhost
-  template: src=useradmin-vhost.j2 dest=/etc/apache2/sites-available/useradmin.conf
-  notify: restart apache
-  tags:
-    - apache
-
-- name: Enable vhosts
-  file: src=/etc/apache2/sites-available/useradmin.conf dest=/etc/apache2/sites-enabled/useradmin.conf state=link
-  notify: restart apache
-  tags:
-    - apache
