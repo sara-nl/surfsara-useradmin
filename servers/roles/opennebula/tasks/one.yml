@@ -1,0 +1,7 @@
+- lineinfile:
+    dest: /etc/one/sunstone-server.conf
+    regexp: "^:auth:"
+    line: ":auth: remote"
+  notify: restart apache
+  tags:
+    - one
