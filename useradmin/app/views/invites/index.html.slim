@@ -1,16 +1,16 @@
 - if current_user.role
   h1.page-header
-    | Invites
+    = t('.title')
     = link_to 'New Invite', new_invite_path, class: 'btn btn-primary pull-right'
 
   table.table.table-hover
     thead
       tr
-        th Email
-        th Group
-        th Role
-        th Status
-        th Date
+        th = Invite.human_attribute_name(:email)
+        th = Invite.human_attribute_name(:group)
+        th = Invite.human_attribute_name(:role)
+        th = Invite.human_attribute_name(:status)
+        th = Invite.human_attribute_name(:date)
         th
 
     tbody

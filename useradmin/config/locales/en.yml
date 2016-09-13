@@ -1,6 +1,7 @@
 en:
   invites:
     index:
+      title: Invites
       user_without_groups_notice: You don't have any HPC groups to manage invites for.
     show:
       title: Invite - %{email}
@@ -13,6 +14,7 @@ en:
       success: '%{model} sucessfully updated'
     destroy:
       confirm: Are you sure?
+
   invite_mailer:
     invitation:
       title: HPC Cloud invitation
@@ -22,10 +24,12 @@ en:
         <p>Please follow the link below to connect your SURFconext account the the HPC cloud.</p>
         <p><a href="%{link}">Click here to accept this invitation</a></p>
 
-
   activerecord:
     models:
       invite: Invite
     attributes:
       invite:
-        email: "Email address"
+        email: Email address
+        group_name: Group
+        status: Status
+        created_at: Invitation date

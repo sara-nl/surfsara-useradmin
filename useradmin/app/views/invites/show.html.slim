@@ -10,13 +10,13 @@ table.table
     td = @invite.email
 
   tr
-    td Invite.human_attribute_name(:group_name)
+    td = Invite.human_attribute_name(:group_name)
     td = "#{@invite.group_name} (id: #{@invite.group_id})"
 
   tr
-    td Invite.human_attribute_name(:status)
+    td = Invite.human_attribute_name(:status)
     td = t("invite.status.#{@invite.status}")
 
   tr
-    td Invite.human_attribute_name(:date)
+    td = Invite.human_attribute_name(:created_at)
     td = l(@invite.created_at, format: :short)
