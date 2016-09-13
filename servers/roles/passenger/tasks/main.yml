@@ -11,7 +11,7 @@
     - passenger
 
 - name: Install passenger package
-  apt: name=libapache2-mod-passenger state=present update_cache=yes
+  apt: name=libapache2-mod-passenger state=present
   notify: restart apache
   tags:
     - passenger
