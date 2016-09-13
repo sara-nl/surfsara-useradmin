@@ -1,22 +1,8 @@
 == README
 
-=== Set up OpenNebula VM
-
-Download VM: `https://s3.amazonaws.com/opennebula-sandbox/OpenNebula-Sandbox-5.0.ova`
-Import into virtualbox
-`yum update`
-forward port 2633 for API access
-
-Login: root
-Password: opennebula
-
-Create ONE user:
-useradmin:useradmin
-
 === Run specs
 
 rspec
-
 
 === Mail in development
 mailcatcher --ip 0.0.0.0
