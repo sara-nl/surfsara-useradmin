@@ -22,3 +22,7 @@ passenger:
   max_pool_size: 10
   max_instances_per_app: 5
   friendly_error_pages: "on"
+
+surfconext:
+  idp:
+    sso_url: http://192.168.111.171:8080/SingleSignOnService

@@ -63,6 +63,6 @@
     <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
     <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified</md:NameIDFormat>
     <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-                            Location="http://{{ virtual_host }}:8080/SingleSignOnService"/>
+                            Location="{{ surfconext.idp.sso_url }}"/>
   </md:IDPSSODescriptor>
 </md:EntityDescriptor>
