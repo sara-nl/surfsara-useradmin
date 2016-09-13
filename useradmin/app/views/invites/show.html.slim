@@ -1,22 +1,22 @@
 h1.page-header
-  = "Invite - #{@invite.email}"
+  = t('.title', email: @invite.email)
   = link_to 'Back', invites_path, class: 'btn btn-link pull-right'
 
-h3 General
+h3 = t('.general')
 
 table.table
   tr
-    td Email
+    td = Invite.human_attribute_name(:email)
     td = @invite.email
 
   tr
-    td Group
+    td Invite.human_attribute_name(:group_name)
     td = "#{@invite.group_name} (id: #{@invite.group_id})"
 
   tr
-    td Status
+    td Invite.human_attribute_name(:status)
     td = t("invite.status.#{@invite.status}")
 
   tr
-    td Date
+    td Invite.human_attribute_name(:date)
     td = l(@invite.created_at, format: :short)
