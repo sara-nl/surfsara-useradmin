@@ -20,9 +20,6 @@
     PassengerAppRoot /var/www/useradmin/current
     PassengerMinInstances 4
 
-    SetEnv GEM_HOME {{ ruby.gem_home }}
-    SetEnv GEM_PATH {{ ruby.gem_home }}
-
     RackEnv {{env}}
 
     ErrorDocument 500 "500 Internal Server Error"
