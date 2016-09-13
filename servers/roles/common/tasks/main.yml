@@ -13,6 +13,7 @@
     - curl
     - vim
     - python-pycurl
+    - python-lxml
     - debconf-utils
     - screen
     - htop

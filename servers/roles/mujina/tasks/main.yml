@@ -1,13 +1,56 @@
-- name: Clone Mujina repository
-  git:
-    repo: https://github.com/OpenConext/Mujina.git
-    dest: /home/surfsara/mujina
-  become_user: surfsara
-  tags: mujina
+- name: Install Jetty 8
+  apt: name=jetty8 state=installed
+  when: env == 'development'
+  tags:
+    - mujina
 
-- name: Build Mujina
-  shell: mvn clean install
-  args:
-    chdir: /home/surfsara/mujina
+- name: Configure Jetty 8
+  lineinfile:
+    dest: /etc/default/jetty8
+    regexp: ^NO_START=
+    line: NO_START=0
+  when: env == 'development'
+  tags:
+    - mujina
+
+- name: Install Mujina IDP .war file
+  maven_artifact:
+    repository_url: https://build.surfconext.nl/repository/public/releases
+    group_id: org.surfnet.coin
+    artifact_id: mujina-idp
+    version: 4.1.0
+    extension: war
+    dest: /home/surfsara/mujina-idp/mujina-idp.war
   become_user: surfsara
-  tags: mujina
+  when: env == 'development'
+  notify: restart jetty
+  tags:
+    - mujina
+
+- name: Ensure Mujina IDP config dir exists
+  file:
+    path: /home/surfsara/mujina-idp/config
+    state: directory
+  become_user: surfsara
+  when: env == 'development'
+  tags:
+    - mujina
+
+- name: Install Mujina IDP configuration file
+  copy:
+    src: mujina-idp.properties
+    dest: /home/surfsara/mujina-idp/config/mujina-idp.properties
+  become_user: surfsara
+  when: env == 'development'
+  notify: restart jetty
+  tags:
+    - mujina
+
+- name: Install Mujina IDP deployment descriptor
+  copy:
+    src: mujina-idp.xml
+    dest: /usr/share/jetty8/contexts/mujina-idp.xml
+  when: env == 'development'
+  notify: restart jetty
+  tags:
+    - mujina

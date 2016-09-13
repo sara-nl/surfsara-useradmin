@@ -22,7 +22,7 @@ passenger:
 
 surfconext:
   idp:
-    sso_url: http://192.168.111.171:8080/SingleSignOnService
+    sso_url: http://192.168.111.171:8080/idp/SingleSignOnService
 
 ruby_user: surfsara
 ruby_user_group: surfsara
@@ -33,7 +33,6 @@ rbenv_version: v1.0.0
 
 rbenv_plugins:
   - { name: "ruby-build",         repo: "git://github.com/sstephenson/ruby-build.git",         version: "HEAD" }
-
 #  - { name: "rbenv-vars",         repo: "git://github.com/sstephenson/rbenv-vars.git",         version: "v1.2.0" }
 #  - { name: "rbenv-default-gems", repo: "git://github.com/sstephenson/rbenv-default-gems.git", version: "v1.0.0" }
 #  - { name: "rbenv-installer",    repo: "git://github.com/fesplugas/rbenv-installer.git",      version: "8bb9d34d01f78bd22e461038e887d6171706e1ba" }
