@@ -1,27 +1,40 @@
 <VirtualHost *:80>
   ServerName    {{ virtual_host }}
   ServerAdmin tech+surfsara.useradmin@zilverline.com
+
   DocumentRoot /var/www/useradmin/current/public
-  PassengerAppRoot /var/www/useradmin/current
-  PassengerMinInstances 4
-
-  SetEnv GEM_HOME {{ ruby.gem_home }}
-  SetEnv GEM_PATH {{ ruby.gem_home }}
-
-  RackEnv {{env}}
 
   <Directory /var/www/useradmin/current/public>
     AllowOverride all
     Require all granted
   </Directory>
 
-  ErrorDocument 500 "500 Internal Server Error"
-  ErrorDocument 404 "404 Not Found"
-  ErrorDocument 403 "403 Access Denied"
-
   <Location />
     AuthType shibboleth
     ShibRequestSetting requireSession 1
     Require valid-user
   </Location>
+
+  <Location /useradmin>
+    PassengerBaseURI /useradmin
+    PassengerAppRoot /var/www/useradmin/current
+    PassengerMinInstances 4
+
+    SetEnv GEM_HOME {{ ruby.gem_home }}
+    SetEnv GEM_PATH {{ ruby.gem_home }}
+
+    RackEnv {{env}}
+
+    ErrorDocument 500 "500 Internal Server Error"
+    ErrorDocument 404 "404 Not Found"
+    ErrorDocument 403 "403 Access Denied"
+  </Location>
+
+  <LocationMatch "^/(?!useradmin)">
+    LoadModule proxy_http_module modules/mod_proxy_http.so
+    ProxyPass "http://192.168.111.170"
+    ProxyPassReverse "http://192.168.111.170"
+
+    RequestHeader set Remote-User "%{REMOTE_USER}s"
+  </LocationMatch>
 </VirtualHost>

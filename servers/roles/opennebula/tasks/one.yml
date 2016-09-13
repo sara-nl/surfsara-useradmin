@@ -1,7 +1,44 @@
-- lineinfile:
+- name: Enable remote authentication
+  lineinfile:
     dest: /etc/one/sunstone-server.conf
     regexp: "^:auth:"
     line: ":auth: remote"
   notify: restart apache
+  tags:
+    - one
+
+- name: Fix REMOTE_USER header
+  lineinfile:
+    dest: /usr/lib/one/ruby/cloud/CloudAuth/RemoteCloudAuth.rb
+    regexp: "env\\['(HTTP_)?REMOTE_USER'\\]"
+    line: "        remote_user   = env['HTTP_REMOTE_USER']"
+  notify: restart apache
+  tags:
+    - one
+
+- name: Create OpenNebula test users
+  shell: oneuser create {{item}} {{item}} --driver public
+  with_items:
+    - admin
+    - user
+  when: env == 'development'
+  register: command_result
+  failed_when: "'UserAllocate' in command_result.stderr and 'NAME is already taken by USER' not in command_result.stderr"
+  changed_when: "command_result.rc == 0"
+  tags:
+    - one
+
+- name: Put admin in oneadmin group
+  shell: oneuser chgrp admin oneadmin
+  when: env == 'development'
+  tags:
+    - one
+
+- name: Create OpenNebula API user
+  shell: oneuser create useradmin useradmin
+  when: env == 'development'
+  register: command_result
+  failed_when: "'UserAllocate' in command_result.stderr and 'NAME is already taken by USER' not in command_result.stderr"
+  changed_when: "command_result.rc == 0"
   tags:
     - one

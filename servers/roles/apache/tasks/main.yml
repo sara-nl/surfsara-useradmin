@@ -15,6 +15,8 @@
     - headers
     - rewrite
     - ssl
+    - proxy
+    - proxy_http
   tags:
     - apache
 
