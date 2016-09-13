@@ -1,19 +1,63 @@
 ---
-- name: Install ruby packages
+
+- name: install rbenv prequisites
   apt: pkg={{ item }} state=latest
   with_items:
-    - ruby
-    - ruby-dev
+    - build-essential
+    - patch
+    - gawk
+    - g++
+    - make
+    - patch
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - libxml2-dev
+    - libxslt1-dev
+    - autoconf
+    - libgdbm-dev
+    - libncurses5-dev
+    - automake
+    - libtool
+    - bison
+    - pkg-config
+    - libffi-dev
+    - zlib1g
+    - zlib1g-dev
+    - libreadline-dev
+    - libssl-dev
+    - libcurl4-openssl-dev
   tags: ruby
 
-- name: Set GEM_HOME
-  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_HOME" line="export GEM_HOME={{ ruby.gem_home }}"
+- name: checkout rbenv_repo
+  git: repo={{ rbenv_repo }} dest={{ rbenv_root }} version={{ rbenv_version }} accept_hostkey=true
+  become_user: "{{ ruby_user }}"
   tags: ruby
 
-- name: Set GEM_PATH
-  lineinfile: dest=/home/surfsara/.bashrc regexp="GEM_PATH" line="export GEM_PATH={{ ruby.gem_home }}"
+- name: create plugins directory
+  file: state=directory path={{ rbenv_root }}/plugins owner={{ ruby_user }} group={{ ruby_user_group }} mode=0755
   tags: ruby
 
-- name: Set .gem/bin PATH
-  lineinfile: dest=/home/surfsara/.bashrc regexp=".gem/bin" line="export PATH=$PATH:{{ ruby.gem_home }}/bin"
+- name: install plugins
+  git: repo={{ item.repo }} dest={{ rbenv_root }}/plugins/{{ item.name }} version={{ item.version }}
+  with_items: "{{ rbenv_plugins }}"
+  become_user: "{{ ruby_user }}"
+  tags: ruby
+
+- name: add rbenv initialization to profile
+  copy: src=rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0755
+  tags: ruby
+
+- name: set RAILS_ENV configuration
+  lineinfile: dest={{ ruby_user_home }}/.profile regexp='RAILS_ENV' line='RAILS_ENV={{ env }}; export RAILS_ENV'
+  become_user: "{{ ruby_user }}"
+  tags: ruby
+
+- name: set RACK_ENV configuration
+  lineinfile: dest={{ ruby_user_home }}/.profile regexp='RACK_ENV' line='RACK_ENV={{ env }}; export RACK_ENV'
+  become_user: "{{ ruby_user }}"
+  tags: ruby
+
+- name: copy gemrc file with default gem config
+  copy: src=gemrc dest={{ ruby_user_home }}/.gemrc
   tags: ruby
