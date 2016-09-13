@@ -3,6 +3,7 @@
     dest: /etc/one/sunstone-server.conf
     regexp: "^:auth:"
     line: ":auth: remote"
+  register: enable_remote_auth
   notify: restart apache
   tags:
     - one
@@ -16,21 +17,30 @@
   tags:
     - one
 
+- name: Restart opennebula/apache
+  service: name={{ item }} state=restarted
+  when: env == 'development' and enable_remote_auth.changed
+  with_items:
+    - opennebula
+    - apache2
+  tags:
+    - one
+
 - name: Create OpenNebula test users
   shell: oneuser create {{item}} {{item}} --driver public
   with_items:
     - admin
     - user
   when: env == 'development'
-  register: command_result
-  failed_when: "'UserAllocate' in command_result.stderr and 'NAME is already taken by USER' not in command_result.stderr"
-  changed_when: "command_result.rc == 0"
+  register: create_users
+  failed_when: "'UserAllocate' in create_users.stderr and 'NAME is already taken by USER' not in create_users.stderr"
+  changed_when: "create_users.rc == 0"
   tags:
     - one
 
 - name: Put admin in oneadmin group
   shell: oneuser chgrp admin oneadmin
-  when: env == 'development'
+  when: env == 'development' and create_users.changed
   tags:
     - one
 

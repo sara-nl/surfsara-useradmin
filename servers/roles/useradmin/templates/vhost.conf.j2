@@ -1,8 +1,21 @@
 <VirtualHost *:80>
   ServerName    {{ virtual_host }}
+  DocumentRoot /var/www/useradmin/current/public
+
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule (.*) https://%{SERVER_NAME}$1 [R,L]
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName    {{ virtual_host }}
   ServerAdmin tech+surfsara.useradmin@zilverline.com
 
   DocumentRoot /var/www/useradmin/current/public
+
+  SSLEngine on
+  SSLCertificateFile    /etc/apache2/ssl/cert.pem
+  SSLCertificateKeyFile /etc/apache2/ssl/key.pem
 
   <Directory /var/www/useradmin/current/public>
     AllowOverride all
@@ -28,7 +41,6 @@
   </Location>
 
   <LocationMatch "^/(?!useradmin)">
-    LoadModule proxy_http_module modules/mod_proxy_http.so
     ProxyPass "http://192.168.111.170"
     ProxyPassReverse "http://192.168.111.170"
 
