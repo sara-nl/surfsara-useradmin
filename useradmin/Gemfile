@@ -24,6 +24,8 @@ gem "trailblazer"
 gem "trailblazer-rails"
 # OpenNebula client gem
 gem 'opennebula'
+# Email format validation
+gem 'email_validator'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

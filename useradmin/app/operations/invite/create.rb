@@ -6,10 +6,10 @@ class Invite < ActiveRecord::Base
     model Invite, :create
 
     contract do
-      property :email, validates: { presence: true }
-      property :group_id, validates: { presence: true }
+      property :email, validates: {presence: true, email: true}
+      property :group_id, validates: {presence: true}
       property :group_name
-      property :role, validates: { presence: true }
+      property :role, validates: {presence: true, inclusion: {in: Role.all}}
     end
 
     def process(params)
