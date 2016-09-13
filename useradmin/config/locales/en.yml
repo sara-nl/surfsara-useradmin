@@ -1,5 +1,5 @@
 en:
-  actions:
+  invites:
     create:
       success: '%{model} sucessfully created'
     update:

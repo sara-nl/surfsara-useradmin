@@ -15,7 +15,7 @@ class InvitesController < ApplicationController
 
   def create
     run Invite::Create do |op|
-      flash[:success] = t('actions.create.success', model: Invite.model_name)
+      flash[:success] = t('.success', model: Invite.model_name)
       return redirect_to(op.model)
     end
 
