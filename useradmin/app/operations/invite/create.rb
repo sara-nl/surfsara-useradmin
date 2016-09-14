@@ -1,6 +1,6 @@
 require 'digest/sha1'
 
-class Invite < ActiveRecord::Base
+class Invite < ApplicationRecord
   class Create < Operation
     include Model
     model Invite, :create

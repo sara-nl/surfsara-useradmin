@@ -1,6 +1,6 @@
 require 'digest/sha1'
 
-class Invite < ActiveRecord::Base
+class Invite < ApplicationRecord
   class Index < Operation
     include Collection
 

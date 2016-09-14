@@ -1,4 +1,4 @@
-class Invite < ActiveRecord::Base
+class Invite < ApplicationRecord
   class Destroy < Operation
     include Model
     model Invite, :find
