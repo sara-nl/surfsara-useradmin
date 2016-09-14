@@ -1,0 +1,15 @@
+- name: Mailcatcher dependencies
+  apt: pkg=libsqlite3-dev state=latest
+  tags: mailcatcher
+
+- name: Install mailcatcher gems
+  gem: name={{ item }} user_install=no
+  tags: mailcatcher
+  with_items:
+    - mailcatcher
+    - eventmachine
+
+- name: Install systemd mailcatcher service
+  copy: src=mailcatcher.service dest=/etc/systemd/system/mailcatcher.service
+  tags: mailcatcher
+  notify: restart mailcatcher
