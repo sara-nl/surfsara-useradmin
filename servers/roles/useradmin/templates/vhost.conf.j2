@@ -27,17 +27,13 @@
     ServerName useradmin.cloudconext-sara.surf-hosted.nl
   {% endif %}
 
-  <Directory /var/www/useradmin/current/public>
-    AllowOverride all
-    Require all granted
-  </Directory>
-
   <Location />
     AuthType shibboleth
     ShibRequestSetting requireSession 1
     Require valid-user
   </Location>
 
+  Alias /useradmin /var/www/useradmin/current/public
   <Location /useradmin>
     PassengerBaseURI /useradmin
     PassengerAppRoot /var/www/useradmin/current
@@ -49,6 +45,10 @@
     ErrorDocument 404 "404 Not Found"
     ErrorDocument 403 "403 Access Denied"
   </Location>
+  <Directory /var/www/useradmin/current/public>
+    AllowOverride all
+    Require all granted
+  </Directory>
 
   <LocationMatch "^/(?!useradmin)">
     ProxyPass "{{ one_url }}"

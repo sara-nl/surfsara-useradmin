@@ -1,0 +1,3 @@
+- name: After symlink
+  become_user: surfsara
+  shell: sudo passenger-config restart-app --ignore-app-not-running /var/www/useradmin/current

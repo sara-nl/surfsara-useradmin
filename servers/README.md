@@ -2,6 +2,7 @@
 
 ```
 brew install ansible
+ansible-galaxy install carlosbuenosvinos.ansistrano-deploy carlosbuenosvinos.ansistrano-rollback
 brew install vagrant
 vagrant plugin install vagrant-vbguest
 vagrant up useradmin

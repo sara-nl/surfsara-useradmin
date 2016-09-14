@@ -1,5 +1,7 @@
 ---
 
+rails_env: "{{ env }}"
+
 admins:
   - bforma
   - svdiepen

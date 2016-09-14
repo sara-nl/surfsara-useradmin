@@ -49,15 +49,15 @@
   tags: ruby
 
 - name: set RAILS_ENV configuration
-  lineinfile: dest={{ ruby_user_home }}/.profile regexp='RAILS_ENV' line='RAILS_ENV={{ env }}; export RAILS_ENV'
+  lineinfile: dest={{ ruby_user_home }}/.bashrc regexp='RAILS_ENV' line='RAILS_ENV={{ env }}; export RAILS_ENV'
   become_user: "{{ ruby_user }}"
   tags: ruby
 
 - name: set RACK_ENV configuration
-  lineinfile: dest={{ ruby_user_home }}/.profile regexp='RACK_ENV' line='RACK_ENV={{ env }}; export RACK_ENV'
+  lineinfile: dest={{ ruby_user_home }}/.bashrc regexp='RACK_ENV' line='RACK_ENV={{ env }}; export RACK_ENV'
   become_user: "{{ ruby_user }}"
   tags: ruby
 
 - name: copy gemrc file with default gem config
-  copy: src=gemrc dest={{ ruby_user_home }}/.gemrc
+  copy: src=gemrc dest={{ ruby_user_home }}/.gemrc owner={{ ruby_user }} group={{ ruby_user_group }}
   tags: ruby

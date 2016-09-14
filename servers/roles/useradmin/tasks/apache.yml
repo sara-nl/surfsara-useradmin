@@ -24,3 +24,8 @@
   notify: restart apache
   tags:
     - apache
+
+- name: Create useradmin directory
+  file: path=/var/www/useradmin state=directory owner=surfsara group=surfsara
+  tags:
+    - apache

@@ -1,0 +1,61 @@
+- set_fact:
+    release_dir: "/var/www/useradmin/releases/{{ ansistrano_release_version }}/"
+
+- debug: msg={{ release_dir }}
+
+- name: Install ruby version
+  shell: rbenv install --skip-existing || rbenv version
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Use installed ruby version globally
+  shell: rbenv global `cat .ruby-version`
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Install bundler
+  shell: bash -lc "gem install bundler"
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: rbenv rehash
+  shell: rbenv rehash
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Bundle install
+  shell: bundle install --without development test
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Precompile assets
+  shell: RAILS_ENV={{ rails_env }} bundle exec rake assets:clean assets:precompile
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Chmod assets
+  file: path="{{ release_dir }}/public/assets" mode=0755 recurse=yes state=directory
+
+- name: Clean up dependencies
+  shell: bundle clean --force
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Migrate DB
+  shell: RAILS_ENV={{ rails_env }} bundle exec rake db:migrate --trace
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i
+
+- name: Seed DB
+  shell: RAILS_ENV={{ rails_env }} bundle exec rake db:seed --trace
+  args:
+    chdir: "{{ release_dir }}"
+  become_user: surfsara -i

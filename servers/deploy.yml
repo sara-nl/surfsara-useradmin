@@ -1,0 +1,7 @@
+
+- name: Deploy useradmin
+  hosts: useradmin
+  become: true
+  become_user: surfsara
+  roles:
+    - { role: carlosbuenosvinos.ansistrano-deploy }
