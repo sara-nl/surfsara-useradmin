@@ -5,8 +5,8 @@
   tags: users
 
 
-- name: Remove default vhost
-  file: path=/home/surfsara/.ssh owner=surfsara group=surfsara
+- name: Create .ssh dir
+  file: path=/home/surfsara/.ssh state=directory owner=surfsara group=surfsara
   tags:
     - users
 

@@ -25,6 +25,7 @@
     - htop
     - build-essential
     - apt-transport-https
+    - ruby
     - ruby-dev
   tags: common
 
