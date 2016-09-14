@@ -2,14 +2,15 @@
 http_interactions:
 - request:
     method: post
-    uri: http://localhost:2633/RPC2
+    uri: http://192.168.111.170:2633/RPC2
     body:
       encoding: UTF-8
-      string: |
-        <?xml version="1.0" ?><methodCall><methodName>one.userpool.info</methodName><params><param><value><string>useradmin:useradmin</string></value></param></params></methodCall>
+      string: '<?xml version="1.0" ?><methodCall><methodName>one.userpool.info</methodName><params><param><value><string>useradmin:useradmin</string></value></param></params></methodCall>
+
+'
     headers:
       User-Agent:
-      - XMLRPC::Client (Ruby 2.1.5)
+      - XMLRPC::Client (Ruby 2.3.1)
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:
@@ -28,16 +29,16 @@ http_interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:
-      - '3082'
+      - '1251'
       Connection:
       - close
       Date:
-      - Wed, 07 Sep 2016 08:44:26 UTC
+      - Wed, 14 Sep 2016 15:28:03 UTC
       Server:
       - Xmlrpc-c_Abyss/1.40.0
     body:
       encoding: UTF-8
-      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;USER_POOL&gt;&lt;USER&gt;&lt;ID&gt;0&lt;/ID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;GROUPS&gt;&lt;ID&gt;0&lt;/ID&gt;&lt;/GROUPS&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;oneadmin&lt;/NAME&gt;&lt;PASSWORD&gt;&lt;![CDATA[4478db59d30855454ece114e8ccfa5563d21c9bd]]&gt;&lt;/PASSWORD&gt;&lt;AUTH_DRIVER&gt;&lt;![CDATA[core]]&gt;&lt;/AUTH_DRIVER&gt;&lt;ENABLED&gt;1&lt;/ENABLED&gt;&lt;LOGIN_TOKEN&gt;&lt;TOKEN&gt;450ffaaceff7c49c61f8e6c251ac8abd1dd8598c&lt;/TOKEN&gt;&lt;EXPIRATION_TIME&gt;1473209468&lt;/EXPIRATION_TIME&gt;&lt;/LOGIN_TOKEN&gt;&lt;TEMPLATE&gt;&lt;TOKEN_PASSWORD&gt;&lt;![CDATA[70936e68d02d3e1a3db3f1d08138d01e5f888be0]]&gt;&lt;/TOKEN_PASSWORD&gt;&lt;/TEMPLATE&gt;&lt;/USER&gt;&lt;QUOTAS&gt;&lt;ID&gt;0&lt;/ID&gt;&lt;DATASTORE_QUOTA&gt;&lt;/DATASTORE_QUOTA&gt;&lt;NETWORK_QUOTA&gt;&lt;/NETWORK_QUOTA&gt;&lt;VM_QUOTA&gt;&lt;/VM_QUOTA&gt;&lt;IMAGE_QUOTA&gt;&lt;/IMAGE_QUOTA&gt;&lt;/QUOTAS&gt;&lt;USER&gt;&lt;ID&gt;1&lt;/ID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;GROUPS&gt;&lt;ID&gt;0&lt;/ID&gt;&lt;ID&gt;1&lt;/ID&gt;&lt;/GROUPS&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;serveradmin&lt;/NAME&gt;&lt;PASSWORD&gt;&lt;![CDATA[07eaf39b0b03a4ec146ca43438e1857eff3b019e]]&gt;&lt;/PASSWORD&gt;&lt;AUTH_DRIVER&gt;&lt;![CDATA[server_cipher]]&gt;&lt;/AUTH_DRIVER&gt;&lt;ENABLED&gt;1&lt;/ENABLED&gt;&lt;LOGIN_TOKEN/&gt;&lt;TEMPLATE&gt;&lt;TOKEN_PASSWORD&gt;&lt;![CDATA[f9d0fa97d7e50dc25e311f81038433e4f268dac2]]&gt;&lt;/TOKEN_PASSWORD&gt;&lt;/TEMPLATE&gt;&lt;/USER&gt;&lt;QUOTAS&gt;&lt;ID&gt;1&lt;/ID&gt;&lt;DATASTORE_QUOTA&gt;&lt;/DATASTORE_QUOTA&gt;&lt;NETWORK_QUOTA&gt;&lt;/NETWORK_QUOTA&gt;&lt;VM_QUOTA&gt;&lt;/VM_QUOTA&gt;&lt;IMAGE_QUOTA&gt;&lt;/IMAGE_QUOTA&gt;&lt;/QUOTAS&gt;&lt;USER&gt;&lt;ID&gt;2&lt;/ID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;GROUPS&gt;&lt;ID&gt;0&lt;/ID&gt;&lt;ID&gt;1&lt;/ID&gt;&lt;/GROUPS&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;useradmin&lt;/NAME&gt;&lt;PASSWORD&gt;&lt;![CDATA[34ac064565dc7806fdc2611fb7385c90ff7dd7e7]]&gt;&lt;/PASSWORD&gt;&lt;AUTH_DRIVER&gt;&lt;![CDATA[core]]&gt;&lt;/AUTH_DRIVER&gt;&lt;ENABLED&gt;1&lt;/ENABLED&gt;&lt;LOGIN_TOKEN&gt;&lt;TOKEN&gt;e6a583c7d32d21dab89a2f8a8f0e9c943262599b&lt;/TOKEN&gt;&lt;EXPIRATION_TIME&gt;1473209565&lt;/EXPIRATION_TIME&gt;&lt;/LOGIN_TOKEN&gt;&lt;TEMPLATE&gt;&lt;TOKEN_PASSWORD&gt;&lt;![CDATA[aa0590f646e96dc6682cc20194bef60358471856]]&gt;&lt;/TOKEN_PASSWORD&gt;&lt;/TEMPLATE&gt;&lt;/USER&gt;&lt;QUOTAS&gt;&lt;ID&gt;2&lt;/ID&gt;&lt;DATASTORE_QUOTA&gt;&lt;/DATASTORE_QUOTA&gt;&lt;NETWORK_QUOTA&gt;&lt;/NETWORK_QUOTA&gt;&lt;VM_QUOTA&gt;&lt;/VM_QUOTA&gt;&lt;IMAGE_QUOTA&gt;&lt;/IMAGE_QUOTA&gt;&lt;/QUOTAS&gt;&lt;DEFAULT_USER_QUOTAS&gt;&lt;DATASTORE_QUOTA&gt;&lt;/DATASTORE_QUOTA&gt;&lt;NETWORK_QUOTA&gt;&lt;/NETWORK_QUOTA&gt;&lt;VM_QUOTA&gt;&lt;/VM_QUOTA&gt;&lt;IMAGE_QUOTA&gt;&lt;/IMAGE_QUOTA&gt;&lt;/DEFAULT_USER_QUOTAS&gt;&lt;/USER_POOL&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;USER_POOL&gt;&lt;USER&gt;&lt;ID&gt;4&lt;/ID&gt;&lt;GID&gt;1&lt;/GID&gt;&lt;GROUPS&gt;&lt;ID&gt;1&lt;/ID&gt;&lt;/GROUPS&gt;&lt;GNAME&gt;users&lt;/GNAME&gt;&lt;NAME&gt;useradmin&lt;/NAME&gt;&lt;PASSWORD&gt;&lt;![CDATA[34ac064565dc7806fdc2611fb7385c90ff7dd7e7]]&gt;&lt;/PASSWORD&gt;&lt;AUTH_DRIVER&gt;&lt;![CDATA[core]]&gt;&lt;/AUTH_DRIVER&gt;&lt;ENABLED&gt;1&lt;/ENABLED&gt;&lt;LOGIN_TOKEN/&gt;&lt;TEMPLATE&gt;&lt;TOKEN_PASSWORD&gt;&lt;![CDATA[b0254a38ad597addf3691ca2daa2f87cd77ede9c]]&gt;&lt;/TOKEN_PASSWORD&gt;&lt;/TEMPLATE&gt;&lt;/USER&gt;&lt;QUOTAS&gt;&lt;ID&gt;4&lt;/ID&gt;&lt;DATASTORE_QUOTA&gt;&lt;/DATASTORE_QUOTA&gt;&lt;NETWORK_QUOTA&gt;&lt;/NETWORK_QUOTA&gt;&lt;VM_QUOTA&gt;&lt;/VM_QUOTA&gt;&lt;IMAGE_QUOTA&gt;&lt;/IMAGE_QUOTA&gt;&lt;/QUOTAS&gt;&lt;DEFAULT_USER_QUOTAS&gt;&lt;DATASTORE_QUOTA&gt;&lt;/DATASTORE_QUOTA&gt;&lt;NETWORK_QUOTA&gt;&lt;/NETWORK_QUOTA&gt;&lt;VM_QUOTA&gt;&lt;/VM_QUOTA&gt;&lt;IMAGE_QUOTA&gt;&lt;/IMAGE_QUOTA&gt;&lt;/DEFAULT_USER_QUOTAS&gt;&lt;/USER_POOL&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
     http_version: 
-  recorded_at: Wed, 07 Sep 2016 07:44:25 GMT
+  recorded_at: Wed, 14 Sep 2016 15:28:03 GMT
 recorded_with: VCR 3.0.3

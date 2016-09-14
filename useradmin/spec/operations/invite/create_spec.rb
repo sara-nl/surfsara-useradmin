@@ -13,7 +13,9 @@ describe Invite::Create do
   end
 
   context 'with valid input' do
-    let(:params) { {invite: {email: email_address, group_id: one_group.id, role: Role.admin}} }
+    let(:params) do
+      {invite: {email: email_address, group_id: one_group.id, group_name: 'users', role: Role.admin}}
+    end
 
     it 'persists valid input' do
       expect(res).to be_truthy
