@@ -1,16 +1,15 @@
 - name: Ensure apache2 ssl directory exists
   file: path=/etc/apache2/ssl state=directory mode=0755
-  # when: env == 'development'
   tags: apache
 
-- name: Copy certificates
+- name: Copy development certificates
   copy: src=development-certificates/{{ item }} dest=/etc/apache2/ssl/{{ item }}
   with_items:
     - cert.pem
     - key.pem
   notify:
     - restart apache
-  # when: env == 'development'
+  when: env == 'development'
   tags: apache
 
 
@@ -21,7 +20,7 @@
     - apache
 
 - name: Enable useradmin vhost
-  file: src=/etc/apache2/sites-available/useradmin.conf dest=/etc/apache2/sites-enabled/useradmin.conf state=link
+  shell: a2ensite useradmin
   notify: restart apache
   tags:
     - apache

@@ -10,6 +10,7 @@
   tags: useradmin
 
 - { include: mailcatcher.yml, when: env == 'development' or env == 'acceptance' }
+- { include: letsencrypt.yml, when: env == 'acceptance' }
 - include: apache.yml
 - include: passenger.yml
 - include: shibboleth.yml

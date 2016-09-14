@@ -1,0 +1,33 @@
+- name: Add backports repository
+  apt_repository: repo='deb http://ftp.debian.org/debian jessie-backports main' state=present update_cache=yes
+  tags:
+    - letsencrypt
+
+- name: Install certbot
+  apt: name=python-certbot-apache default_release=jessie-backports
+  tags:
+    - letsencrypt
+
+- name: Check if ssl certificates exist
+  stat: path=/etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/privkey.pem
+  register: ssl_certificate
+  tags:
+    - letsencrypt
+
+- name: Disable useradmin vhost for ssl generation
+  shell: a2dissite useradmin
+  when: not ssl_certificate.stat.exists
+  tags:
+    - letsencrypt
+
+- name: Generate SSL certificates
+  shell: certbot --apache certonly --non-interactive --agree-tos --email webmaster@useradmin.cloudconext-sara.surf-hosted.nl -d useradmin.cloudconext-sara.surf-hosted.nl
+  when: not ssl_certificate.stat.exists
+  tags:
+    - letsencrypt
+
+- name: Reenable useradmin vhost
+  shell: a2ensite useradmin
+  when: not ssl_certificate.stat.exists
+  tags:
+    - letsencrypt
