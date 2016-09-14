@@ -1,4 +1,4 @@
-Definition of Done:
+# Definition of Done:
 
 - Texts (web pages, emails, etc.) are translated in English and stored in i18n files
 - Unit & integration tests are written (with code coverage of >= 95%)
