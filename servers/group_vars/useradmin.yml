@@ -1,15 +1,4 @@
 ---
-env: development
-virtual_host: 192.168.111.171
-
-postgres:
-  version: "9.4"
-  database:
-    host: 127.0.0.1/32
-    name: useradmin_development
-    user: useradmin
-    password: useradmin
-    user_roles: "LOGIN,CREATEDB"
 
 admins:
   - bforma
@@ -19,10 +8,6 @@ passenger:
   max_pool_size: 10
   max_instances_per_app: 5
   friendly_error_pages: "on"
-
-surfconext:
-  idp:
-    sso_url: http://192.168.111.171:8080/idp/SingleSignOnService
 
 ruby_user: surfsara
 ruby_user_group: surfsara

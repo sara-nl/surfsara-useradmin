@@ -1,6 +1,6 @@
 - name: Ensure apache2 ssl directory exists
   file: path=/etc/apache2/ssl state=directory mode=0755
-  when: env == 'development'
+  # when: env == 'development'
   tags: apache
 
 - name: Copy certificates
@@ -10,7 +10,7 @@
     - key.pem
   notify:
     - restart apache
-  when: env == 'development'
+  # when: env == 'development'
   tags: apache
 
 

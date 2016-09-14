@@ -1,0 +1,11 @@
+[opennebula-acceptance:children]
+opennebula
+
+[opennebula]
+145.100.59.213
+
+[useradmin-acceptance:children]
+useradmin
+
+[useradmin]
+145.100.59.197

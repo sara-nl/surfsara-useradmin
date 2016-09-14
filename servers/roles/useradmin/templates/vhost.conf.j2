@@ -41,8 +41,8 @@
   </Location>
 
   <LocationMatch "^/(?!useradmin)">
-    ProxyPass "http://192.168.111.170"
-    ProxyPassReverse "http://192.168.111.170"
+    ProxyPass "{{ one_url }}"
+    ProxyPassReverse "{{ one_url }}"
 
     RequestHeader set Remote-User "%{REMOTE_USER}s"
   </LocationMatch>

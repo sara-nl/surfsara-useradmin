@@ -1,6 +1,5 @@
 - name: Install Jetty 8
   apt: name=jetty8 state=installed
-  when: env == 'development'
   tags:
     - mujina
 
@@ -9,7 +8,6 @@
     dest: /etc/default/jetty8
     regexp: ^NO_START=
     line: NO_START=0
-  when: env == 'development'
   tags:
     - mujina
 
@@ -22,7 +20,6 @@
     extension: war
     dest: /home/surfsara/mujina-idp/mujina-idp.war
   become_user: surfsara
-  when: env == 'development'
   notify: restart jetty
   tags:
     - mujina
@@ -32,7 +29,6 @@
     path: /home/surfsara/mujina-idp/config
     state: directory
   become_user: surfsara
-  when: env == 'development'
   tags:
     - mujina
 
@@ -41,7 +37,6 @@
     src: mujina-idp.properties
     dest: /home/surfsara/mujina-idp/config/mujina-idp.properties
   become_user: surfsara
-  when: env == 'development'
   notify: restart jetty
   tags:
     - mujina
@@ -50,7 +45,6 @@
   copy:
     src: mujina-idp.xml
     dest: /usr/share/jetty8/contexts/mujina-idp.xml
-  when: env == 'development'
   notify: restart jetty
   tags:
     - mujina

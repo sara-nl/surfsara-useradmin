@@ -1,5 +1,11 @@
 ---
 
+- hostname: name={{ virtual_host }}
+
+- name: Install aptitude
+  apt: name=aptitude
+  tags: common
+
 - name: Upgrade packages to latest version
   apt: upgrade=yes update_cache=true cache_valid_time=3600
   tags: common

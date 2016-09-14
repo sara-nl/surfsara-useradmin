@@ -19,7 +19,7 @@
 
 - name: Restart opennebula/apache
   service: name={{ item }} state=restarted
-  when: env == 'development' and enable_remote_auth.changed
+  when: env in ['development', 'acceptance'] and enable_remote_auth.changed
   with_items:
     - opennebula
     - apache2
@@ -31,7 +31,7 @@
   with_items:
     - admin
     - user
-  when: env == 'development'
+  when: env in ['development', 'acceptance']
   register: create_users
   failed_when: "'UserAllocate' in create_users.stderr and 'NAME is already taken by USER' not in create_users.stderr"
   changed_when: "create_users.rc == 0"
@@ -40,13 +40,13 @@
 
 - name: Put admin in oneadmin group
   shell: oneuser chgrp admin oneadmin
-  when: env == 'development' and create_users.changed
+  when: env in ['development', 'acceptance'] and create_users.changed
   tags:
     - one
 
 - name: Create OpenNebula API user
   shell: oneuser create useradmin useradmin
-  when: env == 'development'
+  when: env in ['development', 'acceptance']
   register: command_result
   failed_when: "'UserAllocate' in command_result.stderr and 'NAME is already taken by USER' not in command_result.stderr"
   changed_when: "command_result.rc == 0"
