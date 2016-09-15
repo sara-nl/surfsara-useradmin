@@ -26,21 +26,41 @@
   tags:
     - one
 
-- name: Create OpenNebula test users
+- name: Create OpenNebula development test users
   shell: oneuser create {{item}} {{item}} --driver public
   with_items:
     - admin
     - user
-  when: env in ['development', 'acceptance']
+  when: env == 'development'
   register: create_users
   failed_when: "'UserAllocate' in create_users.stderr and 'NAME is already taken by USER' not in create_users.stderr"
   changed_when: "create_users.rc == 0"
   tags:
     - one
 
-- name: Put admin in oneadmin group
+- name: Create OpenNebula acceptance test users
+  shell: oneuser create {{item}} {{item}} --driver public
+  with_items:
+    - isaac
+    - jweeler
+    - student21
+    - teacher10
+  when: env == 'acceptance'
+  register: create_users
+  failed_when: "'UserAllocate' in create_users.stderr and 'NAME is already taken by USER' not in create_users.stderr"
+  changed_when: "create_users.rc == 0"
+  tags:
+    - one
+
+- name: Put development admin in oneadmin group
   shell: oneuser chgrp admin oneadmin
-  when: env in ['development', 'acceptance'] and create_users.changed
+  when: env == 'development' and create_users.changed
+  tags:
+    - one
+
+- name: Put acceptance admin in oneadmin group
+  shell: oneuser chgrp isaac oneadmin
+  when: env == 'acceptance' and create_users.changed
   tags:
     - one
 
