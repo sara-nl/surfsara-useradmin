@@ -1,11 +1,5 @@
 = form_for @form do |f|
-  - if @form.errors.any?
-    #error_explanation.panel.panel-danger
-      .panel-heading
-        = "#{pluralize(@form.errors.count, "error")} prohibited this invite from being saved:"
-      ul.list-group
-        - @form.errors.full_messages.each do |message|
-          li.list-group-item = message
+  = error_messages(@form) if @form.errors.any?
 
   .row
     .form-group.col-sm-6

@@ -1,0 +1,6 @@
+#error_explanation.panel.panel-danger
+  .panel-heading
+    = t('.header', count: form.errors.count, resource: form.model.class.model_name.human)
+  ul.list-group
+    - form.errors.full_messages.each do |message|
+      li.list-group-item = message

@@ -1,4 +1,10 @@
 en:
+  shared:
+    error_messages:
+      header:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+
   invites:
     index:
       title: Invites
