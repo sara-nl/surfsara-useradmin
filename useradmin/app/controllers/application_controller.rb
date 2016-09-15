@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   CurrentUser = Struct.new(:headers) do
     def uid
-      shibboleth_headers['Shib-uid']
+      headers['REMOTE_USER'] || headers['HTTP_REMOTE_USER']
     end
 
     def common_name

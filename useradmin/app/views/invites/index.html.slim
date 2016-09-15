@@ -1,7 +1,7 @@
 - if current_user.role
   h1.page-header
     = t('.title')
-    = link_to 'New Invite', new_invite_path, class: 'btn btn-primary pull-right'
+    = link_to t('.new_invite'), new_invite_path, class: 'btn btn-primary pull-right'
 
   table.table.table-hover
     thead
