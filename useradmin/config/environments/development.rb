@@ -39,11 +39,18 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.action_mailer.delivery_method = :smtp
+  if ENV['LETTER_OPENER']
+    config.action_mailer.delivery_method = :letter_opener
+    asset_host = 'http://localhost:3000'
+  else
+    config.action_mailer.delivery_method = :smtp
+    asset_host = '192.168.111.171'
+  end
+
   config.action_mailer.default_url_options = {
-    host: '192.168.111.171'
+    host: asset_host
   }
-  config.action_mailer.asset_host = '192.168.111.171'
+  config.action_mailer.asset_host = asset_host
   config.action_mailer.smtp_settings = {
     address: '192.168.111.171',
     port: 1025
