@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def role
-      return 'admin' if uid == 'admin'
+      return 'admin' if uid.in? %w(admin professor3)
       return 'groupadmin' if uid == 'groupadmin123'
     end
 
