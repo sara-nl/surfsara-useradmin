@@ -6,7 +6,7 @@ describe Invite::Create do
   let(:op) { run.last }
   let(:email_address) { 'john.doe@example.com' }
   let(:one_user) { OneClient::User.new(1, 'testuser', [10]) }
-  let(:one_group) { OneClient::Group.new(10, 'testgroup') }
+  let(:one_group) { OneClient::Group.new(10, 'users') }
 
   before do
     allow(OneClient).to receive(:groups).and_return([one_group])
@@ -36,11 +36,9 @@ describe Invite::Create do
     end
 
     describe 'email' do
-      before { run }
-
-      it 'emails an invite to the given email address' do
-        mail = ActionMailer::Base.deliveries.last
-        expect(mail.to).to eq [email_address]
+      it 'sends an invite' do
+        expect(InviteMailer).to receive(:invitation).and_call_original
+        run
       end
     end
   end
