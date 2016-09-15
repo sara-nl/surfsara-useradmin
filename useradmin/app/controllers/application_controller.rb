@@ -5,19 +5,28 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :mock_shibboleth, if: -> { Rails.env.development? || Rails.env.test? }
+
   attr_accessor :current_user
   helper_method :current_user
   def current_user
-    CurrentUser.new(request.headers)
+    CurrentUser.new(request)
   end
 
-  CurrentUser = Struct.new(:headers) do
+  def mock_shibboleth
+    unless request.headers.include?('REMOTE_USER') || request.headers.include?('HTTP_REMOTE_USER')
+      request.set_header('REMOTE_USER', 'admin')
+      request.set_header('Shib-commonName', 'John Doe')
+    end
+  end
+
+  CurrentUser = Struct.new(:request) do
     def uid
-      headers['REMOTE_USER'] || headers['HTTP_REMOTE_USER']
+      request.get_header('REMOTE_USER') || request.get_header('HTTP_REMOTE_USER')
     end
 
     def common_name
-      shibboleth_headers['Shib-commonName']
+      request.get_header('Shib-commonName')
     end
 
     def role
@@ -26,7 +35,7 @@ class ApplicationController < ActionController::Base
     end
 
     def shibboleth_headers
-      Hash[headers.select { |k, _| k.starts_with?('Shib-') }]
+      Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
     end
 
     def admin?
