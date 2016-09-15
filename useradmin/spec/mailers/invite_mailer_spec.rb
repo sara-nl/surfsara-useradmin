@@ -1,5 +1,26 @@
 require "rails_helper"
 
 RSpec.describe InviteMailer, type: :mailer do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'invite' do
+    let(:invite) { Invite::Create.(invite: {email: 'foo@bar.com', group_id: 1, role: Role.admin}).model }
+    let(:token) { '123abc' }
+    let(:mail) { InviteMailer.invitation(invite, token).deliver_now }
+
+    it 'renders the subject' do
+      expect(mail.subject).to eq('Invitation')
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eq([invite.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eq(['useradmin@surfsara.nl'])
+    end
+
+    it 'contains the activation link' do
+      expect(mail.body.encoded)
+        .to include(accept_invite_url(token))
+    end
+  end
 end
