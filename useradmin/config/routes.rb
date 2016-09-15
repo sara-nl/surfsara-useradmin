@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :invites, only: [:index, :show, :new, :create, :destroy] do
-    get :accept, on: :member
+    member do
+      get :verify
+      post :accept
+      get :accepted
+    end
   end
 
   resource :profile

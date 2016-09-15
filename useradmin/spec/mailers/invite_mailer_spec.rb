@@ -20,7 +20,7 @@ RSpec.describe InviteMailer, type: :mailer do
 
     it 'contains the activation link' do
       expect(mail.body.encoded)
-        .to include(accept_invite_url(token))
+        .to include(verify_invite_url(token))
     end
   end
 end

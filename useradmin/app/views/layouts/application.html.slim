@@ -24,11 +24,12 @@ html
             = message
 
       .row
-        .col-sm-2
-          .well.well-sm
-            ul.nav.nav-pills.nav-stacked
-              li class=(params[:controller] == 'invites' ? 'active' : '') = link_to 'Invites', invites_path
-              li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to 'Profile', profile_path
+        - unless @hide_menu
+          .col-sm-2
+            .well.well-sm
+              ul.nav.nav-pills.nav-stacked
+                li class=(params[:controller] == 'invites' ? 'active' : '') = link_to 'Invites', invites_path
+                li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to 'Profile', profile_path
 
-        .col-sm-10
+        div class=(@hide_menu ? 'col-sm-12' : 'col-sm-10')
           = yield

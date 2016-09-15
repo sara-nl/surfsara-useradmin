@@ -1,6 +1,5 @@
 class InvitesController < ApplicationController
   def index
-    params[:current_user] = current_user
     present Invite::Index
   end
 
@@ -15,7 +14,7 @@ class InvitesController < ApplicationController
 
   def create
     run Invite::Create do |op|
-      flash[:success] = t('.success', model: Invite.model_name)
+      flash[:success] = t('.success')
       return redirect_to(op.model)
     end
 
@@ -28,8 +27,28 @@ class InvitesController < ApplicationController
     redirect_to invites_path
   end
 
+
+  def verify
+    hide_menu
+    form Invite::Accept
+  end
+
   def accept
-    render text: 'Your invitation has been accepted...'
+    hide_menu
+
+    run Invite::Accept do |op|
+      flash[:success] = t('.success')
+      return redirect_to accepted_invite_path(params[:id])
+    end
+
+    @groups = groups
+    render :verify
+  end
+
+  def accepted
+    hide_menu
+    invite_token = InviteToken.new(params[:id])
+    @model = Invite.find_by!(accepted_by: current_user.uid, token: invite_token.encrypted)
   end
 
   private
@@ -38,5 +57,9 @@ class InvitesController < ApplicationController
     OneClient.groups
       .sort_by { |g| g.name }
       .map { |g| [g.name, g.id] }
+  end
+
+  def hide_menu
+    @hide_menu = true
   end
 end
