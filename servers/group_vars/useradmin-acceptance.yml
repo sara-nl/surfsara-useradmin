@@ -4,6 +4,7 @@ virtual_host: useradmin.cloudconext-sara.surf-hosted.nl
 
 surfconext:
   idp:
+    sso_entity_id: https://engine.surfconext.nl/authentication/idp/metadata
     sso_url: http://{{ virtual_host }}:8080/idp/SingleSignOnService
 
 postgres:

@@ -3,6 +3,7 @@ virtual_host: 192.168.111.171
 
 surfconext:
   idp:
+    sso_entity_id: http://mock-idp
     sso_url: http://192.168.111.171:8080/idp/SingleSignOnService
 
 postgres:

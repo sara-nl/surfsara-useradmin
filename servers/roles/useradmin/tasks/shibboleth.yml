@@ -1,5 +1,5 @@
 - name: Configure useradmin Shibboleth
-  template: src={{ item }} dest=/etc/shibboleth/{{ item }}
+  template: src={{ item }}.j2 dest=/etc/shibboleth/{{ item }}
   with_items:
     - attribute-map.xml
     - shibboleth2.xml
