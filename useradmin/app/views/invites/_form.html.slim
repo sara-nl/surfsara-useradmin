@@ -16,4 +16,6 @@
 
   hr
 
-  .actions = f.submit 'Submit', class: 'btn btn-success'
+  .actions
+    = f.submit 'Submit', class: 'btn btn-success'
+    = link_to 'Cancel', invites_path, class: 'btn btn-default'
