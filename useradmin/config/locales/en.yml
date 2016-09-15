@@ -10,6 +10,7 @@ en:
       title: Invites
       user_without_groups_notice: You don't have any HPC groups to manage invites for.
       new_invite: New invite
+      none: There are no invites yet.
     show:
       title: Invite - %{email}
       general: General
