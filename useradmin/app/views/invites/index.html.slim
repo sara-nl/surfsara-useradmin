@@ -25,7 +25,7 @@
             td = l(invite.created_at, format: :short)
             td.actions
               .btn-group.btn-group-xs.pull-right
-                .btn.btn-default = link_to invite, data: { confirm: t('actions.destroy.confirm') }, method: :delete do
+                .btn.btn-default = link_to invite, data: { confirm: t('.confirm_destroy') }, method: :delete do
                   i.glyphicon.glyphicon-trash
 
       - else

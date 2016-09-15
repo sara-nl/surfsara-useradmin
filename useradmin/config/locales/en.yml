@@ -14,6 +14,7 @@ en:
       user_without_groups_notice: You don't have any HPC groups to manage invites for.
       new_invite: New invite
       none: There are no invites yet.
+      confirm_destroy: Are you sure you want to destroy this invite?
     show:
       title: Invite - %{email}
       general: General
@@ -25,8 +26,6 @@ en:
       success: '%{model} sucessfully created'
     update:
       success: '%{model} sucessfully updated'
-    destroy:
-      confirm: Are you sure?
 
   invite_mailer:
     invitation:
