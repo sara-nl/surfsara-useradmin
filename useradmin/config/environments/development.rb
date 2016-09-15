@@ -53,3 +53,5 @@ Rails.application.configure do
   config.one_client.credentials = "useradmin:useradmin"
   config.one_client.endpoint = "http://192.168.111.170:2633/RPC2"
 end
+
+BetterErrors::Middleware.allow_ip! '192.168.111.1' # virtualbox host ip
