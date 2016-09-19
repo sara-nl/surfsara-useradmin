@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :mock_shibboleth, if: -> { Rails.env.development? || Rails.env.test? }
+  before_action :expose_current_user
 
   attr_accessor :current_user
   helper_method :current_user
@@ -18,6 +19,10 @@ class ApplicationController < ActionController::Base
       request.set_header('REMOTE_USER', 'admin')
       request.set_header('Shib-commonName', 'John Doe')
     end
+  end
+
+  def expose_current_user
+    params[:current_user] = current_user
   end
 
   CurrentUser = Struct.new(:request) do

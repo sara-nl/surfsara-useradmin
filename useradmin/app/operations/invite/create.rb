@@ -13,7 +13,7 @@ class Invite < ApplicationRecord
     end
 
     def process(params)
-      @model = Invite.new(token: encrypted_token, group_name: group_name)
+      @model = Invite.new(token: invite_token.encrypted, group_name: group_name)
 
       validate(params[:invite], @model) do
         contract.save
@@ -24,15 +24,11 @@ class Invite < ApplicationRecord
     private
 
     def send_invitation!
-      InviteMailer.invitation(@model, random_token).deliver_now
+      InviteMailer.invitation(@model, invite_token.raw).deliver_now
     end
 
-    def encrypted_token
-      Digest::SHA2.hexdigest(random_token)
-    end
-
-    def random_token
-      @random_token ||= SecureRandom.hex
+    def invite_token
+      @invite_token ||= InviteToken.random
     end
 
     def group_name
