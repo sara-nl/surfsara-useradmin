@@ -83,6 +83,7 @@ en:
     status:
       pending: Pending
       accepted: Accepted
+      expired: Expired
 
   activerecord:
     models:
