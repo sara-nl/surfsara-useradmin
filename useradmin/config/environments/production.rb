@@ -76,4 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.invites = ActiveSupport::OrderedOptions.new
+  config.invites.expire_after = 2.weeks
 end

@@ -22,7 +22,7 @@ class Invite < ApplicationRecord
 
     def model!(params)
       invite_token = InviteToken.new(params[:id])
-      Invite.find_by!(accepted_at: nil, token: invite_token.encrypted)
+      Invite.pending.find_by_token(invite_token.encrypted)
     end
 
     private

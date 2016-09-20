@@ -77,7 +77,8 @@ describe InvitesController, :feature, :vcr do
       end
 
       it "can't be accepted again" do
-        expect { visit verify_invite_path(token) }.to raise_error(ActiveRecord::RecordNotFound)
+        visit verify_invite_path(token)
+        expect(page).to have_content 'Your invitation has expired'
       end
     end
   end

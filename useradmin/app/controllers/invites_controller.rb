@@ -27,10 +27,10 @@ class InvitesController < ApplicationController
     redirect_to invites_path
   end
 
-
   def verify
     hide_menu
-    form Invite::Accept
+    @form = form Invite::Accept
+    render :expired unless @form.model
   end
 
   def accept
