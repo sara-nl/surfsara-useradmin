@@ -4,7 +4,7 @@ class InvitesController < ApplicationController
   end
 
   def show
-    @invite = Invite.find(params[:id])
+    @invite = Invite.for_user(current_user).find(params[:id])
   end
 
   def new

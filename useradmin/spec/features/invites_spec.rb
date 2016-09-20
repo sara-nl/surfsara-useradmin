@@ -2,7 +2,12 @@ require 'feature_helper'
 
 describe InvitesController, :feature, :vcr do
   context 'invite' do
-    let!(:invite) { Invite::Create.(invite: {email: 'foo@bar.com', group_id: 1, role: Role.admin}).model }
+    let!(:invite) do
+      Invite::Create.(
+        invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
+        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+      ).model
+    end
 
     it 'lists invites' do
       visit '/invites'
@@ -17,7 +22,7 @@ describe InvitesController, :feature, :vcr do
 
       fill_in 'Email address', with: 'user@example.com'
       select 'users', from: 'Group'
-      select 'admin', from: 'Role'
+      select 'Group Administrator', from: 'Role'
 
       click_on 'Send invitation'
 
@@ -29,7 +34,12 @@ describe InvitesController, :feature, :vcr do
   context 'accept' do
     before { allow(InviteToken).to receive(:random).and_return(InviteToken.new(token)) }
     let(:token) { 'invite_token' }
-    let!(:invite) { Invite::Create.(invite: {email: 'foo@bar.com', group_id: 1, role: Role.admin}).model }
+    let!(:invite) do
+      Invite::Create.(
+        invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
+        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+      ).model
+    end
 
     it 'accepts invites' do
       visit verify_invite_path(token)

@@ -6,7 +6,7 @@ describe OneClient, :vcr do
 
     it 'retrieves a list of users' do
       expect(users.length).to eq(1)
-      expect(users.first).to eq(OneClient::User.new(4, 'useradmin', [1]))
+      expect(users.first.name).to eq('useradmin')
     end
   end
 
@@ -17,7 +17,9 @@ describe OneClient, :vcr do
       let(:username) { 'useradmin' }
 
       it 'returns a User' do
-        expect(user).to eq(OneClient::User.new(4, 'useradmin', [1]))
+        expect(user.id).to eq(4)
+        expect(user.name).to eq('useradmin')
+        expect(user.group_ids).to eq([1])
       end
     end
 
@@ -34,7 +36,7 @@ describe OneClient, :vcr do
     subject(:create_user) { OneClient.create_user('socrates', 'secret') }
 
     it 'returns the User after it is created' do
-      expect(create_user).to eq(OneClient::User.new(10, 'socrates', [1]))
+      expect(create_user.name).to eq('socrates')
     end
 
     it 'fails when a user with a given username already exists' do
