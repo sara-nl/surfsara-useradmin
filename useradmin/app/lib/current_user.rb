@@ -20,10 +20,6 @@ CurrentUser = Struct.new(:request) do
     return Role.group_admin if group_admin?
   end
 
-  def shibboleth_headers
-    Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
-  end
-
   def surfsara_admin?
     role == Role.surfsara_admin
   end
