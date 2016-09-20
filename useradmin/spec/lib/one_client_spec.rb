@@ -32,6 +32,36 @@ describe OneClient, :vcr do
     end
   end
 
+  describe '.user_by_password' do
+    subject(:user) { OneClient.user_by_password(password) }
+
+    context 'given a known password' do
+      let(:password) { 'admin' }
+
+      it 'returns a User' do
+        expect(user.id).to eq(2)
+        expect(user.name).to eq('admin')
+        expect(user.group_ids).to eq([0,1])
+      end
+    end
+
+    context 'given an unknown password' do
+      let(:password) { 'unknown' }
+
+      it 'returns nil' do
+        expect(user).to be_nil
+      end
+    end
+  end
+
+  describe '.groups_for_admin' do
+    subject { OneClient.groups_for_admin(2) }
+
+    it 'returns a list of groups' do
+      expect(subject).to eq([OneClient::Group.new(1, 'users')])
+    end
+  end
+
   describe '.create_user' do
     subject(:create_user) { OneClient.create_user('socrates', 'secret') }
 
