@@ -26,7 +26,7 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-  config.around(:each, :integration) do |example|
+  config.around(:each, :vcr) do |example|
     VCR.use_cassette(example.metadata[:full_description]) do
       example.run
     end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Invite::Create do
+describe Invite::Create, :vcr do
   let(:run) { Invite::Create.run(params) }
   let(:res) { run.first }
   let(:op) { run.last }

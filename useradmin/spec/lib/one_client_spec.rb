@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe OneClient, :integration do
+describe OneClient, :vcr do
   describe '.users' do
     subject(:users) { OneClient.users }
 
