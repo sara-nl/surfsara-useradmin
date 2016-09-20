@@ -1,49 +1,66 @@
 require 'opennebula'
 
 module OneClient
-  User = Struct.new(:id, :name, :group_ids)
-  Group = Struct.new(:id, :name)
+  User = Struct.new(:id, :name, :group_ids) do
+    def self.from_xml(xml)
+      new(xml.id, xml.name, xml.groups)
+    end
+  end
+
+  Group = Struct.new(:id, :name) do
+    def self.from_xml(xml)
+      new(xml.id, xml.name)
+    end
+  end
+
+  PUBLIC_AUTH_DRIVER = 'public'.freeze
 
   class << self
-    include OpenNebula
-
     def users
-      Rails.cache.fetch('one_client/users', expires_in: 5.minutes) do
-        retrieve(user_pool).map do |user|
-          User.new(user.id, user.name, user.groups)
-        end
-      end
+      perform { user_pool.info }
+      user_pool.map { |user| User.from_xml(user) }
+    end
+
+    def find_user(username)
+      users.find { |user| user.name == username }
+    end
+
+    def create_user(username, password)
+      user = build_user
+      perform { user.allocate(username, password, PUBLIC_AUTH_DRIVER) }
+      perform { user.info }
+      User.from_xml(user)
     end
 
     def groups
-      Rails.cache.fetch('one_client/groups', expires_in: 5.minutes) do
-        retrieve(group_pool).map do |group|
-          Group.new(group.id, group.name)
-        end
-      end
+      perform { group_pool.info }
+      group_pool.map { |group| Group.from_xml(group) }
     end
 
     private
 
     def client
-      @client ||= Client.new(
+      @client ||= OpenNebula::Client.new(
         Rails.application.config.one_client.credentials,
         Rails.application.config.one_client.endpoint
       )
     end
 
     def user_pool
-      @user_pool ||= UserPool.new(client)
+      @user_pool ||= OpenNebula::UserPool.new(client)
+    end
+
+    def build_user(id = nil)
+      OpenNebula::User.new(OpenNebula::User.build_xml(id), client)
     end
 
     def group_pool
-      @group_pool ||= GroupPool.new(client)
+      @group_pool ||= OpenNebula::GroupPool.new(client)
     end
 
-    def retrieve(pool)
-      rc = pool.info
-      raise rc.message.inspect if OpenNebula.is_error?(rc)
-      pool
+    def perform(&block)
+      rc = yield
+      fail rc.message.inspect if OpenNebula.is_error?(rc)
     end
   end
 end
