@@ -13,15 +13,16 @@ class Invite < ApplicationRecord
     end
 
     def process(params)
-      @model = Invite.new(token: invite_token.encrypted, group_name: group_name)
-
       validate(params[:invite], @model) do
-        contract.save
-        send_invitation!
+        contract.save && send_invitation!
       end
     end
 
     private
+
+    def model!(params)
+      Invite.new(token: invite_token.encrypted, group_name: group_name)
+    end
 
     def send_invitation!
       InviteMailer.invitation(@model, invite_token.raw).deliver_now
