@@ -13,7 +13,7 @@ class Invite < ApplicationRecord
 
     def process(params)
       validate(params[:invite]) do
-        @model.accepted_at = Time.now
+        @model.accepted_at = Time.current
         @model.accepted_by = @params[:current_user].uid
         @model.save
       end
