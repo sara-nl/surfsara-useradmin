@@ -16,8 +16,11 @@ class ApplicationController < ActionController::Base
 
   def mock_shibboleth
     unless request.headers.include?('REMOTE_USER') || request.headers.include?('HTTP_REMOTE_USER')
-      request.set_header('REMOTE_USER', 'admin')
-      request.set_header('Shib-commonName', 'John Doe')
+      request.set_header('REMOTE_USER', 'isaac')
+      request.set_header('Shib-commonName', 'Sir Isaac Newton')
+      request.set_header('Shib-homeOrganization', 'university-example.org')
+      request.set_header('Shib-eduPersonEntitlement', 'urn:mace:dir:entitlement:common-lib-terms-example')
+      request.set_header('Shib-eduPersonTargetedID', '56c00c40d7051ca1f554d7b79a5d754b1e54966c')
     end
   end
 

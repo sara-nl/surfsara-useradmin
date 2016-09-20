@@ -7,6 +7,14 @@ CurrentUser = Struct.new(:request) do
     request.get_header('Shib-commonName')
   end
 
+  def home_organization
+    request.get_header('Shib-homeOrganization')
+  end
+
+  def edu_person_target_id
+    request.get_header('Shib-eduPersonTargetID')
+  end
+
   def role
     return Role.surfsara_admin if uid.in? %w(admin isaac)
     return Role.group_admin if group_admin?
@@ -18,6 +26,18 @@ CurrentUser = Struct.new(:request) do
 
   def surfsara_admin?
     role == Role.surfsara_admin
+  end
+
+  def one_username
+    "#{home_organization}-#{uid}"
+  end
+
+  def one_password
+    edu_person_target_id
+  end
+
+  def admin?
+    role == 'admin'
   end
 
   def group_admin?

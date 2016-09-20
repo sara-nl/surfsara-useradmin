@@ -13,9 +13,8 @@ class Invite < ApplicationRecord
 
     def process(params)
       validate(params[:invite]) do
-        @model.accepted_at = Time.current
-        @model.accepted_by = @params[:current_user].uid
-        @model.save
+        update_open_nebula
+        update_invite
       end
     end
 
@@ -24,6 +23,24 @@ class Invite < ApplicationRecord
     def model!(params)
       invite_token = InviteToken.new(params[:id])
       Invite.find_by!(accepted_at: nil, token: invite_token.encrypted)
+    end
+
+    private
+
+    def update_open_nebula
+      user = OneClient.find_user(current_user.one_username)
+      user = OneClient.create_user(current_user.one_username, current_user.one_password) if user.nil?
+      OneClient.add_user_to_group(user.id, @model.group_id) unless user.group_ids.include?(@model.group_id)
+    end
+
+    def update_invite
+      @model.accepted_at = Time.current
+      @model.accepted_by = current_user.uid
+      @model.save
+    end
+
+    def current_user
+      @params[:current_user]
     end
   end
 end
