@@ -6,3 +6,12 @@ dl
     dt= k
     dd= v
     br
+
+  dt = t('.administrable_groups')
+  dd
+    - if current_user.admin_groups.any?
+      ul
+        - current_user.admin_groups.each do |g|
+          li = g.name
+    - else
+      | -

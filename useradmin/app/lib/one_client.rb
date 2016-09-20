@@ -1,9 +1,9 @@
 require 'opennebula'
 
 module OneClient
-  User = Struct.new(:id, :name, :group_ids) do
+  User = Struct.new(:id, :name, :password, :group_ids) do
     def self.from_xml(xml)
-      new(xml.id, xml.name, xml.groups)
+      new(xml.id, xml.name, xml['PASSWORD'], xml.groups)
     end
   end
 
@@ -25,6 +25,10 @@ module OneClient
       users.find { |user| user.name == username }
     end
 
+    def user_by_password(password)
+      users.find { |user| user.password == password }
+    end
+
     def create_user(username, password)
       user = build_user
       perform { user.allocate(username, password, PUBLIC_AUTH_DRIVER) }
@@ -35,6 +39,13 @@ module OneClient
     def groups
       perform { group_pool.info }
       group_pool.map { |group| Group.from_xml(group) }
+    end
+
+    def groups_for_admin(uid)
+      perform { group_pool.info }
+      group_pool
+        .select { |group| group.contains_admin(uid) }
+        .map { |group| Group.from_xml(group) }
     end
 
     private

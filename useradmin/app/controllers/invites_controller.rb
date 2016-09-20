@@ -54,7 +54,7 @@ class InvitesController < ApplicationController
   private
 
   def groups
-    OneClient.groups
+    current_user.admin_groups
       .sort_by { |g| g.name }
       .map { |g| [g.name, g.id] }
   end

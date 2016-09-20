@@ -23,12 +23,19 @@ CurrentUser = Struct.new(:request) do
   def group_admin?
     !surfsara_admin? && admin_groups.any?
   end
+
+  def one_user
+    @one_user ||= OneClient.user_by_password(uid)
+  end
+
   def admin_groups
     @admin_groups ||= get_admin_groups
   end
 
   private
+
   def get_admin_groups
     return OneClient.groups if surfsara_admin?
+    OneClient.groups_for_admin(one_user.id)
   end
 end
