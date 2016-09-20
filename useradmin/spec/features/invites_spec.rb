@@ -20,6 +20,10 @@ describe InvitesController, :feature, :vcr do
 
       expect(page).to have_content 'New invite'
 
+      click_on 'Send invitation'
+
+      expect(page).to have_content('6 errors prohibited this invite from being saved:')
+
       fill_in 'Email address', with: 'user@example.com'
       select 'users', from: 'Group'
       select 'Group Administrator', from: 'Role'
@@ -45,6 +49,10 @@ describe InvitesController, :feature, :vcr do
       visit verify_invite_path(token)
 
       expect(page).to have_content 'Accept your invitation'
+
+      click_on 'Accept'
+
+      expect(page).to have_content 'Accept terms of service is required'
 
       check 'I accept the terms of service'
       click_on 'Accept'
