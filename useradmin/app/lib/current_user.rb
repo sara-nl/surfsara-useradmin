@@ -36,10 +36,6 @@ CurrentUser = Struct.new(:request) do
     edu_person_target_id
   end
 
-  def admin?
-    role == 'admin'
-  end
-
   def group_admin?
     !surfsara_admin? && admin_groups.any?
   end
