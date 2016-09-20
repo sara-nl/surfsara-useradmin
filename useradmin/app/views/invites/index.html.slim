@@ -3,14 +3,16 @@
     = t('.title')
     = link_to t('.new_invite'), new_invite_path, class: 'btn btn-primary pull-right'
 
-  table.table.table-hover
+  p= page_entries_info @model
+
+  table.table.table-hover.table-striped
     thead
       tr
         th = Invite.human_attribute_name(:email)
         th = Invite.human_attribute_name(:group)
         th = Invite.human_attribute_name(:role)
         th = Invite.human_attribute_name(:status)
-        th = Invite.human_attribute_name(:date)
+        th = Invite.human_attribute_name(:created_at)
         th
 
     tbody
@@ -31,5 +33,8 @@
       - else
         tr
           td colspan=6 = t('.none')
+
+  = will_paginate @model, renderer: BootstrapPagination::Rails, params: {current_user: nil}
+
 - else
   div.alert.alert-info = t('.user_without_groups_notice')

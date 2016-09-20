@@ -84,7 +84,10 @@ en:
 
   activerecord:
     models:
-      invite: Invite
+      invite:
+        zero: invites
+        one: invite
+        other: invites
     attributes:
       invite:
         email: Email address

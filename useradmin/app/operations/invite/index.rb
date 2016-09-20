@@ -5,7 +5,10 @@ class Invite < ApplicationRecord
     include Collection
 
     def model!(params)
-      Invite.scoped_to(current_user).order(created_at: :desc)
+      Invite
+        .scoped_to(current_user)
+        .order(created_at: :desc)
+        .page(params[:page])
     end
   end
 end
