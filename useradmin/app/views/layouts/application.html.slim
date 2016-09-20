@@ -15,8 +15,9 @@ html
 
         .surfsara-buttons
           | Welcome, you are logged in as
-          strong= " #{current_user.common_name} (#{current_user.role})"
-          | .
+          strong = " #{current_user.common_name} "
+          - if current_user.role
+            i = "(#{t(current_user.role, scope: 'role')})"
 
       .messages
         - flash.each do |type, message|

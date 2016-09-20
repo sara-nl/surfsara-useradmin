@@ -1,13 +1,17 @@
 class Role
-  def self.all
+  def self.for_group
     [
-      admin,
+      group_admin,
       member
     ]
   end
 
-  def self.admin
-    'admin'
+  def self.surfsara_admin
+    'surfsara_admin'
+  end
+
+  def self.group_admin
+    'group_admin'
   end
 
   def self.member

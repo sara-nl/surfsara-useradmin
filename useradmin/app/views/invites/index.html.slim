@@ -20,8 +20,8 @@
             td
               strong = link_to invite.email, invite
             td = invite.group_name
-            td = invite.role
-            td = t("invite.status.#{invite.status}")
+            td = t(invite.role, scope: 'role')
+            td = t(invite.status, scope: "invite.status")
             td = l(invite.created_at, format: :short)
             td.actions
               .btn-group.btn-group-xs.pull-right

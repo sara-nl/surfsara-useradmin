@@ -8,19 +8,27 @@ CurrentUser = Struct.new(:request) do
   end
 
   def role
-    return 'admin' if uid.in? %w(admin isaac)
-    return 'groupadmin' if uid == 'groupadmin123'
+    return Role.surfsara_admin if uid.in? %w(admin isaac)
+    return Role.group_admin if uid == 'groupadmin123'
   end
 
   def shibboleth_headers
     Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
   end
 
-  def admin?
-    role == 'admin'
+  def surfsara_admin?
+    role == Role.surfsara_admin
   end
 
-  def groupadmin?
-    role == 'groupadmin'
+  def group_admin?
+    !surfsara_admin? && admin_groups.any?
+  end
+  def admin_groups
+    @admin_groups ||= get_admin_groups
+  end
+
+  private
+  def get_admin_groups
+    return OneClient.groups if surfsara_admin?
   end
 end

@@ -66,6 +66,11 @@ en:
         <p>Please follow the link below to connect your SURFconext account the the HPC cloud.</p>
         <p><a href="%{link}">Click here to accept this invitation</a></p>
 
+  role:
+    surfsara_admin: SURFsara Administrator
+    group_admin: Group Administrator
+    member: Member
+
   activerecord:
     models:
       invite: Invite

@@ -9,7 +9,7 @@ class Invite < ApplicationRecord
       property :email, validates: {presence: true, email: true}
       property :group_id, validates: {presence: true}
       property :group_name
-      property :role, validates: {presence: true, inclusion: {in: Role.all}}
+      property :role, validates: {presence: true, inclusion: {in: Role.for_group}}
     end
 
     def process(params)
