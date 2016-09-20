@@ -44,7 +44,7 @@ describe Invite::Accept do
       it 'accepts the invite, creates a user and adds it to the group it was invited for' do
         expect(res).to be_truthy
         expect(op.model.accepted_at).to eq accepted_at
-        expect(op.model.accepted_by).to eq current_user.uid
+        expect(op.model.accepted_by).to eq current_user.one_username
       end
     end
 
