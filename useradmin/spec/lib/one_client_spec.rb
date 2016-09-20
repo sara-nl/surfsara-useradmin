@@ -1,5 +1,4 @@
-require "spec_helper"
-require_relative "../../app/lib/one_client"
+require 'rails_helper'
 
 describe OneClient, :integration do
   describe '.users' do
@@ -8,6 +7,18 @@ describe OneClient, :integration do
     it 'retrieves a list of users' do
       expect(users.length).to eq(1)
       expect(users.first).to eq(OneClient::User.new(4, 'useradmin', [1]))
+    end
+  end
+
+  describe '.create_user' do
+    subject(:create_user) { OneClient.create_user('socrates', 'secret') }
+
+    it 'returns the User after it is created' do
+      expect(create_user).to eq(OneClient::User.new(10, 'socrates', [1]))
+    end
+
+    it 'fails when a user with a given username already exists' do
+      expect { create_user }.to raise_error(/\[UserAllocate\] NAME is already taken by USER/)
     end
   end
 

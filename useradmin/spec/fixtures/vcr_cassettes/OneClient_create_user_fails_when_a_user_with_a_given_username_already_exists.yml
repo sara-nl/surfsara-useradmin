@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://192.168.111.170:2633/RPC2
+    body:
+      encoding: UTF-8
+      string: '<?xml version="1.0" ?><methodCall><methodName>one.user.allocate</methodName><params><param><value><string>useradmin:useradmin</string></value></param><param><value><string>socrates</string></value></param><param><value><string>secret</string></value></param><param><value><string>public</string></value></param></params></methodCall>
+
+'
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.3.1)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '334'
+      Connection:
+      - close
+      Accept-Encoding:
+      - identity
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '309'
+      Connection:
+      - close
+      Date:
+      - Tue, 20 Sep 2016 07:47:38 UTC
+      Server:
+      - Xmlrpc-c_Abyss/1.40.0
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>0</boolean></value>\r\n<value><string>[UserAllocate]
+        NAME is already taken by USER 10.</string></value>\r\n<value><i4>8192</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
+    http_version: 
+  recorded_at: Tue, 20 Sep 2016 07:47:37 GMT
+recorded_with: VCR 3.0.3
