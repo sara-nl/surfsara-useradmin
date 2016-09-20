@@ -8,7 +8,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def role
-    return Role.surfsara_admin if uid.in? %w(admin isaac)
+    return Role.surfsara_admin if surfsara_admin?
     return Role.group_admin if group_admin?
   end
 
@@ -17,7 +17,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def surfsara_admin?
-    role == Role.surfsara_admin
+    uid.in? %w(admin isaac)
   end
 
   def group_admin?
