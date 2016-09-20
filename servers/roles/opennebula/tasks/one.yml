@@ -26,6 +26,24 @@
   tags:
     - one
 
+- name: Create OpenNebula API user
+  shell: oneuser create useradmin useradmin
+  when: env in ['development', 'acceptance']
+  register: command_result
+  failed_when: "'UserAllocate' in command_result.stderr and 'NAME is already taken by USER' not in command_result.stderr"
+  changed_when: "command_result.rc == 0"
+  tags:
+    - one
+
+- name: Grant OpenNebula API user access to manage users & groups
+  shell: "oneacl create '#2 USER+GROUP/* USE+MANAGE+ADMIN+CREATE *'"
+  when: env in ['development', 'acceptance']
+  register: command_result
+  failed_when: "'AclAddRule' in command_result.stderr and 'already exists' not in command_result.stderr"
+  changed_when: "command_result.rc == 0"
+  tags:
+    - one
+
 - name: Create OpenNebula development test users
   shell: oneuser create {{item}} {{item}} --driver public
   with_items:
@@ -61,23 +79,5 @@
 - name: Put acceptance admin in oneadmin group
   shell: oneuser chgrp isaac oneadmin
   when: env == 'acceptance' and create_users.changed
-  tags:
-    - one
-
-- name: Create OpenNebula API user
-  shell: oneuser create useradmin useradmin
-  when: env in ['development', 'acceptance']
-  register: command_result
-  failed_when: "'UserAllocate' in command_result.stderr and 'NAME is already taken by USER' not in command_result.stderr"
-  changed_when: "command_result.rc == 0"
-  tags:
-    - one
-
-- name: Grant OpenNebula API user access to manage users & groups
-  shell: "oneacl create '#4 USER+GROUP/* USE+MANAGE+ADMIN+CREATE *'"
-  when: env in ['development', 'acceptance']
-  register: command_result
-  failed_when: "'AclAddRule' in command_result.stderr and 'already exists' not in command_result.stderr"
-  changed_when: "command_result.rc == 0"
   tags:
     - one
