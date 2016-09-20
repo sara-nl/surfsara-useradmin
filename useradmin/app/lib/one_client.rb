@@ -36,6 +36,11 @@ module OneClient
       User.from_xml(user)
     end
 
+    def add_user_to_group(user_id, group_id)
+      user = build_user(user_id)
+      perform { user.addgroup(group_id) }
+    end
+
     def groups
       perform { group_pool.info }
       group_pool.map { |group| Group.from_xml(group) }

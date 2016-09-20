@@ -58,6 +58,8 @@ en:
       accept_terms_of_service: I accept the terms of service
     accept:
       success: 'Invite has been accepted'
+    expired:
+      explanation: Your invitation has expired. Please contact someone@there.org.
     accepted:
       title: Your invite has been accepted
       description_html: You now have '%{role}' access to the '%{group}' group in OpenNebula.
@@ -81,16 +83,22 @@ en:
     status:
       pending: Pending
       accepted: Accepted
+      expired: Expired
 
   activerecord:
     models:
-      invite: Invite
+      invite:
+        zero: invites
+        one: invite
+        other: invites
     attributes:
       invite:
         email: Email address
         group_name: Group
         status: Status
-        created_at: Invitation date
+        created_at: Sent at
+        accepted_at: Accepted at
+        accepted_by: Accepted by
 
   activemodel:
     errors:

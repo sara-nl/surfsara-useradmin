@@ -47,4 +47,7 @@ Rails.application.configure do
   config.one_client = ActiveSupport::OrderedOptions.new
   config.one_client.credentials = "useradmin:useradmin"
   config.one_client.endpoint = "http://192.168.111.170:2633/RPC2"
+
+  config.invites = ActiveSupport::OrderedOptions.new
+  config.invites.expire_after = 5.minutes
 end

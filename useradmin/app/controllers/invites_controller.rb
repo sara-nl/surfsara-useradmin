@@ -27,10 +27,10 @@ class InvitesController < ApplicationController
     redirect_to invites_path
   end
 
-
   def verify
     hide_menu
-    form Invite::Accept
+    @form = form Invite::Accept
+    render :expired unless @form.model
   end
 
   def accept
@@ -48,7 +48,7 @@ class InvitesController < ApplicationController
   def accepted
     hide_menu
     invite_token = InviteToken.new(params[:id])
-    @model = Invite.find_by!(accepted_by: current_user.uid, token: invite_token.encrypted)
+    @model = Invite.find_by!(accepted_by: current_user.one_username, token: invite_token.encrypted)
   end
 
   private

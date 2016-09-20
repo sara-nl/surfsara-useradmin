@@ -45,6 +45,12 @@ describe InvitesController, :feature, :vcr do
       ).model
     end
 
+    before do
+      expect(OneClient).to receive(:find_user)
+      expect(OneClient).to receive(:create_user).and_return(double(id: 15, group_ids: []))
+      expect(OneClient).to receive(:add_user_to_group)
+    end
+
     it 'accepts invites' do
       visit verify_invite_path(token)
 
@@ -63,11 +69,16 @@ describe InvitesController, :feature, :vcr do
 
     context 'with an already accepted invite' do
       before do
-        Invite::Accept.(id: token, current_user: double(:user, uid: '123'), invite: {accept_terms_of_service: '1'})
+        Invite::Accept.(
+          id: token,
+          current_user: double(:user, uid: '123', one_username: 'x', one_password: 'y'),
+          invite: {accept_terms_of_service: '1'}
+        )
       end
 
       it "can't be accepted again" do
-        expect { visit verify_invite_path(token) }.to raise_error(ActiveRecord::RecordNotFound)
+        visit verify_invite_path(token)
+        expect(page).to have_content 'Your invitation has expired'
       end
     end
   end

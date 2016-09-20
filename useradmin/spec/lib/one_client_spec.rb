@@ -74,6 +74,18 @@ describe OneClient, :vcr do
     end
   end
 
+  describe '.add_user_to_group' do
+    subject(:add_user_to_group) { OneClient.add_user_to_group(10, 0) }
+
+    it 'returns nil' do
+      expect(add_user_to_group).to be_nil
+    end
+
+    it 'fails when a user is already in that group' do
+      expect { add_user_to_group }.to raise_error(/\[UserAddGroup\] User is already in this group/)
+    end
+  end
+
   describe '.groups' do
     subject(:groups) { OneClient.groups }
 

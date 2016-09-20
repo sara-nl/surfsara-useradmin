@@ -2,6 +2,7 @@ require 'rspec/its'
 require 'webmock/rspec'
 require 'vcr'
 require 'simplecov'
+require 'factory_girl'
 
 SimpleCov.add_filter 'vendor'
 SimpleCov.add_filter 'config'
@@ -30,5 +31,10 @@ RSpec.configure do |config|
     VCR.use_cassette(example.metadata[:full_description]) do
       example.run
     end
+  end
+
+  config.include FactoryGirl::Syntax::Methods
+  config.before(:suite) do
+    FactoryGirl.find_definitions
   end
 end
