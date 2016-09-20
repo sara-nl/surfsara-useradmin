@@ -9,7 +9,7 @@ CurrentUser = Struct.new(:request) do
 
   def role
     return Role.surfsara_admin if uid.in? %w(admin isaac)
-    return Role.group_admin if uid == 'groupadmin123'
+    return Role.group_admin if group_admin?
   end
 
   def shibboleth_headers

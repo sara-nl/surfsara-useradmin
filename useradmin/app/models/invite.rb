@@ -4,7 +4,7 @@ class Invite < ApplicationRecord
     'pending'
   end
 
-  def self.for_user(user)
+  def self.scoped_to(user)
     where(group_id: user.admin_groups.map(&:id))
   end
 end
