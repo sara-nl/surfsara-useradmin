@@ -90,7 +90,9 @@ en:
         email: Email address
         group_name: Group
         status: Status
-        created_at: Invitation date
+        created_at: Sent at
+        accepted_at: Accepted at
+        accepted_by: Accepted by
 
   activemodel:
     errors:

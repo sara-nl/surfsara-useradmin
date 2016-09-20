@@ -10,7 +10,7 @@ table.table
 
   tr
     td = Invite.human_attribute_name(:group_name)
-    td = "#{@invite.group_name} (id: #{@invite.group_id})"
+    td = "#{@invite.group_name} (group id: #{@invite.group_id})"
 
   tr
     td = Invite.human_attribute_name(:status)
@@ -18,4 +18,16 @@ table.table
 
   tr
     td = Invite.human_attribute_name(:created_at)
-    td = l(@invite.created_at, format: :short)
+    td = l(@invite.created_at, format: :long)
+
+  tr
+    td = Invite.human_attribute_name(:accepted_at)
+    td
+      - if @invite.accepted_at
+        = l(@invite.accepted_at, format: :long)
+      - else
+        '-
+
+  tr
+    td = Invite.human_attribute_name(:accepted_by)
+    td = @invite.accepted_by || '-'
