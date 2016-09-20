@@ -72,3 +72,12 @@
   changed_when: "command_result.rc == 0"
   tags:
     - one
+
+- name: Grant OpenNebula API user access to manage users & groups
+  shell: "oneacl create '#4 USER+GROUP/* USE+MANAGE+ADMIN+CREATE *'"
+  when: env in ['development', 'acceptance']
+  register: command_result
+  failed_when: "'AclAddRule' in command_result.stderr and 'already exists' not in command_result.stderr"
+  changed_when: "command_result.rc == 0"
+  tags:
+    - one
