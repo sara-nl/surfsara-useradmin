@@ -8,6 +8,9 @@ en:
   actions:
     cancel: Cancel
 
+  profiles:
+    show:
+      administrable_groups: Administrable groups
   invites:
     index:
       title: Invites
