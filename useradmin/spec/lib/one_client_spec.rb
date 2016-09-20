@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe OneClient, :integration do
+describe OneClient, :vcr do
   describe '.users' do
     subject(:users) { OneClient.users }
 
     it 'retrieves a list of users' do
       expect(users.length).to eq(1)
-      expect(users.first).to eq(OneClient::User.new(4, 'useradmin', [1]))
+      expect(users.first.name).to eq('useradmin')
     end
   end
 
@@ -17,7 +17,9 @@ describe OneClient, :integration do
       let(:username) { 'useradmin' }
 
       it 'returns a User' do
-        expect(user).to eq(OneClient::User.new(4, 'useradmin', [1]))
+        expect(user.id).to eq(4)
+        expect(user.name).to eq('useradmin')
+        expect(user.group_ids).to eq([1])
       end
     end
 
@@ -30,11 +32,41 @@ describe OneClient, :integration do
     end
   end
 
+  describe '.user_by_password' do
+    subject(:user) { OneClient.user_by_password(password) }
+
+    context 'given a known password' do
+      let(:password) { 'admin' }
+
+      it 'returns a User' do
+        expect(user.id).to eq(2)
+        expect(user.name).to eq('admin')
+        expect(user.group_ids).to eq([0,1])
+      end
+    end
+
+    context 'given an unknown password' do
+      let(:password) { 'unknown' }
+
+      it 'returns nil' do
+        expect(user).to be_nil
+      end
+    end
+  end
+
+  describe '.groups_for_admin' do
+    subject { OneClient.groups_for_admin(2) }
+
+    it 'returns a list of groups' do
+      expect(subject).to eq([OneClient::Group.new(1, 'users')])
+    end
+  end
+
   describe '.create_user' do
     subject(:create_user) { OneClient.create_user('socrates', 'secret') }
 
     it 'returns the User after it is created' do
-      expect(create_user).to eq(OneClient::User.new(10, 'socrates', [1]))
+      expect(create_user.name).to eq('socrates')
     end
 
     it 'fails when a user with a given username already exists' do

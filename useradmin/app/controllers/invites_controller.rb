@@ -4,7 +4,7 @@ class InvitesController < ApplicationController
   end
 
   def show
-    @invite = Invite.find(params[:id])
+    @invite = Invite.scoped_to(current_user).find(params[:id])
   end
 
   def new
@@ -54,7 +54,7 @@ class InvitesController < ApplicationController
   private
 
   def groups
-    OneClient.groups
+    current_user.admin_groups
       .sort_by { |g| g.name }
       .map { |g| [g.name, g.id] }
   end

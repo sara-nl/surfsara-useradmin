@@ -6,13 +6,15 @@
       = f.label :email
       = f.text_field :email, class: 'form-control'
 
-    .form-group.col-sm-4
+    .form-group.col-sm-3
       = f.label :group_id
       = f.select :group_id, @groups, {include_blank: true}, class: 'form-control'
 
-    .form-group.col-sm-2
+    .form-group.col-sm-3
       = f.label :role
-      = f.select :role, Role.all, {include_blank: true}, class: 'form-control'
+      = f.select :role,
+        Role.for_group.map {|role| [t(role, scope: 'role'), role]}, {include_blank: true},
+        class: 'form-control'
 
   hr
 

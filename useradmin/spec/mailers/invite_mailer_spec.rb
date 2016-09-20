@@ -1,8 +1,13 @@
 require "rails_helper"
 
-RSpec.describe InviteMailer, type: :mailer do
+RSpec.describe InviteMailer, :vcr, type: :mailer do
   describe 'invite' do
-    let(:invite) { Invite::Create.(invite: {email: 'foo@bar.com', group_id: 1, role: Role.admin}).model }
+    let(:invite) do
+      Invite::Create.(
+        invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
+        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+      ).model
+    end
     let(:token) { '123abc' }
     let(:mail) { InviteMailer.invitation(invite, token).deliver_now }
 

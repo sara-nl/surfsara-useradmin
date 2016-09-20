@@ -19,6 +19,8 @@ class Invite < ApplicationRecord
       end
     end
 
+    private
+
     def model!(params)
       invite_token = InviteToken.new(params[:id])
       Invite.find_by!(accepted_at: nil, token: invite_token.encrypted)

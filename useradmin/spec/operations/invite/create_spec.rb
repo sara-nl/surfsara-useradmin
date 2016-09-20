@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Invite::Create do
+describe Invite::Create, :vcr do
   let(:run) { Invite::Create.run(params) }
   let(:res) { run.first }
   let(:op) { run.last }
@@ -14,7 +14,10 @@ describe Invite::Create do
 
   context 'with valid input' do
     let(:params) do
-      {invite: {email: email_address, group_id: one_group.id, group_name: 'users', role: Role.admin}}
+      {
+        invite: {email: email_address, group_id: one_group.id, group_name: 'users', role: Role.group_admin},
+        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+      }
     end
 
     it 'persists valid input' do

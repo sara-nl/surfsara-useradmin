@@ -8,20 +8,21 @@ class Invite < ApplicationRecord
     contract do
       property :email, validates: {presence: true, email: true}
       property :group_id, validates: {presence: true}
-      property :group_name
-      property :role, validates: {presence: true, inclusion: {in: Role.all}}
+      property :group_name, validates: {presence: true}
+      property :role, validates: {presence: true, inclusion: {in: Role.for_group}}
     end
 
     def process(params)
-      @model = Invite.new(token: invite_token.encrypted, group_name: group_name)
-
       validate(params[:invite], @model) do
-        contract.save
-        send_invitation!
+        contract.save && send_invitation!
       end
     end
 
     private
+
+    def model!(params)
+      Invite.new(token: invite_token.encrypted, group_name: group_name)
+    end
 
     def send_invitation!
       InviteMailer.invitation(@model, invite_token.raw).deliver_now
@@ -33,7 +34,7 @@ class Invite < ApplicationRecord
 
     def group_name
       return if group_id.blank?
-      OneClient.groups.find { |g| g.id == group_id }.name
+      current_user.admin_groups.find { |g| g.id == group_id }&.name
     end
 
     def group_id
