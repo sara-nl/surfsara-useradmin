@@ -10,6 +10,26 @@ describe OneClient, :integration do
     end
   end
 
+  describe '.find_user' do
+    subject(:user) { OneClient.find_user(username) }
+
+    context 'given a known username' do
+      let(:username) { 'useradmin' }
+
+      it 'returns a User' do
+        expect(user).to eq(OneClient::User.new(4, 'useradmin', [1]))
+      end
+    end
+
+    context 'given an unknown username' do
+      let(:username) { 'unknown' }
+
+      it 'returns nil' do
+        expect(user).to be_nil
+      end
+    end
+  end
+
   describe '.create_user' do
     subject(:create_user) { OneClient.create_user('socrates', 'secret') }
 
