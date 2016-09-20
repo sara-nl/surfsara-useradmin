@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-describe InvitesController, :feature do
+describe InvitesController, :feature, :vcr do
   context 'invite' do
     let!(:invite) { Invite::Create.(invite: {email: 'foo@bar.com', group_id: 1, role: Role.admin}).model }
 
