@@ -38,7 +38,7 @@ class Invite < ApplicationRecord
     end
 
     def group_id
-      group_id = @params[:invite][:group_id]
+      group_id = @params.dig(:invite, :group_id)
       group_id.present? ? group_id.to_i : nil
     end
   end

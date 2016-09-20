@@ -24,6 +24,9 @@ en:
     new:
       title: New invite
     form:
+      email_address: Email address
+      group: Group
+      role: Role
       submit: Send invitation
     create:
       success: 'Invite sucessfully created'
@@ -73,6 +76,11 @@ en:
     surfsara_admin: SURFsara Administrator
     group_admin: Group Administrator
     member: Member
+
+  invite:
+    status:
+      pending: Pending
+      accepted: Accepted
 
   activerecord:
     models:

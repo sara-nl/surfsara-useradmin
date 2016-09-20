@@ -9,7 +9,7 @@ class InvitesController < ApplicationController
 
   def new
     @groups = groups
-    @form = Invite.new
+    form Invite::Create
   end
 
   def create

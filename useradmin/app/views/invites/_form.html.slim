@@ -3,15 +3,15 @@
 
   .row
     .form-group.col-sm-6
-      = f.label :email
+      = f.label :email, t('.email_address')
       = f.text_field :email, class: 'form-control'
 
     .form-group.col-sm-3
-      = f.label :group_id
+      = f.label :group_id, t('.group')
       = f.select :group_id, @groups, {include_blank: true}, class: 'form-control'
 
     .form-group.col-sm-3
-      = f.label :role
+      = f.label :role, t('.role')
       = f.select :role,
         Role.for_group.map {|role| [t(role, scope: 'role'), role]}, {include_blank: true},
         class: 'form-control'
