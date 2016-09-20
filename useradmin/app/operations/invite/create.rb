@@ -8,7 +8,7 @@ class Invite < ApplicationRecord
     contract do
       property :email, validates: {presence: true, email: true}
       property :group_id, validates: {presence: true}
-      property :group_name
+      property :group_name, validates: {presence: true}
       property :role, validates: {presence: true, inclusion: {in: Role.for_group}}
     end
 
@@ -33,7 +33,7 @@ class Invite < ApplicationRecord
 
     def group_name
       return if group_id.blank?
-      OneClient.groups.find { |g| g.id == group_id }.name
+      current_user.admin_groups.find { |g| g.id == group_id }&.name
     end
 
     def group_id
