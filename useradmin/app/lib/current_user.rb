@@ -28,7 +28,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def one_user
-    @one_user ||= OneClient.user_by_password(uid)
+    @one_user ||= OneClient.user_by_password(one_password)
   end
 
   def admin_groups
