@@ -1,6 +1,6 @@
 h1.page-header = t('.title')
 
-p = t('.description_html', role: @model.role, group: @model.group_name)
+p = t('.description_html', role: t(@model.role, scope: 'role'), group: @model.group_name)
 
 hr
 
