@@ -3,7 +3,7 @@
 
   h1.page-header = t('.title')
 
-  p = t('.description_html', group: @model.group_name, role: @model.role)
+  p = t('.description_html', group: @model.group_name, role: t(@model.role, scope: 'role'))
 
   h3 = t('.terms_header')
 
