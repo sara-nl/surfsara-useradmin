@@ -28,9 +28,7 @@ class Invite < ApplicationRecord
     private
 
     def update_open_nebula
-      user = OneClient.find_user(current_user.one_username)
-      user = OneClient.create_user(current_user.one_username, current_user.one_password) if user.nil?
-      OneClient.add_user_to_group(user.id, @model.group_id) unless user.group_ids.include?(@model.group_id)
+      One::CreateUser.(current_user: current_user, invite: @model)
     end
 
     def update_invite

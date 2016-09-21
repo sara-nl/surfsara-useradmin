@@ -45,11 +45,7 @@ describe InvitesController, :feature, :vcr do
       ).model
     end
 
-    before do
-      expect(OneClient).to receive(:find_user)
-      expect(OneClient).to receive(:create_user).and_return(double(id: 15, group_ids: []))
-      expect(OneClient).to receive(:add_user_to_group)
-    end
+    before { expect(One::CreateUser).to receive(:call) }
 
     it 'accepts invites' do
       visit verify_invite_path(token)
