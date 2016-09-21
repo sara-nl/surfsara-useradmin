@@ -1,12 +1,6 @@
-h1.page-header
-  | Profile
+h1.page-header= t('.heading')
 
 dl
-  - current_user.shibboleth_headers.each do |k, v|
-    dt= k
-    dd= v
-    br
-
   dt = t('.administrable_groups')
   dd
     - if current_user.admin_groups.any?
@@ -16,12 +10,18 @@ dl
     - else
       | -
 
-  br
+- unless Rails.env.production?
+  h1.page-header= t('.debug')
 
   dt ONE username
   dd = current_user.one_username
-
   br
 
   dt ONE password
   dd = current_user.one_password
+  br
+
+  - current_user.shibboleth_headers.each do |k, v|
+    dt= k
+    dd= v
+    br

@@ -11,6 +11,8 @@ en:
   profiles:
     show:
       administrable_groups: Administrable groups
+      heading: Profile
+      debug: Debug
   invites:
     index:
       title: Invites
