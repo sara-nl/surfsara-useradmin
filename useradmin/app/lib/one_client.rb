@@ -41,6 +41,17 @@ module OneClient
       perform { user.addgroup(group_id) }
     end
 
+    def make_user_group_admin(user_id, group_id)
+      group = build_group(group_id)
+      perform { group.add_admin(user_id) }
+    end
+
+    def user_admin_of_group?(user_id, group_id)
+      group = build_group(group_id)
+      perform { group.info }
+      group.contains_admin(user_id)
+    end
+
     def groups
       perform { group_pool.info }
       group_pool.map { |group| Group.from_xml(group) }
@@ -68,6 +79,10 @@ module OneClient
 
     def build_user(id = nil)
       OpenNebula::User.new(OpenNebula::User.build_xml(id), client)
+    end
+
+    def build_group(id = nil)
+      OpenNebula::Group.new(OpenNebula::Group.build_xml(id), client)
     end
 
     def group_pool

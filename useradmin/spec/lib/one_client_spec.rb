@@ -94,4 +94,39 @@ describe OneClient, :vcr do
       expect(groups.first).to eq(OneClient::Group.new(1, 'users'))
     end
   end
+
+  describe '.make_user_group_admin' do
+    subject(:make_user_group_admin) { OneClient.make_user_group_admin(10, 1) }
+
+    it 'returns nil' do
+      expect(make_user_group_admin).to be_nil
+    end
+
+    it 'fails when a user is already admin of that group' do
+      expect { make_user_group_admin }
+        .to raise_error(/\[GroupAddAdmin\] Cannot edit group\. User 10 is already an administrator of Group 1/)
+    end
+  end
+
+  describe '.user_admin_of_group?' do
+    subject(:is_user_admin_of_group) { OneClient.user_admin_of_group?(user_id, group_id) }
+
+    context 'when the user is an admin of the group' do
+      let(:user_id) { 10 }
+      let(:group_id) { 1 }
+
+      it 'returns true' do
+        expect(is_user_admin_of_group).to be_truthy
+      end
+    end
+
+    context 'when the user is not an admin of the group' do
+      let(:user_id) { 9 }
+      let(:group_id) { 1 }
+
+      it 'returns false' do
+        expect(is_user_admin_of_group).to be_falsey
+      end
+    end
+  end
 end
