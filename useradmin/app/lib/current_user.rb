@@ -11,8 +11,8 @@ CurrentUser = Struct.new(:request) do
     request.get_header('Shib-homeOrganization')
   end
 
-  def edu_person_principle_name
-    request.get_header('Shib-eduPersonPrincipleName')
+  def edu_person_principal_name
+    request.get_header('Shib-eduPersonPrincipalName')
   end
 
   def role
@@ -33,7 +33,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def one_password
-    edu_person_principle_name
+    edu_person_principal_name
   end
 
   def group_admin?
