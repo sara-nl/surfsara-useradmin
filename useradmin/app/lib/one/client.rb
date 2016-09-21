@@ -7,7 +7,7 @@ module One
     class << self
       def users
         perform { user_pool.info }
-        user_pool.map { |user| User.from_xml(user) }
+        user_pool.map { |user| One::User.from_xml(user) }
       end
 
       def find_user(username)
@@ -22,7 +22,7 @@ module One
         user = build_user
         perform { user.allocate(username, password, PUBLIC_AUTH_DRIVER) }
         perform { user.info }
-        User.from_xml(user)
+        One::User.from_xml(user)
       end
 
       def add_user_to_group(user_id, group_id)
@@ -43,14 +43,14 @@ module One
 
       def groups
         perform { group_pool.info }
-        group_pool.map { |group| Group.from_xml(group) }
+        group_pool.map { |group| One::Group.from_xml(group) }
       end
 
       def groups_for_admin(uid)
         perform { group_pool.info }
         group_pool
           .select { |group| group.contains_admin(uid) }
-          .map { |group| Group.from_xml(group) }
+          .map { |group| One::Group.from_xml(group) }
       end
 
       private
