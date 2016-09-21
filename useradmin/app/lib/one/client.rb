@@ -1,21 +1,9 @@
 require 'opennebula'
 
 module One
-  User = Struct.new(:id, :name, :password, :group_ids) do
-    def self.from_xml(xml)
-      new(xml.id, xml.name, xml['PASSWORD'], xml.groups)
-    end
-  end
-
-  Group = Struct.new(:id, :name) do
-    def self.from_xml(xml)
-      new(xml.id, xml.name)
-    end
-  end
-
-  PUBLIC_AUTH_DRIVER = 'public'.freeze
-
   class Client
+    PUBLIC_AUTH_DRIVER = 'public'.freeze
+
     class << self
       def users
         perform { user_pool.info }

@@ -97,7 +97,7 @@ Rails.application.configure do
   config.invites = ActiveSupport::OrderedOptions.new
   config.invites.expire_after = 5.minutes
 
-  config.admin_entitlement = "urn:mace:dir:entitlement:common-lib-terms-example"
+  config.surfsara_admin_entitlement = "urn:mace:dir:entitlement:common-lib-terms-example"
 end
 
 WillPaginate.per_page = 5

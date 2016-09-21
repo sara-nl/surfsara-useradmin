@@ -1,6 +1,8 @@
 require 'feature_helper'
 
 describe InvitesController, :feature do
+  let(:one_user) { build(:one_user) }
+  before { allow(One::Client).to receive(:user_by_password).and_return(one_user) }
   let(:groups) { [double(id: 1, name: 'users')] }
   before { allow(One::Client).to receive(:groups).and_return(groups) }
 

@@ -51,7 +51,7 @@ Rails.application.configure do
   config.invites = ActiveSupport::OrderedOptions.new
   config.invites.expire_after = 5.minutes
 
-  config.admin_entitlement = "urn:x-surfnet:surfsara.nl:opennebula:admin"
+  config.surfsara_admin_entitlement = "urn:x-surfnet:surfsara.nl:opennebula:admin"
 end
 
 WillPaginate.per_page = 5

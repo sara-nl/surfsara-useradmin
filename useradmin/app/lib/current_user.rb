@@ -45,18 +45,19 @@ CurrentUser = Struct.new(:request) do
   end
 
   def surfsara_admin?
-    edu_person_entitlement == Rails.application.config.admin_entitlement
+    (edu_person_entitlement || '').split(',').include?(Rails.application.config.surfsara_admin_entitlement)
   end
 
   def group_admin?
-    !surfsara_admin? && admin_groups.any?
+    return false if surfsara_admin?
+    admin_groups.any?
   end
 
   private
 
   def get_admin_groups
-    return One::Client.groups if surfsara_admin?
     return [] unless one_user
+    return One::Client.groups if surfsara_admin?
     One::Client.groups_for_admin(one_user.id)
   end
 end
