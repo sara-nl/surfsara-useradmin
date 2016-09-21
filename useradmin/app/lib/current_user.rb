@@ -1,6 +1,6 @@
 CurrentUser = Struct.new(:request) do
   def uid
-    request.get_header('REMOTE_USER') || request.get_header('HTTP_REMOTE_USER')
+    request.get_header('Shib-uid')
   end
 
   def common_name
@@ -15,17 +15,8 @@ CurrentUser = Struct.new(:request) do
     request.get_header('Shib-eduPersonPrincipalName')
   end
 
-  def role
-    return Role.surfsara_admin if surfsara_admin?
-    return Role.group_admin if group_admin?
-  end
-
   def shibboleth_headers
     Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
-  end
-
-  def surfsara_admin?
-    uid.in? %w(admin isaac@university-example.org)
   end
 
   def one_username
@@ -36,16 +27,25 @@ CurrentUser = Struct.new(:request) do
     edu_person_principal_name
   end
 
-  def group_admin?
-    !surfsara_admin? && admin_groups.any?
-  end
-
   def one_user
     @one_user ||= OneClient.user_by_password(uid)
   end
 
   def admin_groups
     @admin_groups ||= get_admin_groups
+  end
+
+  def role
+    return Role.surfsara_admin if surfsara_admin?
+    return Role.group_admin if group_admin?
+  end
+
+  def surfsara_admin?
+    uid.in? %w(admin isaac)
+  end
+
+  def group_admin?
+    !surfsara_admin? && admin_groups.any?
   end
 
   private

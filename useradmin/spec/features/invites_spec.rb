@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-describe InvitesController, :feature, :vcr do
+describe InvitesController, :feature do
   context 'invite' do
     let!(:invite) do
       Invite::Create.(
