@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CurrentUser, :vcr do
+describe CurrentUser do
   let(:current_user) { CurrentUser.new(double({})) }
 
   describe '#group_admin?' do

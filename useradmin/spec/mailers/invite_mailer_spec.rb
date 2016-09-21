@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe InviteMailer, :vcr, type: :mailer do
+RSpec.describe InviteMailer, type: :mailer do
   describe 'invite' do
     let(:invite) do
       Invite::Create.(

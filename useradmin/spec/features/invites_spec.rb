@@ -1,11 +1,14 @@
 require 'feature_helper'
 
 describe InvitesController, :feature do
+  let(:groups) { [double(id: 1, name: 'users')] }
+  before { allow(OneClient).to receive(:groups).and_return(groups) }
+
   context 'invite' do
     let!(:invite) do
       Invite::Create.(
         invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
-        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+        current_user: double(admin_groups: groups)
       ).model
     end
 
