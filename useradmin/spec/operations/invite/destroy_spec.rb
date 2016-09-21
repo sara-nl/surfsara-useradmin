@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Invite::Destroy, :vcr do
+describe Invite::Destroy do
   let!(:invite) do
     Invite::Create.(
       invite: {email: 'john.doe@example.com', group_id: 1, role: Role.group_admin},
