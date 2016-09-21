@@ -12,7 +12,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def edu_person_principle_name
-    request.get_header('Shib-eduPersonPrincipalName')
+    request.get_header('Shib-eduPersonPrincipleName')
   end
 
   def role
