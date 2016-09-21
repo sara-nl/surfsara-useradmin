@@ -5,11 +5,11 @@ describe Invite::Create do
   let(:res) { run.first }
   let(:op) { run.last }
   let(:email_address) { 'john.doe@example.com' }
-  let(:one_user) { OneClient::User.new(1, 'testuser', [10]) }
-  let(:one_group) { OneClient::Group.new(10, 'users') }
+  let(:one_user) { One::User.new(1, 'testuser', [10]) }
+  let(:one_group) { One::Group.new(10, 'users') }
 
   before do
-    allow(OneClient).to receive(:groups).and_return([one_group])
+    allow(One::Client).to receive(:groups).and_return([one_group])
   end
 
   context 'with valid input' do

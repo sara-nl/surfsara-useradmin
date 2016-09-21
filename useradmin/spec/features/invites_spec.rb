@@ -2,7 +2,7 @@ require 'feature_helper'
 
 describe InvitesController, :feature do
   let(:groups) { [double(id: 1, name: 'users')] }
-  before { allow(OneClient).to receive(:groups).and_return(groups) }
+  before { allow(One::Client).to receive(:groups).and_return(groups) }
 
   context 'invite' do
     let!(:invite) do
