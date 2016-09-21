@@ -9,7 +9,12 @@ module One
     def create_or_update_user(current_user, invite)
       user = OneClient.find_user(current_user.one_username)
       user = OneClient.create_user(current_user.one_username, current_user.one_password) if user.nil?
+
       OneClient.add_user_to_group(user.id, invite.group_id) unless user.group_ids.include?(invite.group_id)
+
+      if invite.role == Role.group_admin && !OneClient.user_admin_of_group?(user.id, invite.group_id)
+        OneClient.make_user_group_admin(user.id, invite.group_id)
+      end
     end
   end
 end

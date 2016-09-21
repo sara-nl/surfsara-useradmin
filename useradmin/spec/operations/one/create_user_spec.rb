@@ -12,9 +12,10 @@ describe One::CreateUser do
   let!(:invite) do
     Invite::Create.(
       current_user: current_user,
-      invite: {email: 'john.doe@example.com', group_id: group_id, group_name: 'Users', role: Role.member}
+      invite: {email: 'john.doe@example.com', group_id: group_id, group_name: 'Users', role: role}
     ).model
   end
+  let(:role) { Role.member }
   let(:one_user) { double(id: 15, group_ids: []) }
 
   context 'given the user does not have an account in OpenNebula' do
@@ -28,6 +29,31 @@ describe One::CreateUser do
 
     it 'creates a user and adds it to the group it was invited for' do
       run
+    end
+
+    context 'and the user is invited to become a group admin' do
+      let(:role) { Role.group_admin }
+
+      before do
+        expect(OneClient).to receive(:user_admin_of_group?).with(one_user.id, invite.group_id).and_return(false)
+        expect(OneClient).to receive(:make_user_group_admin).with(one_user.id, invite.group_id)
+      end
+
+      it 'adds the user as a group admin' do
+        run
+      end
+    end
+
+    context 'and the user already is an admin of the group' do
+      let(:role) { Role.group_admin }
+
+      before do
+        expect(OneClient).to receive(:user_admin_of_group?).with(one_user.id, invite.group_id).and_return(true)
+      end
+
+      it 'does not add the user as a group admin again' do
+        run
+      end
     end
   end
 
