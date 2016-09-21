@@ -25,7 +25,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def surfsara_admin?
-    uid.in? %w(admin isaac)
+    uid.in? %w(admin isaac@university-example.org)
   end
 
   def one_username
