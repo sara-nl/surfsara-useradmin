@@ -16,7 +16,7 @@ en:
   invites:
     index:
       title: Invites
-      user_without_groups_notice: You don't have any HPC groups to manage invites for.
+      user_without_groups_notice_html: You don't have any HPC groups to manage invites for.
       new_invite: New invite
       none: There are no invites yet.
       confirm_destroy: Are you sure you want to destroy this invite?
