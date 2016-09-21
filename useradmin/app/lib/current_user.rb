@@ -52,6 +52,7 @@ CurrentUser = Struct.new(:request) do
 
   def get_admin_groups
     return OneClient.groups if surfsara_admin?
+    return [] unless one_user
     OneClient.groups_for_admin(one_user.id)
   end
 end
