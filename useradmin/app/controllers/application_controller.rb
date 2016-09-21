@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
       request.set_header('Shib-commonName', 'Sir Isaac Newton')
       request.set_header('Shib-homeOrganization', 'university-example.org')
       request.set_header('Shib-eduPersonEntitlement', 'urn:mace:dir:entitlement:common-lib-terms-example')
-      request.set_header('Shib-eduPersonTargetedID', '56c00c40d7051ca1f554d7b79a5d754b1e54966c')
+      request.set_header('Shib-eduPersonPrincipalName', 'isaac@university-example.org')
     end
   end
 
