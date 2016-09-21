@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       request.set_header('Shib-uid', 'isaac')
       request.set_header('Shib-commonName', 'Sir Isaac Newton')
       request.set_header('Shib-homeOrganization', 'university-example.org')
-      request.set_header('Shib-eduPersonEntitlement', 'urn:mace:dir:entitlement:common-lib-terms-example')
+      request.set_header('Shib-eduPersonEntitlement', 'urn:x-surfnet:surfsara.nl:opennebula:admin')
       request.set_header('Shib-eduPersonPrincipalName', 'isaac@university-example.org')
     end
   end

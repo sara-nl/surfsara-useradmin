@@ -15,6 +15,10 @@ CurrentUser = Struct.new(:request) do
     request.get_header('Shib-eduPersonPrincipalName')
   end
 
+  def edu_person_entitlement
+    request.get_header('Shib-eduPersonEntitlement')
+  end
+
   def shibboleth_headers
     Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
   end
@@ -41,7 +45,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def surfsara_admin?
-    uid.in? %w(admin isaac)
+    edu_person_entitlement == Rails.application.config.admin_entitlement
   end
 
   def group_admin?
