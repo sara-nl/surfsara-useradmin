@@ -97,3 +97,5 @@ Rails.application.configure do
   config.invites = ActiveSupport::OrderedOptions.new
   config.invites.expire_after = 5.minutes
 end
+
+WillPaginate.per_page = 5

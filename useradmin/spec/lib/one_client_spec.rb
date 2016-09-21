@@ -41,7 +41,7 @@ describe OneClient, :vcr do
       it 'returns a User' do
         expect(user.id).to eq(2)
         expect(user.name).to eq('admin')
-        expect(user.group_ids).to eq([0,1])
+        expect(user.group_ids).to eq([0, 1])
       end
     end
 

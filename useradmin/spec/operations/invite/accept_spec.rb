@@ -5,7 +5,7 @@ describe Invite::Accept do
   let(:res) { run.first }
   let(:op) { run.last }
 
-  let(:token)  { 'secret' }
+  let(:token) { 'secret' }
   before { allow(InviteToken).to receive(:random).and_return(InviteToken.new(token)) }
   let(:group_id) { 1 }
   let!(:invite) do

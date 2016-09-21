@@ -36,7 +36,7 @@ class InvitesController < ApplicationController
   def accept
     hide_menu
 
-    run Invite::Accept do |op|
+    run Invite::Accept do |_op|
       flash[:success] = t('.success')
       return redirect_to accepted_invite_path(params[:id])
     end
@@ -55,7 +55,7 @@ class InvitesController < ApplicationController
 
   def groups
     current_user.admin_groups
-      .sort_by { |g| g.name }
+      .sort_by(&:name)
       .map { |g| [g.name, g.id] }
   end
 

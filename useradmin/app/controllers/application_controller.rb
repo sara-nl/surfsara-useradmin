@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
     CurrentUser.new(request)
   end
 
+  # rubocop:disable AbcSize
   def mock_shibboleth
     unless request.headers.include?('REMOTE_USER') || request.headers.include?('HTTP_REMOTE_USER')
       request.set_header('REMOTE_USER', 'isaac@university-example.org')
@@ -24,6 +25,7 @@ class ApplicationController < ActionController::Base
       request.set_header('Shib-eduPersonPrincipalName', 'isaac@university-example.org')
     end
   end
+  # rubocop:enable AbcSize
 
   def expose_current_user
     params[:current_user] = current_user

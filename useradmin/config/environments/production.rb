@@ -80,3 +80,5 @@ Rails.application.configure do
   config.invites = ActiveSupport::OrderedOptions.new
   config.invites.expire_after = 2.weeks
 end
+
+WillPaginate.per_page = 25

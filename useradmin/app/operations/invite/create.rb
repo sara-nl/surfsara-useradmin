@@ -20,7 +20,7 @@ class Invite < ApplicationRecord
 
     private
 
-    def model!(params)
+    def model!(_params)
       Invite.new(token: invite_token.encrypted, group_name: group_name)
     end
 

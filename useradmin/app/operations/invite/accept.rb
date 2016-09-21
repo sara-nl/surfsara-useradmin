@@ -25,8 +25,6 @@ class Invite < ApplicationRecord
       Invite.pending.find_by_token(invite_token.encrypted)
     end
 
-    private
-
     def update_open_nebula
       One::CreateUser.(current_user: current_user, invite: @model)
     end

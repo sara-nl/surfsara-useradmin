@@ -64,4 +64,5 @@ Rails.application.configure do
   config.invites.expire_after = 5.minutes
 end
 
+WillPaginate.per_page = 5
 BetterErrors::Middleware.allow_ip! '192.168.111.1' # virtualbox host ip

@@ -7,7 +7,7 @@ describe One::CreateUser do
 
   let(:current_user) { build(:current_user) }
   let(:group_id) { 1 }
-  let(:token)  { 'secret' }
+  let(:token) { 'secret' }
   before { allow(InviteToken).to receive(:random).and_return(InviteToken.new(token)) }
   let!(:invite) do
     Invite::Create.(

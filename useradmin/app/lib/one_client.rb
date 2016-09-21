@@ -89,7 +89,7 @@ module OneClient
       @group_pool ||= OpenNebula::GroupPool.new(client)
     end
 
-    def perform(&block)
+    def perform(&_block)
       rc = yield
       fail rc.message.inspect if OpenNebula.is_error?(rc)
     end
