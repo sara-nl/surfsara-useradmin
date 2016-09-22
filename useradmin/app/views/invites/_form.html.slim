@@ -1,6 +1,12 @@
 = form_for @form do |f|
   = error_messages(@form) if @form.errors.any?
 
+  - if @form.errors.added? :email, :taken
+    .alert.alert-warning.checkbox
+        = f.label :ignore_email_duplicity do
+          = f.check_box :ignore_email_duplicity
+          = t('.ignore_email_duplicity')
+
   .row
     .form-group.col-sm-6
       = f.label :email, t('.email_address')
