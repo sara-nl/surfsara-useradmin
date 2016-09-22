@@ -8,12 +8,8 @@ class Invite < ApplicationRecord
 
     contract do
       property :email, validates: {
-        presence: true,
-        email: true,
-        unique: {scope: [:group_id, :role], message: "Foobarski"},
-        unless: :ignore_email_duplicity?
+        presence: true, email: true, unique: {scope: [:group_id, :role]}, unless: :ignore_email_duplicity?
       }
-
       property :group_id, validates: {presence: true}
       property :group_name, validates: {presence: true}
       property :role, validates: {presence: true, inclusion: {in: Role.for_group}}
