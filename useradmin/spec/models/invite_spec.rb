@@ -48,4 +48,20 @@ describe Invite do
       it { is_expected.to include(invite) }
     end
   end
+
+  describe '#expired_at' do
+    subject { invite.expired_at }
+
+    context 'given a pending invite' do
+      let(:invite) { create(:invite, :pending) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'given an expired invite' do
+      let(:invite) { create(:invite, :expired) }
+
+      it { is_expected.to eq(invite.created_at + Rails.application.config.invites.expire_after) }
+    end
+  end
 end

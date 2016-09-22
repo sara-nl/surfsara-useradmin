@@ -16,7 +16,7 @@ describe One::CreateUser do
     ).model
   end
   let(:role) { Role.member }
-  let(:one_user) { double(id: 15, group_ids: []) }
+  let(:one_user) { build(:one_user, :no_group_memberships) }
 
   context 'given the user does not have an account in OpenNebula' do
     before do
@@ -65,7 +65,7 @@ describe One::CreateUser do
     end
 
     context 'and the user is already in the group it was invited for' do
-      let(:one_user) { double(id: 15, group_ids: [group_id]) }
+      let(:one_user) { build(:one_user, group_ids: [group_id]) }
 
       it 'does not add the user to the group again' do
         expect(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)

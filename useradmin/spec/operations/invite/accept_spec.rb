@@ -14,14 +14,7 @@ describe Invite::Accept do
       invite: {email: 'john.doe@example.com', group_id: group_id, group_name: 'Users', role: Role.member}
     ).model
   end
-  let(:current_user) do
-    double(
-      uid: 'isaac',
-      one_username: 'university-example.org-isaac',
-      one_password: '3d21c8a6d89e3332e3d388852f99d5e5ce114ff9',
-      admin_groups: []
-    )
-  end
+  let(:current_user) { build(:current_user) }
 
   context 'with TOS accepted' do
     let(:params) do

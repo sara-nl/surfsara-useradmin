@@ -25,8 +25,18 @@ en:
       title: Invite - %{email}
       general: General
       history:
-        header: History
-        explanation: This shows the history of this invite. The 'by' values show OpenNebula user names.
+        title: History
+        header:
+          what: What
+          who: Who
+          when: When
+        event:
+          sent: Sent
+          accepted: Accepted
+          revoked: Revoked
+          expired: Expired
+        expired_by: system
+
     new:
       title: New invite
     form:

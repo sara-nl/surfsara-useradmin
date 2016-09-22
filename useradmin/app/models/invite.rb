@@ -25,8 +25,6 @@ class Invite < ApplicationRecord
     !accepted? && !revoked? && !expired?
   end
 
-  private
-
   def accepted?
     accepted_at.present?
   end
@@ -37,6 +35,13 @@ class Invite < ApplicationRecord
 
   def expired?
     return false unless created_at
+    return false if accepted?
+    return false if revoked?
     created_at < Rails.application.config.invites.expire_after.ago
+  end
+
+  def expired_at
+    return unless expired?
+    self.created_at + Rails.application.config.invites.expire_after
   end
 end
