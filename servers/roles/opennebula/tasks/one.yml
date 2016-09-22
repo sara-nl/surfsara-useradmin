@@ -26,6 +26,49 @@
   tags:
     - one
 
+- name: Show password column in admin view
+  lineinfile:
+    dest: /etc/one/sunstone-views/admin.yaml
+    regexp: "- 5         # Password"
+    line: "            - 5         # Password"
+  notify: restart apache
+  tags:
+    - one
+
+- name: Disable User.update_password
+  lineinfile:
+      dest: /etc/one/sunstone-views/{{ item }}.yaml
+      regexp: "User.update_password:"
+      line: "            User.update_password: false"
+  with_items:
+    - admin
+    - admin_vcenter
+    - cloud
+    - cloud_vcenter
+    - groupadmin
+    - groupadmin_vcenter
+    - user
+  notify: restart apache
+  tags:
+    - one
+
+- name: Disable Settings.change_password
+  lineinfile:
+      dest: /etc/one/sunstone-views/{{ item }}.yaml
+      regexp: "Settings.change_password:"
+      line: "            Settings.change_password: false"
+  with_items:
+    - admin
+    - admin_vcenter
+    - cloud
+    - cloud_vcenter
+    - groupadmin
+    - groupadmin_vcenter
+    - user
+  notify: restart apache
+  tags:
+    - one
+
 - name: Create OpenNebula API user
   shell: oneuser create useradmin useradmin
   when: env in ['development', 'acceptance']
