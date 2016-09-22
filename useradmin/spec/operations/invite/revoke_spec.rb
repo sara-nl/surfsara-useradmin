@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Invite::Destroy do
+describe Invite::Revoke do
   let!(:invite) do
     Invite::Create.(
       invite: {email: 'john.doe@example.com', group_id: 1, role: Role.group_admin},
@@ -9,7 +9,7 @@ describe Invite::Destroy do
   end
 
   it 'is destroyed' do
-    expect { Invite::Destroy.run(id: invite.id) }
+    expect { Invite::Revoke.run(id: invite.id) }
       .to change(Invite, :count).from(1).to(0)
   end
 end

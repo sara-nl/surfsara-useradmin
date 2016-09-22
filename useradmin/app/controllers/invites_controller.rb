@@ -22,8 +22,8 @@ class InvitesController < ApplicationController
     render :new
   end
 
-  def destroy
-    run Invite::Destroy
+  def revoke
+    run Invite::Revoke
     redirect_to invites_path
   end
 

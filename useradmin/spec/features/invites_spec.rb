@@ -38,6 +38,13 @@ describe InvitesController, :feature do
       expect(page).to have_current_path(invite_path(Invite.last.id))
       expect(page).to have_content 'Invite - user@example.com'
     end
+
+    it 'revokes invites' do
+      visit '/invites'
+      click_on 'Revoke'
+      expect(page).to have_no_content 'foo@bar.com'
+      expect(page).to have_content 'There are no invites yet.'
+    end
   end
 
   context 'accept' do

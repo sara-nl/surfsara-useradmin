@@ -7,6 +7,7 @@ en:
 
   actions:
     cancel: Cancel
+    revoke: Revoke
 
   profiles:
     show:
@@ -19,7 +20,7 @@ en:
       user_without_groups_notice_html: You don't have any HPC groups to manage invites for.
       new_invite: New invite
       none: There are no invites yet.
-      confirm_destroy: Are you sure you want to destroy this invite?
+      confirm_revoke: Are you sure you want to revoke this invite? The user will no longer be able to accept it.
     show:
       title: Invite - %{email}
       general: General
@@ -34,8 +35,6 @@ en:
       success: 'Invite sucessfully created'
     update:
       success: 'Invite sucessfully updated'
-    destroy:
-      confirm: Are you sure?
     verify:
       title: Accept your invitation
       description_html: >

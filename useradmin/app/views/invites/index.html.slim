@@ -5,7 +5,7 @@
 
   p= page_entries_info @model
 
-  table.table.table-hover.table-striped
+  table.table.table-striped
     thead
       tr
         th = Invite.human_attribute_name(:email)
@@ -27,8 +27,7 @@
             td = l(invite.created_at, format: :short)
             td.actions
               .btn-group.btn-group-xs.pull-right
-                .btn.btn-default.action-destroy = link_to invite, data: { confirm: t('.confirm_destroy') }, method: :delete do
-                  i.glyphicon.glyphicon-trash
+                = link_to t('actions.revoke'), revoke_invite_path(invite), data: { confirm: t('.confirm_revoke') }, method: :put, class: 'btn btn-default'
 
       - else
         tr

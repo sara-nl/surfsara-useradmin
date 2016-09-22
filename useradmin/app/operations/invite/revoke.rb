@@ -1,5 +1,5 @@
 class Invite < ApplicationRecord
-  class Destroy < Operation
+  class Revoke < Operation
     include Model
     model Invite, :find
 
