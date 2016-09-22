@@ -48,6 +48,7 @@
     - groupadmin
     - groupadmin_vcenter
     - user
+  notify: restart apache
   tags:
     - one
 
@@ -64,6 +65,7 @@
     - groupadmin
     - groupadmin_vcenter
     - user
+  notify: restart apache
   tags:
     - one
 
