@@ -28,7 +28,7 @@ en:
         title: History
         header:
           what: What
-          who: Who
+          who: Who (OpenNebula username or 'system')
           when: When
         event:
           sent: Sent
