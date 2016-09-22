@@ -1,16 +1,21 @@
 FactoryGirl.define do
   factory :invite do
     email 'someone@there.org'
-    token 'secret'
+    token { InviteToken.new('secret').encrypted }
     group_id 1
     group_name 'users'
-    role 'admin'
+    role Role.group_admin
 
     trait :pending
 
     trait :accepted do
       accepted_at { Time.current }
       accepted_by 'socrates'
+    end
+
+    trait :revoked do
+      revoked_at { Time.current }
+      revoked_by 'socrates'
     end
 
     trait :expired do

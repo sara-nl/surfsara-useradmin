@@ -7,6 +7,7 @@ describe Invite::Create do
   let(:email_address) { 'john.doe@example.com' }
   let(:one_user) { One::User.new(1, 'testuser', [10]) }
   let(:one_group) { One::Group.new(10, 'users') }
+  let(:current_user) { build(:current_user) }
 
   before do
     allow(One::Client).to receive(:groups).and_return([one_group])
@@ -16,7 +17,7 @@ describe Invite::Create do
     let(:params) do
       {
         invite: {email: email_address, group_id: one_group.id, group_name: 'users', role: Role.group_admin},
-        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+        current_user: current_user
       }
     end
 
@@ -26,6 +27,7 @@ describe Invite::Create do
       expect(op.model.email).to eq email_address
       expect(op.model.group_id).to eq one_group.id
       expect(op.model.group_name).to eq one_group.name
+      expect(op.model.created_by).to eq current_user.one_username
     end
 
     describe 'token' do
@@ -47,7 +49,7 @@ describe Invite::Create do
   end
 
   context 'with invalid input' do
-    let(:params) { {invite: {}} }
+    let(:params) { {invite: {}, current_user: current_user} }
 
     it 'rejects invalid input' do
       expect(res).to be_falsey

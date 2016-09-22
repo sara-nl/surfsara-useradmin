@@ -24,6 +24,19 @@ en:
     show:
       title: Invite - %{email}
       general: General
+      history:
+        title: History
+        header:
+          what: What
+          who: Who (OpenNebula username or 'system')
+          when: When
+        event:
+          sent: Sent
+          accepted: Accepted
+          revoked: Revoked
+          expired: Expired
+        expired_by: system
+
     new:
       title: New invite
     form:
@@ -82,9 +95,10 @@ en:
 
   invite:
     status:
-      pending: Pending
       accepted: Accepted
       expired: Expired
+      pending: Pending
+      revoked: Revoked
 
   activerecord:
     models:

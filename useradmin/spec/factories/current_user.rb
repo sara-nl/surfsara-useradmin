@@ -3,6 +3,6 @@ FactoryGirl.define do
     uid 'isaac'
     one_username 'isaac@university-example.org'
     one_password '3d21c8a6d89e3332e3d388852f99d5e5ce114ff9'
-    admin_groups []
+    admin_groups { build_list(:one_group, 1) }
   end
 end

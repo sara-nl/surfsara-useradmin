@@ -2,10 +2,9 @@ h1.page-header
   = t('.title', email: @invite.email)
 
 h3 = t('.general')
-
 table.table
   tr
-    td = Invite.human_attribute_name(:email)
+    td = Invite.human_attribute_name(:sent_to)
     td = @invite.email
 
   tr
@@ -14,20 +13,37 @@ table.table
 
   tr
     td = Invite.human_attribute_name(:status)
-    td = t("invite.status.#{@invite.status}")
-
-  tr
-    td = Invite.human_attribute_name(:created_at)
-    td = l(@invite.created_at, format: :long)
-
-  tr
-    td = Invite.human_attribute_name(:accepted_at)
     td
-      - if @invite.accepted_at
-        = l(@invite.accepted_at, format: :long)
-      - else
-        '-
+      strong = t("invite.status.#{@invite.status}")
 
-  tr
-    td = Invite.human_attribute_name(:accepted_by)
-    td = @invite.accepted_by || '-'
+h3 = t('.history.title')
+table.table
+  thead
+    tr
+      th = t('.history.header.what')
+      th = t('.history.header.who')
+      th = t('.history.header.when')
+
+  tbody
+    tr
+      td = t('.history.event.sent')
+      td = @invite.created_by
+      td = l(@invite.created_at, format: :long)
+
+    - if @invite.accepted?
+      tr
+        td = t('history.event.accepted')
+        td = @invite.accepted_by
+        td = l(@invite.accepted_at, format: :long)
+
+    - if @invite.revoked?
+      tr
+        td = t('.history.event.revoked')
+        td = @invite.revoked_by
+        td = l(@invite.revoked_at, format: :long)
+
+    - if @invite.expired?
+      tr
+        td = t('.history.event.expired')
+        td = t('.history.expired_by')
+        td = l(@invite.expired_at, format: :long)

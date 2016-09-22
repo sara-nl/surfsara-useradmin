@@ -3,20 +3,21 @@ require 'feature_helper'
 describe InvitesController, :feature do
   let(:one_user) { build(:one_user) }
   before { allow(One::Client).to receive(:user_by_password).and_return(one_user) }
-  let(:groups) { [double(id: 1, name: 'users')] }
+  let(:groups) { build_list(:one_group, 1) }
   before { allow(One::Client).to receive(:groups).and_return(groups) }
+  let(:current_user) { build(:current_user) }
 
   context 'invite' do
     let!(:invite) do
       Invite::Create.(
         invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
-        current_user: double(admin_groups: groups)
+        current_user: current_user
       ).model
     end
 
     it 'lists invites' do
       visit '/invites'
-      expect(page).to have_content 'foo@bar.com'
+      expect(page).to have_content ['foo@bar.com', 'users', 'Group Administrator', 'Pending'].join('')
     end
 
     it 'creates invites' do
@@ -42,8 +43,7 @@ describe InvitesController, :feature do
     it 'revokes invites' do
       visit '/invites'
       click_on 'Revoke'
-      expect(page).to have_no_content 'foo@bar.com'
-      expect(page).to have_content 'There are no invites yet.'
+      expect(page).to have_content ['foo@bar.com', 'users', 'Group Administrator', 'Revoked'].join('')
     end
   end
 
@@ -53,7 +53,7 @@ describe InvitesController, :feature do
     let!(:invite) do
       Invite::Create.(
         invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
-        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+        current_user: current_user
       ).model
     end
 
@@ -79,7 +79,7 @@ describe InvitesController, :feature do
       before do
         Invite::Accept.(
           id: token,
-          current_user: double(:user, uid: '123', one_username: 'x', one_password: 'y'),
+          current_user: current_user,
           invite: {accept_terms_of_service: '1'}
         )
       end

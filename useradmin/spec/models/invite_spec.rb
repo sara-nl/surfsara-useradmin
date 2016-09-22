@@ -9,6 +9,11 @@ describe Invite do
       it { is_expected.to eq(Invite::STATUS_ACCEPTED) }
     end
 
+    context 'given a revoked invite' do
+      let(:invite) { build(:invite, :revoked) }
+      it { is_expected.to eq(Invite::STATUS_REVOKED) }
+    end
+
     context 'given an expired invite' do
       let(:invite) { build(:invite, :expired) }
       it { is_expected.to eq(Invite::STATUS_EXPIRED) }
@@ -28,6 +33,11 @@ describe Invite do
       it { is_expected.to_not include(invite) }
     end
 
+    context 'given a revoked invite' do
+      let(:invite) { create(:invite, :revoked) }
+      it { is_expected.to_not include(invite) }
+    end
+
     context 'given an expired invite' do
       let(:invite) { create(:invite, :expired) }
       it { is_expected.to_not include(invite) }
@@ -36,6 +46,22 @@ describe Invite do
     context 'given a pending invite' do
       let(:invite) { create(:invite, :pending) }
       it { is_expected.to include(invite) }
+    end
+  end
+
+  describe '#expired_at' do
+    subject { invite.expired_at }
+
+    context 'given a pending invite' do
+      let(:invite) { create(:invite, :pending) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'given an expired invite' do
+      let(:invite) { create(:invite, :expired) }
+
+      it { is_expected.to eq(invite.created_at + Rails.application.config.invites.expire_after) }
     end
   end
 end

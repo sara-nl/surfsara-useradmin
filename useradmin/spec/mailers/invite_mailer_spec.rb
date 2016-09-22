@@ -5,7 +5,7 @@ RSpec.describe InviteMailer, type: :mailer do
     let(:invite) do
       Invite::Create.(
         invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
-        current_user: double(admin_groups: [double(id: 1, name: 'foo')])
+        current_user: build(:current_user)
       ).model
     end
     let(:token) { '123abc' }

@@ -30,9 +30,7 @@ class Invite < ApplicationRecord
     end
 
     def update_invite
-      @model.accepted_at = Time.current
-      @model.accepted_by = current_user.one_username
-      @model.save
+      @model.update!(accepted_at: Time.current, accepted_by: current_user.one_username)
     end
 
     def current_user
