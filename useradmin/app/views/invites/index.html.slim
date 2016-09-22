@@ -27,7 +27,7 @@
             td = l(invite.created_at, format: :short)
             td.actions
               .btn-group.btn-group-xs.pull-right
-                = link_to t('actions.revoke'), revoke_invite_path(invite), data: { confirm: t('.confirm_revoke') }, method: :put, class: 'btn btn-default'
+                = link_to t('actions.revoke'), revoke_invite_path(invite), data: { confirm: t('.confirm_revoke') }, method: :put, class: 'btn btn-default' if invite.pending?
 
       - else
         tr

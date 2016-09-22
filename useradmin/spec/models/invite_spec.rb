@@ -9,6 +9,11 @@ describe Invite do
       it { is_expected.to eq(Invite::STATUS_ACCEPTED) }
     end
 
+    context 'given a revoked invite' do
+      let(:invite) { build(:invite, :revoked) }
+      it { is_expected.to eq(Invite::STATUS_REVOKED) }
+    end
+
     context 'given an expired invite' do
       let(:invite) { build(:invite, :expired) }
       it { is_expected.to eq(Invite::STATUS_EXPIRED) }
@@ -25,6 +30,11 @@ describe Invite do
 
     context 'given an accepted invite' do
       let(:invite) { create(:invite, :accepted) }
+      it { is_expected.to_not include(invite) }
+    end
+
+    context 'given a revoked invite' do
+      let(:invite) { create(:invite, :revoked) }
       it { is_expected.to_not include(invite) }
     end
 

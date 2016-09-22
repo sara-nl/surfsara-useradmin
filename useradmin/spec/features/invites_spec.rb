@@ -16,7 +16,7 @@ describe InvitesController, :feature do
 
     it 'lists invites' do
       visit '/invites'
-      expect(page).to have_content 'foo@bar.com'
+      expect(page).to have_content ['foo@bar.com', 'users', 'Group Administrator', 'Pending'].join('')
     end
 
     it 'creates invites' do
@@ -42,8 +42,7 @@ describe InvitesController, :feature do
     it 'revokes invites' do
       visit '/invites'
       click_on 'Revoke'
-      expect(page).to have_no_content 'foo@bar.com'
-      expect(page).to have_content 'There are no invites yet.'
+      expect(page).to have_content ['foo@bar.com', 'users', 'Group Administrator', 'Revoked'].join('')
     end
   end
 

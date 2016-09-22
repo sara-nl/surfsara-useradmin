@@ -2,10 +2,9 @@ h1.page-header
   = t('.title', email: @invite.email)
 
 h3 = t('.general')
-
 table.table
   tr
-    td = Invite.human_attribute_name(:email)
+    td = Invite.human_attribute_name(:sent_to)
     td = @invite.email
 
   tr
@@ -14,8 +13,13 @@ table.table
 
   tr
     td = Invite.human_attribute_name(:status)
-    td = t("invite.status.#{@invite.status}")
+    td
+      strong = t("invite.status.#{@invite.status}")
 
+h3 = t('.history.header')
+p = t('.history.explanation')
+br
+table.table
   tr
     td = Invite.human_attribute_name(:created_at)
     td = l(@invite.created_at, format: :long)
@@ -31,3 +35,15 @@ table.table
   tr
     td = Invite.human_attribute_name(:accepted_by)
     td = @invite.accepted_by || '-'
+
+  tr
+    td = Invite.human_attribute_name(:revoked_at)
+    td
+      - if @invite.revoked_at
+        = l(@invite.revoked_at, format: :long)
+      - else
+        '-
+
+  tr
+    td = Invite.human_attribute_name(:revoked_by)
+    td = @invite.revoked_by || '-'

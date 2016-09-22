@@ -24,6 +24,9 @@ en:
     show:
       title: Invite - %{email}
       general: General
+      history:
+        header: History
+        explanation: This shows the history of this invite. The 'by' values show OpenNebula user names.
     new:
       title: New invite
     form:
@@ -82,9 +85,10 @@ en:
 
   invite:
     status:
-      pending: Pending
       accepted: Accepted
       expired: Expired
+      pending: Pending
+      revoked: Revoked
 
   activerecord:
     models:
