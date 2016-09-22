@@ -35,6 +35,22 @@
   tags:
     - one
 
+- name: Disable User.update_password
+  lineinfile:
+      dest: /etc/one/sunstone-views/{{ item }}.yaml
+      regexp: "User.update_password:"
+      line: "            User.update_password: false"
+  with_items:
+    - admin
+    - admin_vcenter
+    - cloud
+    - cloud_vcenter
+    - groupadmin
+    - groupadmin_vcenter
+    - user
+  tags:
+    - one
+
 - name: Create OpenNebula API user
   shell: oneuser create useradmin useradmin
   when: env in ['development', 'acceptance']
