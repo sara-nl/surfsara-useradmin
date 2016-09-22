@@ -107,6 +107,10 @@ See `servers/group_vars/useradmin-acceptance` for `ansistrano_*` configurations.
 
 TODO
 
+### Environment specific configurations
+
+See `useradmin/config/environments/acceptance.rb` for environment specific configurations.
+
 ### Acceptance Environment
 
 - See `servers/inv/acceptance` for targeted servers.
