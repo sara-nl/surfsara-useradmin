@@ -26,6 +26,15 @@
   tags:
     - one
 
+- name: Show password column in admin view
+  lineinfile:
+    dest: /etc/one/sunstone-views/admin.yaml
+    regexp: "- 5         # Password"
+    line: "            - 5         # Password"
+  notify: restart apache
+  tags:
+    - one
+
 - name: Create OpenNebula API user
   shell: oneuser create useradmin useradmin
   when: env in ['development', 'acceptance']
