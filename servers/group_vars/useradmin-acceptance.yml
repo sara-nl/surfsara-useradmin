@@ -16,7 +16,9 @@ postgres:
     password: useradmin
     user_roles: "LOGIN,CREATEDB"
 
-one_url: http://10.100.155.4
+one:
+  sunstone_url: http://10.100.155.4
+  xml_rpc_url: http://10.100.155.4:2633
 
 # Ansistrano
 ansistrano_deploy_from: "{{ playbook_dir }}/../useradmin/" # Where my local project is (relative or absolute path)

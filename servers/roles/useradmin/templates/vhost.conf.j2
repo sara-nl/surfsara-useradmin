@@ -51,9 +51,33 @@
   </Directory>
 
   <LocationMatch "^/(?!useradmin)">
-    ProxyPass "{{ one_url }}"
-    ProxyPassReverse "{{ one_url }}"
+    ProxyPass "{{ one.sunstone_url }}"
+    ProxyPassReverse "{{ one.sunstone_url }}"
 
     RequestHeader set Remote-User "%{REMOTE_USER}s"
+  </LocationMatch>
+</VirtualHost>
+
+Listen 2633
+<VirtualHost *:2633>
+  ServerName {{ virtual_host }}
+
+  SSLEngine on
+
+  {% if env == 'development' %}
+    SSLCertificateFile    /etc/apache2/ssl/cert.pem
+    SSLCertificateKeyFile /etc/apache2/ssl/key.pem
+  {% endif %}
+
+  {% if env == 'acceptance' %}
+    SSLCertificateFile /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+    ServerName useradmin.cloudconext-sara.surf-hosted.nl
+  {% endif %}
+
+  <LocationMatch "^/.*">
+    ProxyPass "{{ one.xml_rpc_url }}"
+    ProxyPassReverse "{{ one.xml_rpc_url }}"
   </LocationMatch>
 </VirtualHost>
