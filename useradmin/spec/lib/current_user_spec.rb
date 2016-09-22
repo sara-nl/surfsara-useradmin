@@ -90,19 +90,18 @@ describe CurrentUser do
   describe '#admin_groups' do
     subject { current_user.admin_groups }
 
-    context 'given no ONE user' do
-      before { expect(One::Client).to receive(:user_by_password).and_return(nil) }
-
-      it 'returns an empty array' do
-        expect(subject).to be_empty
+    context 'given an entitlement for SURFsara admin' do
+      it 'retuns the all admin groups configured in ONE' do
+        expect(One::Client).to receive(:groups).and_return(groups)
+        expect(subject).to eq(groups)
       end
     end
 
-    context 'given a ONE user' do
-      before { expect(One::Client).to receive(:user_by_password).and_return(one_user) }
+    context 'given no entitlement for SURFsara admin' do
+      let(:edu_person_entitlement) { nil }
 
-      context 'and no entitlement for SURFsara admin' do
-        let(:edu_person_entitlement) { nil }
+      context 'given a ONE user' do
+        before { expect(One::Client).to receive(:user_by_password).and_return(one_user) }
 
         it 'retuns the admin groups configured in ONE' do
           expect(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups)
@@ -110,10 +109,11 @@ describe CurrentUser do
         end
       end
 
-      context 'and an entitlement for SURFsara admin' do
-        it 'retuns the all admin groups configured in ONE' do
-          expect(One::Client).to receive(:groups).and_return(groups)
-          expect(subject).to eq(groups)
+      context 'given no ONE user' do
+        before { expect(One::Client).to receive(:user_by_password).and_return(nil) }
+
+        it 'returns an empty array' do
+          expect(subject).to be_empty
         end
       end
     end
