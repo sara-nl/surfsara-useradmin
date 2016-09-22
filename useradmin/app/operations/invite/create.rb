@@ -1,3 +1,4 @@
+require "reform/form/validation/unique_validator"
 require 'digest/sha1'
 
 class Invite < ApplicationRecord
@@ -6,10 +7,17 @@ class Invite < ApplicationRecord
     model Invite, :create
 
     contract do
-      property :email, validates: {presence: true, email: true}
+      property :email, validates: {
+        presence: true, email: true, unique: {scope: [:group_id, :role]}, unless: :ignore_email_duplicity?
+      }
       property :group_id, validates: {presence: true}
       property :group_name, validates: {presence: true}
       property :role, validates: {presence: true, inclusion: {in: Role.for_group}}
+      property :ignore_email_duplicity, virtual: true
+
+      def ignore_email_duplicity?
+        self.ignore_email_duplicity == '1'
+      end
     end
 
     def process(params)
