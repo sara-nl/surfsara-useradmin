@@ -54,14 +54,22 @@ describe Invite::Create do
     let(:ignore_email_duplicity) { '0' }
     let(:params) do
       {
-        invite: {email: email_address, group_id: one_group.id, group_name: 'users', role: Role.group_admin, ignore_email_duplicity: ignore_email_duplicity},
+        invite: {
+          email: email_address,
+          group_id: one_group.id,
+          group_name: 'users',
+          role: Role.group_admin,
+          ignore_email_duplicity: ignore_email_duplicity
+        },
         current_user: current_user
       }
     end
 
     it 'shows a duplicity warning' do
       expect(res).to be_falsey
-      expect(op.contract.errors.full_messages).to include /Email has already been used to send an invite for the chosen group and role/
+
+      expect(op.contract.errors.full_messages)
+        .to include /Email has already been used to send an invite for the chosen group and role/
     end
 
     context 'when ignoring the duplicity warning' do
