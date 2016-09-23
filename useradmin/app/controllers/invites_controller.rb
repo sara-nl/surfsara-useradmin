@@ -36,13 +36,17 @@ class InvitesController < ApplicationController
   def accept
     hide_menu
 
-    run Invite::Accept do |_op|
+    res, op = Invite::Accept.run(params)
+    if res
       flash[:success] = t('.success')
-      return redirect_to accepted_invite_path(params[:id])
+      redirect_to accepted_invite_path(params[:id])
+    elsif op.model
+      @model = op.model
+      @form = op.contract
+      render :verify
+    else
+      render :expired
     end
-
-    @groups = groups
-    render :verify
   end
 
   def accepted

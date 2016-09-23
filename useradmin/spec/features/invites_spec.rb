@@ -75,6 +75,20 @@ describe InvitesController, :feature do
       expect(page).to have_content 'Visit OpenNebula'
     end
 
+    it 'rejects accepting an already accepted invite' do
+      visit verify_invite_path(token)
+      check 'I accept the terms of service'
+
+      Invite::Accept.(
+        id: token,
+        current_user: current_user,
+        invite: {accept_terms_of_service: '1'}
+      )
+
+      click_on 'Accept'
+      expect(page).to have_content 'Your invitation has expired.'
+    end
+
     context 'with an already accepted invite' do
       before do
         Invite::Accept.(

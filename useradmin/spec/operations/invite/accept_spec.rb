@@ -31,6 +31,14 @@ describe Invite::Accept do
       expect(op.model.accepted_at).to eq accepted_at
       expect(op.model.accepted_by).to eq current_user.one_username
     end
+
+    context 'given the invite has already been accepted' do
+      before { Invite::Accept.run(params) }
+
+      it 'rejects the acceptance of the invite' do
+        expect(res).to be_falsey
+      end
+    end
   end
 
   context 'with TOS not accepted' do

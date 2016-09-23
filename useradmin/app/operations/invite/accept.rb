@@ -12,6 +12,8 @@ class Invite < ApplicationRecord
     end
 
     def process(params)
+      return invalid! if @model.nil?
+
       validate(params[:invite]) do
         update_open_nebula
         update_invite
@@ -22,7 +24,7 @@ class Invite < ApplicationRecord
 
     def model!(params)
       invite_token = InviteToken.new(params[:id])
-      Invite.pending.find_by_token(invite_token.encrypted)
+      Invite.pending.find_by(token: invite_token.encrypted)
     end
 
     def update_open_nebula
