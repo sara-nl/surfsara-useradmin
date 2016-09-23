@@ -77,6 +77,7 @@ en:
       title: Your invite has been accepted
       description_html: You now have '%{role}' access to the '%{group}' group in OpenNebula.
       to_opennebula: Visit OpenNebula
+      manage_invites: Manage invites
 
   invite_mailer:
     invitation:

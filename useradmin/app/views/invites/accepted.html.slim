@@ -4,4 +4,8 @@ p = t('.description_html', role: t(@model.role, scope: 'role'), group: @model.gr
 
 hr
 
-= link_to t('.to_opennebula'), '/', class: 'btn btn-lg btn-success'
+.actions
+  = link_to t('.to_opennebula'), '/', class: 'btn btn-lg btn-success'
+
+  - if @model.role == Role.group_admin
+    = link_to t('.manage_invites'), invites_path, class: 'btn btn-lg btn-default'
