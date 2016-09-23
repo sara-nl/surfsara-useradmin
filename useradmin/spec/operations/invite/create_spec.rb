@@ -69,7 +69,7 @@ describe Invite::Create do
       expect(res).to be_falsey
 
       expect(op.contract.errors.full_messages)
-        .to include /Email has already been used to send an invite for the chosen group and role/
+        .to include(/One or more invites are already pending\/accepted for this email\, group \& role/)
     end
 
     context 'when ignoring the duplicity warning' do
