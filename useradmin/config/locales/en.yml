@@ -43,7 +43,7 @@ en:
       email_address: Email address
       group: Group
       role: Role
-      ignore_email_duplicity: Yes, I want to send this invite despite previous invites for this email address.
+      ignore_email_duplicity: I know what I'm doing. Send another invite for this email, group & role anyway.
       submit: Send invitation
     create:
       success: 'Invite sucessfully sent'
@@ -122,5 +122,5 @@ en:
           attributes:
             accept_terms_of_service:
               not_accepted: is required
-            email:
-              taken: 'has already been used to send an invite for the chosen group and role.'
+            base:
+              duplicate: 'One or more invites are already pending/accepted for this email, group & role. Sending another invite will not revoke any previous invites.'

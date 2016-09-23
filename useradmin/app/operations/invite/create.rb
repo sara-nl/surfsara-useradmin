@@ -8,12 +8,19 @@ class Invite < ApplicationRecord
 
     contract do
       property :email, validates: {
-        presence: true, email: true, unique: {scope: [:group_id, :role]}, unless: :ignore_email_duplicity?
+        presence: true
       }
       property :group_id, validates: {presence: true}
       property :group_name, validates: {presence: true}
       property :role, validates: {presence: true, inclusion: {in: Role.for_group}}
       property :ignore_email_duplicity, virtual: true
+
+      validate :email do
+        unless ignore_email_duplicity?
+          invite = Invite.find_by(email: email, group_id: group_id, role: role)
+          errors.add :base, :duplicate if invite && (invite.pending? || invite.accepted?)
+        end
+      end
 
       def ignore_email_duplicity?
         self.ignore_email_duplicity == '1'

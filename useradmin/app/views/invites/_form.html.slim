@@ -1,7 +1,7 @@
 = form_for @form do |f|
   = error_messages(@form) if @form.errors.any?
 
-  - if @form.errors.added? :email, :taken
+  - if @form.errors.added? :base, :duplicate
     .alert.alert-warning.checkbox
         = f.label :ignore_email_duplicity do
           = f.check_box :ignore_email_duplicity
