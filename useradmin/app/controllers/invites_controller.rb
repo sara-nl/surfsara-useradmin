@@ -42,7 +42,7 @@ class InvitesController < ApplicationController
 
   def accepted
     invite_token = InviteToken.new(params[:id])
-    @model = Invite.find_by!(accepted_by: current_user.one_username, token: invite_token.encrypted)
+    @model = Invite.find_by!(accepted_by: current_user.one_username, token: invite_token.hashed)
     hide_menu unless @model.role == Role.group_admin
   end
 

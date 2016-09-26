@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :invite do
     email 'someone@there.org'
-    token { InviteToken.new('secret').encrypted }
+    token { InviteToken.new('secret').hashed }
     group_id 1
     group_name 'users'
     role Role.group_admin

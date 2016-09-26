@@ -24,7 +24,7 @@ class Invite < ApplicationRecord
 
     def model!(params)
       invite_token = InviteToken.new(params[:id])
-      Invite.pending.find_by(token: invite_token.encrypted)
+      Invite.pending.find_by(token: invite_token.hashed)
     end
 
     def update_open_nebula

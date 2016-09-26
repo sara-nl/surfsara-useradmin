@@ -9,7 +9,7 @@ class InviteToken
     @raw = token
   end
 
-  def encrypted
+  def hashed
     Digest::SHA2.hexdigest(raw)
   end
 end

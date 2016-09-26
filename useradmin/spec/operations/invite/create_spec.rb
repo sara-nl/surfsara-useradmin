@@ -32,11 +32,11 @@ describe Invite::Create do
 
     describe 'token' do
       let(:token) { 'eb693ec8252cd630102fd0d0fb7c3485' }
-      let(:encrypted_token) { Digest::SHA2.hexdigest(token) }
+      let(:hashed_token) { Digest::SHA2.hexdigest(token) }
 
-      it 'stores the encrypted token' do
+      it 'stores the hashed token' do
         expect(SecureRandom).to receive(:hex).and_return(token)
-        expect(op.model.token).to eq encrypted_token
+        expect(op.model.token).to eq hashed_token
       end
     end
 
