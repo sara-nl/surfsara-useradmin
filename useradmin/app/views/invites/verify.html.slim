@@ -7,12 +7,10 @@
 
   h3 = t('.terms_header')
 
-  div.terms-of-service.well = t('.terms_of_service_html')
-
   .checkbox
     = f.label :accept_terms_of_service do
       = f.check_box :accept_terms_of_service
-      = t('.accept_terms_of_service')
+      = t('.accept_terms_of_service_html')
 
   hr
 
