@@ -161,7 +161,7 @@ invites.accepted_at - datetime - Timestamp when the invite was accepted
 invites.accepted_by - string   - OpenNebula username of the invite acceptor
 invites.revoked_at  - datetime - Timestamp when the invite was revoked
 invites.revoked_by  - string   - OpenNebula username of the invite revoker
-invites.updated_at  - datetime - Timestamp of the last time the invite was updated
+invites.updated_at  - datetime - Timestamp of the last time the record was updated
 ```
 
 ## OpenNebula Logs
