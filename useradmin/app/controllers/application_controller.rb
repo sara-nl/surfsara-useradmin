@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
       request.set_header('REMOTE_USER', 'isaac@university-example.org')
       request.set_header('Shib-uid', 'isaac')
       request.set_header('Shib-commonName', 'Sir Isaac Newton')
+      request.set_header('Shib-email', 'isaacnewton@university-example.org;newton@university-example.org')
       request.set_header('Shib-homeOrganization', 'university-example.org')
       request.set_header('Shib-eduPersonEntitlement', 'urn:x-surfnet:surfsara.nl:opennebula:admin')
       request.set_header('Shib-eduPersonPrincipalName', 'isaac@university-example.org')

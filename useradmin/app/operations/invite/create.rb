@@ -39,7 +39,12 @@ class Invite < ApplicationRecord
     end
 
     def send_invitation!
-      InviteMailer.invitation(@model, invite_token.raw).deliver_now
+      InviteMailer.invitation(@model, invite_token.raw, sender).deliver_now
+    end
+
+    def sender
+      return nil if current_user.primary_email_address.blank?
+      "#{current_user.common_name} <#{current_user.primary_email_address}>"
     end
 
     def invite_token

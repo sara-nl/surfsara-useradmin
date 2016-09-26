@@ -19,6 +19,10 @@ CurrentUser = Struct.new(:request) do
     request.get_header('Shib-eduPersonEntitlement')
   end
 
+  def email
+    request.get_header('Shib-email')
+  end
+
   def shibboleth_headers
     Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
   end
@@ -42,6 +46,10 @@ CurrentUser = Struct.new(:request) do
   def role
     return Role.surfsara_admin if surfsara_admin?
     return Role.group_admin if group_admin?
+  end
+
+  def primary_email_address
+    (email || '').split(';').first
   end
 
   def surfsara_admin?

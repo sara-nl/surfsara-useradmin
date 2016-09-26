@@ -9,7 +9,8 @@ RSpec.describe InviteMailer, type: :mailer do
       ).model
     end
     let(:token) { '123abc' }
-    let(:mail) { InviteMailer.invitation(invite, token).deliver_now }
+    let(:sender) { 'Bob Forma <bforma@zilverline.com>' }
+    let(:mail) { InviteMailer.invitation(invite, token, sender).deliver_now }
 
     it 'renders the subject' do
       expect(mail.subject).to eq('Invitation')
@@ -20,7 +21,7 @@ RSpec.describe InviteMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq(['useradmin@surfsara.nl'])
+      expect(mail['From'].to_s).to eq(sender)
     end
 
     it 'contains the activation link' do

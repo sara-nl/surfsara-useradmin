@@ -1,7 +1,7 @@
 class InviteMailer < ApplicationMailer
-  def invitation(model, token)
+  def invitation(model, raw_token, sender)
     @model = model
-    @token = token
-    mail(to: @model.email)
+    @token = raw_token
+    mail from: sender, to: @model.email
   end
 end
