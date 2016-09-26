@@ -2,4 +2,4 @@
 
 h1 = t('.title')
 
-= raw t('.body', role: @model.role, group: @model.group_name, link: verify_invite_url(@token))
+= raw t('.body', role: t(@model.role, scope: 'role'), group: @model.group_name, link: verify_invite_url(@token))
