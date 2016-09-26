@@ -10,6 +10,10 @@ class Invite < ApplicationRecord
       .where('created_at > ?', Rails.application.config.invites.expire_after.ago)
   end
 
+  scope :accepted, -> do
+    where.not(accepted_at: nil)
+  end
+
   def self.scoped_to(user)
     where(group_id: user.admin_groups.map(&:id))
   end

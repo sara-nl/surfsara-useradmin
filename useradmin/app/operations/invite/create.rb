@@ -15,8 +15,9 @@ class Invite < ApplicationRecord
 
       validate :email do
         unless ignore_email_duplicity?
-          invite = Invite.find_by(email: email, group_id: group_id, role: role)
-          errors.add :base, :duplicate if invite && (invite.pending? || invite.accepted?)
+          base = Invite.where(email: email, group_id: group_id, role: role)
+          invites = base.pending.or(base.accepted)
+          errors.add :base, :duplicate if invites.any?
         end
       end
 
