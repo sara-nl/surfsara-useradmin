@@ -16,8 +16,16 @@ class Invite < ApplicationRecord
     where.not(accepted_at: nil)
   end
 
-  def self.scoped_to(user)
-    where(group_id: user.admin_groups.map(&:id))
+  scope :with_email, ->(email) { where(email: normalize_email(email)) }
+
+  class << self
+    def scoped_to(user)
+      where(group_id: user.admin_groups.map(&:id))
+    end
+
+    def normalize_email(email)
+      email.downcase.strip if email.present?
+    end
   end
 
   def status
@@ -54,6 +62,6 @@ class Invite < ApplicationRecord
   private
 
   def normalize_email
-    self.email = self.email.downcase.strip if self.email.present?
+    self.email = self.class.normalize_email(self.email)
   end
 end
