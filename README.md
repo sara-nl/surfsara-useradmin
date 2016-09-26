@@ -90,6 +90,21 @@ Visit `http://localhost:3000` to see useradmin running.
 
 Use `rspec` to run all specs
 
+## Rails app configuration
+
+### Translations (I18n)
+
+Manage translation strings in: `useradmin/config/locales/en.yml`. HTML can be used in translation keys ending with *_html. For example, the terms of service acceptance text can be translated with `en.invites.verify.accept_terms_of_service_html` where both the link and the text can be configured.
+
+### Mail template
+
+Mail content can be managed in the translations file under they key `en.invite_mailer.invitation.body`. Changes can be previewed locally at [http://localhost:3000/rails/mailers/invite_mailer/invitation](http://localhost:3000/rails/mailers/invite_mailer/invitation) when your rails server is running.
+
+The following variables are available for use in the mail template:
+
+- role: 'Group Admin' or 'Member'. The role the invitation is for
+- group: The name of the group the user is being invited in.
+
 ## Deployment
 
 Deployment is done with Ansible using the [Ansistrano](https://github.com/ansistrano/deploy) recipe. Use the following command `useradmin/deploy.sh` to:
