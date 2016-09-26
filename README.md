@@ -145,6 +145,25 @@ ansible-playbook useradmin.yml -i inv/acceptance
 - UserAdmin app runs at https://_USERADMIN_HOSTNAME_/useradmin
 - Mails aren't actually sent but captured by mailcatcher which runs at https://_USERADMIN_HOSTNAME_:1080
 
+## Database columns
+
+The useradmin database contains a single table `invites` with the following fields:
+
+```
+invites.email       - string   - The email the invite has been sent to
+invites.token       - string   - A random token (SecureRandom.hex) that is emailed and then stored hashed with SHA-256
+invites.group_id    - integer  - Identifier of the group as it is known in OpenNebula
+invites.group_name  - string   - Name of the group as it is known in OpenNebula
+invites.role        - string   - Role within the group the invite is for [Group Admin/Member]
+invites.created_at  - datetime - Timestamp when the invite was sent
+invites.created_by  - string   - OpenNebula username of the invite creator
+invites.accepted_at - datetime - Timestamp when the invite was accepted
+invites.accepted_by - string   - OpenNebula username of the invite acceptor
+invites.revoked_at  - datetime - Timestamp when the invite was revoked
+invites.revoked_by  - string   - OpenNebula username of the invite revoker
+invites.updated_at  - datetime - Timestamp of the last time the invite was updated
+```
+
 ## OpenNebula Logs
 
 In addition to the detailed information UserAdmin provides on the Invite resource all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log`. 
