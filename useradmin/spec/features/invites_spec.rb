@@ -68,7 +68,7 @@ describe InvitesController, :feature do
 
       expect(page).to have_content 'Accept terms of service is required'
 
-      check 'I accept the terms of service'
+      check 'I agree to the terms of service'
       click_on 'Accept'
 
       expect(page).to have_content 'Invite has been accepted'
@@ -77,7 +77,7 @@ describe InvitesController, :feature do
 
     it 'rejects accepting an already accepted invite' do
       visit verify_invite_path(token)
-      check 'I accept the terms of service'
+      check 'I agree to the terms of service'
 
       Invite::Accept.(
         id: token,
