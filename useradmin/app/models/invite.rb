@@ -4,6 +4,8 @@ class Invite < ApplicationRecord
   STATUS_EXPIRED = 'expired'.freeze
   STATUS_REVOKED = 'revoked'.freeze
 
+  before_validation :normalize_email
+
   scope :pending, -> do
     where(accepted_at: nil)
       .where(revoked_at: nil)
@@ -47,5 +49,11 @@ class Invite < ApplicationRecord
   def expired_at
     return unless expired?
     self.created_at + Rails.application.config.invites.expire_after
+  end
+
+  private
+
+  def normalize_email
+    self.email = self.email.downcase.strip if self.email.present?
   end
 end

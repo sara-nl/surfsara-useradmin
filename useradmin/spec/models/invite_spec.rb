@@ -64,4 +64,22 @@ describe Invite do
       it { is_expected.to eq(invite.created_at + Rails.application.config.invites.expire_after) }
     end
   end
+
+  describe '#normalize_email' do
+    let(:invite) { build(:invite, email: "  Bforma@zilverline.com \n") }
+    before { invite.valid? }
+    subject { invite.email }
+
+    it 'normalizes emails' do
+      is_expected.to eq('bforma@zilverline.com')
+    end
+
+    context 'given the email is not present' do
+      let(:invite) { build(:invite, email: nil) }
+
+      it 'leaves the value as is' do
+        is_expected.to be_nil
+      end
+    end
+  end
 end
