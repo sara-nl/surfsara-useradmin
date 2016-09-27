@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
     params[:current_user] = current_user
   end
 
-
   def hide_menu
     @hide_menu = true
   end

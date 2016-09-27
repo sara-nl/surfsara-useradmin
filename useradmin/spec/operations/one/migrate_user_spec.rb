@@ -19,7 +19,6 @@ describe One::MigrateUser do
 
   let(:client) { double }
 
-
   context 'with correct credentials' do
     before do
       expect(One::Client)

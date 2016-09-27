@@ -6,7 +6,7 @@ class MigrationsController < ApplicationController
 
   def create
     hide_menu
-    run One::MigrateUser do |op|
+    run One::MigrateUser do |_op|
       flash[:success] = t('.success')
       return redirect_to action: :success
     end

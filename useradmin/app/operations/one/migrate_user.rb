@@ -34,18 +34,19 @@ module One
     private
 
     def authenticate_user
-      unless one_user.present?
+      if one_user.blank?
         self.errors.add(:base, :could_not_be_authenticated)
         invalid!
         return false
       end
+      true
     end
 
     def migrate_user
       client.migrate_user(one_user.id, current_user.one_password)
     end
 
-     def client
+    def client
       @client ||= One::Client.new(credentials: credentials)
     end
 
