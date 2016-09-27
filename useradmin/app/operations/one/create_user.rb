@@ -16,7 +16,7 @@ module One
     end
 
     def find_or_create_user
-      one_client.find_user(current_user.one_username) ||
+      one_client.user_by_password(current_user.one_password) ||
         one_client.create_user(current_user.one_username, current_user.one_password)
     end
 
