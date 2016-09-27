@@ -29,7 +29,7 @@ describe Invite::Accept do
     it 'accepts the invite' do
       expect(res).to be_truthy
       expect(op.model.accepted_at).to eq accepted_at
-      expect(op.model.accepted_by).to eq current_user.one_username
+      expect(op.model.accepted_by).to eq current_user.edu_person_principal_name
     end
 
     context 'given the invite has already been accepted' do

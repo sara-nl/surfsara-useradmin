@@ -60,15 +60,15 @@ describe CurrentUser do
     end
   end
 
-  describe '#one_username' do
+  describe '#proposed_one_username' do
     it 'returns a unique identifier for the OpenConext user' do
-      expect(current_user.one_username).to eq('isaac@university-example.org')
+      expect(current_user.proposed_one_username).to eq('isaac@university-example.org')
     end
   end
 
-  describe '#one_password' do
+  describe '#edu_person_principal_name' do
     it 'returns the eduPersonPrincipalName of the OpenConext user' do
-      expect(current_user.one_password).to eq('isaac@university-example.org')
+      expect(current_user.edu_person_principal_name).to eq('isaac@university-example.org')
     end
   end
 

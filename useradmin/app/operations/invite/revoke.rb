@@ -4,7 +4,7 @@ class Invite < ApplicationRecord
     model Invite, :find
 
     def process(_)
-      model.update!(revoked_at: Time.current, revoked_by: current_user.one_username)
+      model.update!(revoked_at: Time.current, revoked_by: current_user.edu_person_principal_name)
     end
 
     private

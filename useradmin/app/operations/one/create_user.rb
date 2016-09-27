@@ -16,8 +16,8 @@ module One
     end
 
     def find_or_create_user
-      one_client.user_by_password(current_user.one_password) ||
-        one_client.create_user(current_user.one_username, current_user.one_password)
+      one_client.user_by_password(current_user.edu_person_principal_name) ||
+        one_client.create_user(current_user.proposed_one_username, current_user.edu_person_principal_name)
     end
 
     def add_user_to_group

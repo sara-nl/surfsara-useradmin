@@ -54,7 +54,7 @@ module One
     end
 
     def check_password_available
-      if admin_client.user_by_password(current_user.one_password).present?
+      if admin_client.user_by_password(current_user.edu_person_principal_name).present?
         self.errors.add(:base, :account_already_linked)
         invalid!
         return false
@@ -67,7 +67,7 @@ module One
     end
 
     def migrate_user
-      user_client.migrate_user(one_user.id, current_user.one_password)
+      user_client.migrate_user(one_user.id, current_user.edu_person_principal_name)
     end
 
     def credentials

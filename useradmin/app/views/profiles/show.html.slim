@@ -14,11 +14,11 @@ dl
   h1.page-header= t('.debug')
 
   dt ONE username
-  dd = current_user.one_username
+  dd = current_user.proposed_one_username
   br
 
   dt ONE password
-  dd = current_user.one_password
+  dd = current_user.edu_person_principal_name
   br
 
   - current_user.shibboleth_headers.each do |k, v|

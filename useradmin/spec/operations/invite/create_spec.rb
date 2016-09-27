@@ -27,7 +27,7 @@ describe Invite::Create do
       expect(op.model.email).to eq email_address
       expect(op.model.group_id).to eq one_group.id
       expect(op.model.group_name).to eq one_group.name
-      expect(op.model.created_by).to eq current_user.one_username
+      expect(op.model.created_by).to eq current_user.edu_person_principal_name
     end
 
     describe 'token' do

@@ -23,16 +23,12 @@ CurrentUser = Struct.new(:request) do
     Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
   end
 
-  def one_username
+  def proposed_one_username
     "#{uid}@#{home_organization}"
   end
 
-  def one_password
-    edu_person_principal_name
-  end
-
   def one_user
-    @one_user ||= one_client.user_by_password(one_password)
+    @one_user ||= one_client.user_by_password(edu_person_principal_name)
   end
 
   def admin_groups

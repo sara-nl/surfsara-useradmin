@@ -30,12 +30,14 @@ describe One::MigrateUser do
       expect(One::Client)
         .to receive(:new).with(no_args).and_return(admin_client)
 
-      expect(user_client).to receive(:find_user).with(existing_username).and_return(build(:one_user, id: 123))
+      expect(user_client)
+        .to receive(:find_user).with(existing_username).and_return(build(:one_user, id: 123, name: 'old_acount'))
     end
 
     context 'and a SURFconext account that is already linked to an OpenNebula account' do
       before do
-        expect(admin_client).to receive(:user_by_password).with(current_user.one_password).and_return(build(:one_user))
+        expect(admin_client)
+          .to receive(:user_by_password).with(current_user.edu_person_principal_name).and_return(build(:one_user))
       end
 
       it 'fails' do
@@ -46,8 +48,8 @@ describe One::MigrateUser do
 
     context 'and a SURFconext account that is not yet linked to an OpenNebula account' do
       before do
-        expect(admin_client).to receive(:user_by_password).with(current_user.one_password).and_return(nil)
-        expect(user_client).to receive(:migrate_user).with(123, current_user.one_password)
+        expect(admin_client).to receive(:user_by_password).with(current_user.edu_person_principal_name).and_return(nil)
+        expect(user_client).to receive(:migrate_user).with(123, current_user.edu_person_principal_name)
       end
 
       it 'migrates the user to the new authentication scheme' do
