@@ -76,8 +76,8 @@ en:
       accept_terms_of_service_html: >
         I agree to the <a href='https://doc.hpccloud.surfsara.nl/HPCCloudAUP' target='_blank'>terms of service</a>
       error_header:
-        one: "1 error is keeping this account from being migrated:"
-        other: "%{count} errors are keeping this account from being migrated:"
+        one: "1 error is keeping your HPC Cloud account from being migrated:"
+        other: "%{count} errors are keeping your HPC Cloud account from being migrated:"
     create:
       success: Your HPC Cloud account has been successfully migrated
     success:
