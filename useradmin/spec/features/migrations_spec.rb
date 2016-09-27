@@ -13,8 +13,8 @@ describe MigrationsController, :feature do
   context 'when accepting the TOS' do
     it 'migrates an existing OpenNebula account' do
       visit '/migrations/new'
-      fill_in 'reform[username]', with: 'existing.user'
-      fill_in 'reform[password]', with: 'foobar'
+      fill_in 'migration[username]', with: 'existing.user'
+      fill_in 'migration[password]', with: 'foobar'
       check 'I agree to the terms of service'
       click_on 'Migrate my account'
       expect(page).to have_content(/account has been successfully migrated/)

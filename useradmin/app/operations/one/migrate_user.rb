@@ -1,31 +1,28 @@
 module One
-  class MigrationForm < Reform::Form
-    property :username, virtual: true
-    property :password, virtual: true
-    property :accept_terms_of_service, virtual: true
-
-    validate :accept_terms_of_service do
-      errors.add(:accept_terms_of_service, :not_accepted) if accept_terms_of_service != '1'
-    end
-  end
-
-  class MigrationModel
-    include ActiveModel::Model
-  end
-
   class MigrateUser < Operation
-    contract MigrationForm
+    include Model
+    model Migration, :create
 
-    def process(params)
-      validate(params[:reform]) do
-        return unless authenticate_user
-        return unless check_password_available
-        migrate_user
+    contract do
+      property :username, virtual: true
+      property :password, virtual: true
+      property :accept_terms_of_service, virtual: true
+
+      validate :accept_terms_of_service do
+        errors.add(:accept_terms_of_service, :not_accepted) if accept_terms_of_service != '1'
       end
     end
 
-    def model!(_params)
-      MigrationModel.new
+    def process(params)
+      validate(params[:migration]) do
+        return unless authenticate_user
+        return unless check_password_available
+        @model.accepted_at = Time.current
+        @model.accepted_by = current_user.edu_person_principal_name
+        @model.one_username = @contract.username
+
+        @model.save! && migrate_user
+      end
     end
 
     private
@@ -75,11 +72,11 @@ module One
     end
 
     def username
-      @params[:reform][:username]
+      @params[:migration][:username]
     end
 
     def password
-      @params[:reform][:password]
+      @params[:migration][:password]
     end
   end
 end

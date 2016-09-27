@@ -132,7 +132,7 @@ en:
             base:
               duplicate: 'One or more invites are already pending/accepted for this email, group & role. Sending another invite will not revoke any previous invites.'
 
-        reform:
+        migration:
           attributes:
             base:
               could_not_be_authenticated: 'Could not login to HPC Cloud with given username and password'

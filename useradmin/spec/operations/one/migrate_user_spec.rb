@@ -8,7 +8,7 @@ describe One::MigrateUser do
   let(:params) do
     {
       current_user: current_user,
-      reform: {username: existing_username, password: existing_password, accept_terms_of_service: '1'}
+      migration: {username: existing_username, password: existing_password, accept_terms_of_service: '1'}
     }
   end
   let(:run) do
@@ -31,7 +31,7 @@ describe One::MigrateUser do
         .to receive(:new).with(no_args).and_return(admin_client)
 
       expect(user_client)
-        .to receive(:find_user).with(existing_username).and_return(build(:one_user, id: 123, name: 'old_acount'))
+        .to receive(:find_user).with(existing_username).and_return(build(:one_user, id: 123, name: existing_username))
     end
 
     context 'and a SURFconext account that is already linked to an OpenNebula account' do
@@ -54,6 +54,9 @@ describe One::MigrateUser do
 
       it 'migrates the user to the new authentication scheme' do
         run
+        migration = Migration.last
+        expect(migration.one_username).to eq(existing_username)
+        expect(migration.accepted_by).to eq(current_user.edu_person_principal_name)
       end
     end
   end
