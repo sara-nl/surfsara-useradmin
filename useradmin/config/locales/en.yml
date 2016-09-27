@@ -65,6 +65,27 @@ en:
       to_opennebula: Visit OpenNebula
       manage_invites: Manage invites
 
+  migrations:
+    new:
+      title: Migrate your HPC Cloud account
+      description_html: Enter your HPC Cloud credentials here to link your SURFconext account to your HPC Cloud account.
+      username: Username
+      password: Password
+      submit: Migrate my account
+      terms_header: Terms of Service
+      accept_terms_of_service_html: >
+        I agree to the <a href='https://doc.hpccloud.surfsara.nl/HPCCloudAUP' target='_blank'>terms of service</a>
+      error_header:
+        one: "1 error is keeping this account from being migrated:"
+        other: "%{count} errors are keeping this account from being migrated:"
+    create:
+      success: Your HPC Cloud account has been successfully migrated
+    success:
+      title: Account migrated!
+      description_html: You can now log in to HPC Cloud using your SURFconext account.
+      to_opennebula: Visit OpenNebula
+      manage_invites: Manage invites
+
   invite_mailer:
     invitation:
       title: HPC Cloud invitation
@@ -110,3 +131,10 @@ en:
               not_accepted: is required
             base:
               duplicate: 'One or more invites are already pending/accepted for this email, group & role. Sending another invite will not revoke any previous invites.'
+
+        reform:
+          attributes:
+            base:
+              could_not_be_authenticated: 'Could not login to HPC Cloud with given username and password'
+            accept_terms_of_service:
+              not_accepted: is required

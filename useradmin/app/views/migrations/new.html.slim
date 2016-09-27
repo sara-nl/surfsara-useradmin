@@ -1,0 +1,33 @@
+h1.page-header
+  = t('.title')
+
+p style='margin-bottom: 30px' = t('.description_html')
+
+= form_for @form, url: migrations_path, method: :post do |f|
+  - if @form.errors.any?
+    #error_explanation.panel.panel-danger
+      .panel-heading
+        = t('.error_header', count: @form.errors.count, resource: @form.model.class.model_name.human.downcase)
+      ul.list-group
+        - @form.errors.full_messages.each do |message|
+          li.list-group-item = message
+
+  .row
+    .well.col-sm-4.col-sm-offset-4
+      .form-group
+        = f.label :username, t('.username')
+        = f.text_field :username, class: 'form-control'
+
+      .form-group
+        = f.label :password, t('.password')
+        = f.password_field :password, class: 'form-control'
+
+      .checkbox
+        = f.label :accept_terms_of_service do
+          = f.check_box :accept_terms_of_service
+          = t('.accept_terms_of_service_html')
+
+      hr
+
+      .actions
+        = f.submit t('.submit'), class: 'btn btn-success'

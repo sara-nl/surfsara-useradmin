@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :migrations, only: [:new, :create] do
+    get :success, on: :collection
+  end
+
   resource :profile
 
   root 'invites#index'

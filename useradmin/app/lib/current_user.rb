@@ -53,6 +53,10 @@ CurrentUser = Struct.new(:request) do
     admin_groups.any?
   end
 
+  def can_administer_groups?
+    admin_groups.any?
+  end
+
   private
 
   def get_admin_groups
