@@ -17,4 +17,8 @@ class MigrationsController < ApplicationController
   def success
     hide_menu unless current_user.can_administer_groups?
   end
+
+  def index
+    present Migration::Index
+  end
 end

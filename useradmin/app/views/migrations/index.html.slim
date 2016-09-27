@@ -1,0 +1,25 @@
+h1.page-header
+  = t('.title')
+
+p= page_entries_info @model
+
+table.table.table-striped
+  thead
+    tr
+      th = Migration.human_attribute_name(:one_username)
+      th = Migration.human_attribute_name(:accepted_by)
+      th = Migration.human_attribute_name(:accepted_at)
+
+  tbody
+    - if @model.any?
+      - @model.each do |migration|
+        tr
+          td = migration.one_username
+          td = migration.accepted_by
+          td = l(migration.accepted_at, format: :long)
+
+    - else
+      tr
+        td colspan=3 = t('.empty')
+
+= will_paginate @model, renderer: BootstrapPagination::Rails, params: {current_user: nil}

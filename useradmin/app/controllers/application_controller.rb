@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :mock_shibboleth, if: -> { Rails.env.development? || Rails.env.test? }
   before_action :expose_current_user
 
+  rescue_from Trailblazer::NotAuthorizedError, with: :not_authorized
+
   attr_accessor :current_user
   helper_method :current_user
   def current_user
@@ -29,6 +31,10 @@ class ApplicationController < ActionController::Base
 
   def expose_current_user
     params[:current_user] = current_user
+  end
+
+  def not_authorized
+    render 'shared/not_authorized', status: 403
   end
 
   def hide_menu

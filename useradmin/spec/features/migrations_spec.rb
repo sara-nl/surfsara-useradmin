@@ -10,22 +10,42 @@ describe MigrationsController, :feature do
     allow_any_instance_of(One::Client).to receive(:migrate_user)
   end
 
-  context 'when accepting the TOS' do
-    it 'migrates an existing OpenNebula account' do
-      visit '/migrations/new'
-      fill_in 'migration[username]', with: 'existing.user'
-      fill_in 'migration[password]', with: 'foobar'
-      check 'I agree to the terms of service'
-      click_on 'Migrate my account'
-      expect(page).to have_content(/account has been successfully migrated/)
+  describe 'create' do
+    context 'when accepting the TOS' do
+      it 'migrates an existing OpenNebula account' do
+        visit '/migrations/new'
+        fill_in 'migration[username]', with: 'existing.user'
+        fill_in 'migration[password]', with: 'foobar'
+        check 'I agree to the terms of service'
+        click_on 'Migrate my account'
+        expect(page).to have_content(/account has been successfully migrated/)
+      end
+    end
+
+    context 'when not accepting the TOS' do
+      it 'shows an error' do
+        visit '/migrations/new'
+        click_on 'Migrate my account'
+        expect(page).to have_content(/1 error is keeping your HPC Cloud account from being migrated/)
+      end
     end
   end
 
-  context 'when not accepting the TOS' do
-    it 'shows an error' do
-      visit '/migrations/new'
-      click_on 'Migrate my account'
-      expect(page).to have_content(/1 error is keeping your HPC Cloud account from being migrated/)
+  describe 'index' do
+    before { create(:migration, accepted_at: Time.zone.parse('2016-09-27T15:29:00')) }
+
+    context 'given the current user is a SURFsara admin' do
+      it 'lists all migrations' do
+        visit '/migrations'
+        expect(page).to have_content(['isaac', 'isaac@university-example.org', 'September 27, 2016 15:29'].join(''))
+      end
+    end
+
+    xcontext 'given the current user it not a SURFsara admin' do
+      it 'denies access' do
+        visit '/migrations'
+        expect(page).to have_content('Forbidden')
+      end
     end
   end
 end

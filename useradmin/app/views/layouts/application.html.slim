@@ -30,6 +30,7 @@ html
             .well.well-sm
               ul.nav.nav-pills.nav-stacked
                 li class=(params[:controller] == 'invites' ? 'active' : '') = link_to 'Invites', invites_path
+                li class=(params[:controller] == 'migrations' ? 'active' : '') = link_to 'Migrations', migrations_path
                 li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to 'Profile', profile_path
 
         div class=(@hide_menu ? 'col-sm-12' : 'col-sm-10')
