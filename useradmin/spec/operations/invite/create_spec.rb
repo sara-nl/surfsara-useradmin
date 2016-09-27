@@ -10,7 +10,7 @@ describe Invite::Create do
   let(:current_user) { build(:current_user) }
 
   before do
-    allow(One::Client).to receive(:groups).and_return([one_group])
+    allow_any_instance_of(One::Client).to receive(:groups).and_return([one_group])
   end
 
   context 'with valid input' do
