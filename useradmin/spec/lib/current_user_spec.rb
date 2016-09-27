@@ -76,7 +76,7 @@ describe CurrentUser do
     let(:one_user) { build(:one_user) }
 
     before do
-      expect(One::Client)
+      expect_any_instance_of(One::Client)
         .to receive(:user_by_password)
         .with('isaac@university-example.org')
         .and_return(one_user)
@@ -92,7 +92,7 @@ describe CurrentUser do
 
     context 'given an entitlement for SURFsara admin' do
       it 'retuns the all admin groups configured in ONE' do
-        expect(One::Client).to receive(:groups).and_return(groups)
+        expect_any_instance_of(One::Client).to receive(:groups).and_return(groups)
         expect(subject).to eq(groups)
       end
     end
@@ -101,16 +101,16 @@ describe CurrentUser do
       let(:edu_person_entitlement) { nil }
 
       context 'given a ONE user' do
-        before { expect(One::Client).to receive(:user_by_password).and_return(one_user) }
+        before { expect_any_instance_of(One::Client).to receive(:user_by_password).and_return(one_user) }
 
         it 'retuns the admin groups configured in ONE' do
-          expect(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups)
+          expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups)
           expect(subject).to eq(groups)
         end
       end
 
       context 'given no ONE user' do
-        before { expect(One::Client).to receive(:user_by_password).and_return(nil) }
+        before { expect_any_instance_of(One::Client).to receive(:user_by_password).and_return(nil) }
 
         it 'returns an empty array' do
           expect(subject).to be_empty
@@ -130,10 +130,12 @@ describe CurrentUser do
 
     context 'given no entitlement for SURFsara admin' do
       let(:edu_person_entitlement) { nil }
-      before { expect(One::Client).to receive(:user_by_password).and_return(one_user) }
+      before { expect_any_instance_of(One::Client).to receive(:user_by_password).and_return(one_user) }
 
       context 'and the current user is admin of at least 1 group' do
-        before { expect(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups) }
+        before do
+          expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups)
+        end
 
         it 'returns group_admin' do
           expect(subject).to eq(Role.group_admin)
@@ -141,7 +143,7 @@ describe CurrentUser do
       end
 
       context 'and the current user is not an admin of any groups' do
-        before { expect(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return([]) }
+        before { expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return([]) }
 
         it 'returns nil' do
           expect(subject).to be_nil
@@ -197,10 +199,12 @@ describe CurrentUser do
 
     context 'given no entitlement for SURFsara admin' do
       let(:edu_person_entitlement) { nil }
-      before { expect(One::Client).to receive(:user_by_password).and_return(one_user) }
+      before { expect_any_instance_of(One::Client).to receive(:user_by_password).and_return(one_user) }
 
       context 'and the current user is admin of at least 1 group' do
-        before { expect(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups) }
+        before do
+          expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return(groups)
+        end
 
         it 'returns group_admin' do
           expect(subject).to be_truthy
@@ -208,7 +212,7 @@ describe CurrentUser do
       end
 
       context 'and the current user is not an admin of any groups' do
-        before { expect(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return([]) }
+        before { expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return([]) }
 
         it 'returns nil' do
           expect(subject).to be_falsey

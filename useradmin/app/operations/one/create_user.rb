@@ -16,16 +16,16 @@ module One
     end
 
     def find_or_create_user
-      One::Client.find_user(current_user.one_username) ||
-        One::Client.create_user(current_user.one_username, current_user.one_password)
+      one_client.find_user(current_user.one_username) ||
+        one_client.create_user(current_user.one_username, current_user.one_password)
     end
 
     def add_user_to_group
-      One::Client.add_user_to_group(one_user.id, invite.group_id)
+      one_client.add_user_to_group(one_user.id, invite.group_id)
     end
 
     def add_user_as_group_admin
-      One::Client.make_user_group_admin(one_user.id, invite.group_id)
+      one_client.make_user_group_admin(one_user.id, invite.group_id)
     end
 
     def user_already_member_of_group?
@@ -37,7 +37,11 @@ module One
     end
 
     def user_already_admin_of_group?
-      One::Client.user_admin_of_group?(one_user.id, invite.group_id)
+      one_client.user_admin_of_group?(one_user.id, invite.group_id)
+    end
+
+    def one_client
+      @one_client ||= One::Client.new
     end
   end
 end

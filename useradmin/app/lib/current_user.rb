@@ -32,7 +32,7 @@ CurrentUser = Struct.new(:request) do
   end
 
   def one_user
-    @one_user ||= One::Client.user_by_password(one_password)
+    @one_user ||= one_client.user_by_password(one_password)
   end
 
   def admin_groups
@@ -56,8 +56,12 @@ CurrentUser = Struct.new(:request) do
   private
 
   def get_admin_groups
-    return One::Client.groups if surfsara_admin?
+    return one_client.groups if surfsara_admin?
     return [] unless one_user
-    One::Client.groups_for_admin(one_user.id)
+    one_client.groups_for_admin(one_user.id)
+  end
+
+  def one_client
+    @one_client ||= One::Client.new
   end
 end

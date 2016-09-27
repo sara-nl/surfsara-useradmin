@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 describe One::Client, :vcr do
-  describe '.users' do
-    subject(:users) { One::Client.users }
+  let(:one_client) { One::Client.new }
+
+  describe '#users' do
+    subject(:users) { one_client.users }
 
     it 'retrieves a list of users' do
       expect(users.length).to eq(1)
@@ -10,8 +12,8 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.find_user' do
-    subject(:user) { One::Client.find_user(username) }
+  describe '#find_user' do
+    subject(:user) { one_client.find_user(username) }
 
     context 'given a known username' do
       let(:username) { 'useradmin' }
@@ -32,8 +34,8 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.user_by_password' do
-    subject(:user) { One::Client.user_by_password(password) }
+  describe '#user_by_password' do
+    subject(:user) { one_client.user_by_password(password) }
 
     context 'given a known password' do
       let(:password) { 'admin' }
@@ -54,16 +56,16 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.groups_for_admin' do
-    subject { One::Client.groups_for_admin(2) }
+  describe '#groups_for_admin' do
+    subject { one_client.groups_for_admin(2) }
 
     it 'returns a list of groups' do
       expect(subject).to eq([One::Group.new(1, 'users')])
     end
   end
 
-  describe '.create_user' do
-    subject(:create_user) { One::Client.create_user('socrates', 'secret') }
+  describe '#create_user' do
+    subject(:create_user) { one_client.create_user('socrates', 'secret') }
 
     it 'returns the User after it is created' do
       expect(create_user.name).to eq('socrates')
@@ -74,8 +76,8 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.add_user_to_group' do
-    subject(:add_user_to_group) { One::Client.add_user_to_group(10, 0) }
+  describe '#add_user_to_group' do
+    subject(:add_user_to_group) { one_client.add_user_to_group(10, 0) }
 
     it 'returns nil' do
       expect(add_user_to_group).to be_nil
@@ -86,8 +88,8 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.groups' do
-    subject(:groups) { One::Client.groups }
+  describe '#groups' do
+    subject(:groups) { one_client.groups }
 
     it 'retrieves a list of groups' do
       expect(groups.length).to eq(1)
@@ -95,8 +97,8 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.make_user_group_admin' do
-    subject(:make_user_group_admin) { One::Client.make_user_group_admin(10, 1) }
+  describe '#make_user_group_admin' do
+    subject(:make_user_group_admin) { one_client.make_user_group_admin(10, 1) }
 
     it 'returns nil' do
       expect(make_user_group_admin).to be_nil
@@ -108,8 +110,8 @@ describe One::Client, :vcr do
     end
   end
 
-  describe '.user_admin_of_group?' do
-    subject(:is_user_admin_of_group) { One::Client.user_admin_of_group?(user_id, group_id) }
+  describe '#user_admin_of_group?' do
+    subject(:is_user_admin_of_group) { one_client.user_admin_of_group?(user_id, group_id) }
 
     context 'when the user is an admin of the group' do
       let(:user_id) { 10 }

@@ -20,11 +20,11 @@ describe One::CreateUser do
 
   context 'given the user does not have an account in OpenNebula' do
     before do
-      expect(One::Client).to receive(:find_user).with(current_user.one_username)
-      expect(One::Client).to receive(:create_user)
+      expect_any_instance_of(One::Client).to receive(:find_user).with(current_user.one_username)
+      expect_any_instance_of(One::Client).to receive(:create_user)
         .with(current_user.one_username, current_user.one_password)
         .and_return(one_user)
-      expect(One::Client).to receive(:add_user_to_group).with(one_user.id, invite.group_id)
+      expect_any_instance_of(One::Client).to receive(:add_user_to_group).with(one_user.id, invite.group_id)
     end
 
     it 'creates a user and adds it to the group it was invited for' do
@@ -35,8 +35,10 @@ describe One::CreateUser do
       let(:role) { Role.group_admin }
 
       before do
-        expect(One::Client).to receive(:user_admin_of_group?).with(one_user.id, invite.group_id).and_return(false)
-        expect(One::Client).to receive(:make_user_group_admin).with(one_user.id, invite.group_id)
+        expect_any_instance_of(One::Client)
+          .to receive(:user_admin_of_group?).with(one_user.id, invite.group_id).and_return(false)
+        expect_any_instance_of(One::Client)
+          .to receive(:make_user_group_admin).with(one_user.id, invite.group_id)
       end
 
       it 'adds the user as a group admin' do
@@ -48,7 +50,8 @@ describe One::CreateUser do
       let(:role) { Role.group_admin }
 
       before do
-        expect(One::Client).to receive(:user_admin_of_group?).with(one_user.id, invite.group_id).and_return(true)
+        expect_any_instance_of(One::Client)
+          .to receive(:user_admin_of_group?).with(one_user.id, invite.group_id).and_return(true)
       end
 
       it 'does not add the user as a group admin again' do
@@ -59,8 +62,8 @@ describe One::CreateUser do
 
   context 'given the user already has an account in OpenNebula' do
     it 'adds the user to the group it was invited for' do
-      expect(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)
-      expect(One::Client).to receive(:add_user_to_group).with(one_user.id, invite.group_id)
+      expect_any_instance_of(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)
+      expect_any_instance_of(One::Client).to receive(:add_user_to_group).with(one_user.id, invite.group_id)
       run
     end
 
@@ -68,7 +71,7 @@ describe One::CreateUser do
       let(:one_user) { build(:one_user, group_ids: [group_id]) }
 
       it 'does not add the user to the group again' do
-        expect(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)
+        expect_any_instance_of(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)
         run
       end
     end
