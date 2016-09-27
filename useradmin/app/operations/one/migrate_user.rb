@@ -19,12 +19,9 @@ module One
     def process(params)
       validate(params[:reform]) do
         return unless authenticate_user
+        return unless check_password_available
         migrate_user
       end
-    end
-
-    def one_user
-      @one_user ||= find_one_user
     end
 
     def model!(_params)
@@ -42,18 +39,35 @@ module One
       true
     end
 
-    def migrate_user
-      client.migrate_user(one_user.id, current_user.one_password)
-    end
-
-    def client
-      @client ||= One::Client.new(credentials: credentials)
+    def one_user
+      @one_user ||= find_one_user
     end
 
     def find_one_user
-      client.find_user(username)
+      user_client.find_user(username)
     rescue RuntimeError => e
       raise unless e.message =~ /User couldn't be authenticated/
+    end
+
+    def user_client
+      @user_client ||= One::Client.new(credentials: credentials)
+    end
+
+    def check_password_available
+      if admin_client.user_by_password(current_user.one_password).present?
+        self.errors.add(:base, :account_already_linked)
+        invalid!
+        return false
+      end
+      true
+    end
+
+    def admin_client
+      @admin_client ||= One::Client.new
+    end
+
+    def migrate_user
+      user_client.migrate_user(one_user.id, current_user.one_password)
     end
 
     def credentials

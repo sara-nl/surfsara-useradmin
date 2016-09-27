@@ -17,19 +17,42 @@ describe One::MigrateUser do
   let(:res) { run.first }
   let(:op) { run.last }
 
-  let(:client) { double }
+  let(:user_client) { double('User client') }
+  let(:admin_client) { double('Admin client') }
+
+  before do
+    expect(One::Client)
+      .to receive(:new).with(credentials: "#{existing_username}:#{existing_password}").and_return(user_client)
+  end
 
   context 'with correct credentials' do
     before do
       expect(One::Client)
-        .to receive(:new).with(credentials: "#{existing_username}:#{existing_password}").and_return(client)
+        .to receive(:new).with(no_args).and_return(admin_client)
 
-      expect(client).to receive(:find_user).with(existing_username).and_return(build(:one_user, id: 123))
-      expect(client).to receive(:migrate_user).with(123, current_user.one_password)
+      expect(user_client).to receive(:find_user).with(existing_username).and_return(build(:one_user, id: 123))
     end
 
-    it 'migrates the user to the new authentication scheme' do
-      run
+    context 'and a SURFconext account that is already linked to an OpenNebula account' do
+      before do
+        expect(admin_client).to receive(:user_by_password).with(current_user.one_password).and_return(build(:one_user))
+      end
+
+      it 'fails' do
+        expect(res).to be_falsey
+        expect(op.errors).to be_added(:base, :account_already_linked)
+      end
+    end
+
+    context 'and a SURFconext account that is not yet linked to an OpenNebula account' do
+      before do
+        expect(admin_client).to receive(:user_by_password).with(current_user.one_password).and_return(nil)
+        expect(user_client).to receive(:migrate_user).with(123, current_user.one_password)
+      end
+
+      it 'migrates the user to the new authentication scheme' do
+        run
+      end
     end
   end
 
@@ -37,10 +60,7 @@ describe One::MigrateUser do
     let(:existing_password) { 'faultyPassword' }
 
     before do
-      expect(One::Client)
-        .to receive(:new).with(credentials: "#{existing_username}:#{existing_password}").and_return(client)
-
-      expect(client)
+      expect(user_client)
         .to receive(:find_user)
         .with(existing_username)
         .and_raise(RuntimeError, "[UserPoolInfo] User couldn't be authenticated, aborting call.")
@@ -51,6 +71,4 @@ describe One::MigrateUser do
       expect(op.errors).to be_added(:base, :could_not_be_authenticated)
     end
   end
-
-  context 'with an already migrated user'
 end
