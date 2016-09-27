@@ -131,4 +131,12 @@ describe One::Client, :vcr do
       end
     end
   end
+
+  describe '#migrate_user' do
+    subject(:migrate_user) { one_client.migrate_user(13, 'link') }
+
+    it "migrates a user (ie. sets it's auth driver to public, and a new password)" do
+      expect(migrate_user).to be_nil
+    end
+  end
 end

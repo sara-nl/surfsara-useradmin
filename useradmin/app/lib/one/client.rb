@@ -48,6 +48,11 @@ module One
       group.contains_admin(user_id)
     end
 
+    def migrate_user(user_id, password)
+      user = build_user(user_id)
+      perform { user.chauth(PUBLIC_AUTH_DRIVER, password) }
+    end
+
     def groups
       perform { group_pool.info }
       group_pool.map { |group| One::Group.from_xml(group) }
