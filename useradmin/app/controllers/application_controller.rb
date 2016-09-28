@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
     CurrentUser.from_request(request)
   end
 
-  # rubocop:disable AbcSize
   # :nocov:
   def stub_shibboleth
     if remote_user.blank?
@@ -33,7 +32,6 @@ class ApplicationController < ActionController::Base
     end
   end
   # :nocov:
-  # rubocop:enable AbcSize
 
   def authenticate
     raise NotAuthenticated if remote_user.blank?
