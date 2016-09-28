@@ -3,7 +3,7 @@ FactoryGirl.define do
     uid 'isaac'
     common_name 'Sir Isaac Newton'
     home_organization 'university-example.org'
-    edu_person_principal_name '3d21c8a6d89e3332e3d388852f99d5e5ce114ff9'
+    remote_user '3d21c8a6d89e3332e3d388852f99d5e5ce114ff9'
 
     surfsara_admin
 

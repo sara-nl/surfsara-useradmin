@@ -1,10 +1,10 @@
-CurrentUser = Struct.new(:uid, :common_name, :home_organization, :edu_person_principal_name, :edu_person_entitlement) do
+CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :edu_person_entitlement) do
   def self.from_request(request)
     new(
       get_request_header(request, 'Shib-uid'),
       get_request_header(request, 'Shib-commonName'),
       get_request_header(request, 'Shib-homeOrganization'),
-      get_request_header(request, 'Shib-eduPersonPrincipalName'),
+      get_request_header(request, 'REMOTE_USER'),
       get_request_header(request, 'Shib-eduPersonEntitlement'),
     )
   end
@@ -18,7 +18,7 @@ CurrentUser = Struct.new(:uid, :common_name, :home_organization, :edu_person_pri
   end
 
   def one_user
-    @one_user ||= one_client.user_by_password(edu_person_principal_name)
+    @one_user ||= one_client.user_by_password(remote_user)
   end
 
   def admin_groups

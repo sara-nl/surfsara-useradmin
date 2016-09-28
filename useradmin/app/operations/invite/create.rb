@@ -38,7 +38,7 @@ class Invite < ApplicationRecord
     private
 
     def model!(_params)
-      Invite.new(token: invite_token.hashed, group_name: group_name, created_by: current_user.edu_person_principal_name)
+      Invite.new(token: invite_token.hashed, group_name: group_name, created_by: current_user.remote_user)
     end
 
     def send_invitation!

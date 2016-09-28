@@ -34,12 +34,11 @@ RSpec.configure do |c|
 
   def to_shib_headers(user)
     {
-      'REMOTE_USER' => user.edu_person_principal_name,
+      'REMOTE_USER' => user.remote_user,
       'Shib-uid' => user.uid,
       'Shib-commonName' => user.common_name,
       'Shib-homeOrganization' => user.home_organization,
       'Shib-eduPersonEntitlement' => user.edu_person_entitlement,
-      'Shib-eduPersonPrincipalName' => user.edu_person_principal_name
     }
   end
 end

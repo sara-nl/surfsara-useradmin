@@ -18,7 +18,7 @@ dl
   br
 
   dt ONE password
-  dd = current_user.edu_person_principal_name
+  dd = current_user.remote_user
   br
 
   - Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }].each do |k, v|

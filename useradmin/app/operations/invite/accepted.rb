@@ -6,7 +6,7 @@ class Invite < ApplicationRecord
 
     def model!(params)
       invite_token = InviteToken.new(params[:id])
-      Invite.find_by!(accepted_by: current_user.edu_person_principal_name, token: invite_token.hashed)
+      Invite.find_by!(accepted_by: current_user.remote_user, token: invite_token.hashed)
     end
   end
 end

@@ -21,7 +21,7 @@ module One
         return unless authenticate_user
         return unless check_password_available
         @model.accepted_at = Time.current
-        @model.accepted_by = current_user.edu_person_principal_name
+        @model.accepted_by = current_user.remote_user
         @model.one_username = @contract.username
 
         @model.save! && migrate_user
@@ -54,7 +54,7 @@ module One
     end
 
     def check_password_available
-      if admin_client.user_by_password(current_user.edu_person_principal_name).present?
+      if admin_client.user_by_password(current_user.remote_user).present?
         self.errors.add(:base, :account_already_linked)
         invalid!
         return false
@@ -67,7 +67,7 @@ module One
     end
 
     def migrate_user
-      user_client.migrate_user(one_user.id, current_user.edu_person_principal_name)
+      user_client.migrate_user(one_user.id, current_user.remote_user)
     end
 
     def credentials

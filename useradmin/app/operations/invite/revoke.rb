@@ -7,7 +7,7 @@ class Invite < ApplicationRecord
     policy Invite::Policy, :revoke?
 
     def process(_)
-      model.update!(revoked_at: Time.current, revoked_by: current_user.edu_person_principal_name)
+      model.update!(revoked_at: Time.current, revoked_by: current_user.remote_user)
     end
 
     private
