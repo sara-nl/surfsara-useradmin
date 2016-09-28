@@ -44,7 +44,8 @@ describe MigrationsController, :feature do
     context 'given the current user it not a SURFsara admin', current_user: :member do
       it 'denies access' do
         visit '/migrations'
-        expect(page).to have_content('You are not authorized to perform this action')
+        expect(page).to have_content('You are not authorized')
+        within('.nav') { expect(page).to have_no_content('Migrations') }
       end
     end
   end

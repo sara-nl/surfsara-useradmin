@@ -1,11 +1,9 @@
 class Migration < ApplicationRecord
   class Index < Operation
     include Collection
-    include Policy::Guard
+    include Trailblazer::Operation::Policy
 
-    policy do |params|
-      params[:current_user].surfsara_admin?
-    end
+    policy Migration::Policy, :index?
 
     def model!(params)
       Migration

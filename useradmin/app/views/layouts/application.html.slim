@@ -29,7 +29,7 @@ html
             .well.well-sm
               ul.nav.nav-pills.nav-stacked
                 li class=(params[:controller] == 'invites' ? 'active' : '') = link_to t('.menu.invites'), invites_path
-                li class=(params[:controller] == 'migrations' ? 'active' : '') = link_to t('.menu.migrations'), migrations_path
+                li class=(params[:controller] == 'migrations' ? 'active' : '') = link_to t('.menu.migrations'), migrations_path if Migration::Policy.new(current_user).index?
                 li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to t('.menu.profile'), profile_path
 
         div class=(@hide_menu ? 'col-sm-12' : 'col-sm-10')
