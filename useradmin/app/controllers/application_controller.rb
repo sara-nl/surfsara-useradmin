@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   # rubocop:disable AbcSize
+  # :nocov:
   def stub_shibboleth
     unless request.headers.include?('REMOTE_USER') || request.headers.include?('HTTP_REMOTE_USER')
       request.set_header('REMOTE_USER', 'isaac@university-example.org')
@@ -27,6 +28,7 @@ class ApplicationController < ActionController::Base
       request.set_header('Shib-eduPersonPrincipalName', 'isaac@university-example.org')
     end
   end
+  # :nocov:
   # rubocop:enable AbcSize
 
   def expose_current_user
