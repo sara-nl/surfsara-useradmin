@@ -3,6 +3,9 @@ require 'digest/sha1'
 class Invite < ApplicationRecord
   class Index < Operation
     include Collection
+    include Trailblazer::Operation::Policy
+
+    policy Invite::Policy, :index?
 
     def model!(params)
       Invite

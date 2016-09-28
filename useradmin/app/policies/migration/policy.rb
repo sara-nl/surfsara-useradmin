@@ -3,5 +3,9 @@ class Migration < ApplicationRecord
     def index?
       current_user.surfsara_admin?
     end
+
+    def create?
+      true
+    end
   end
 end

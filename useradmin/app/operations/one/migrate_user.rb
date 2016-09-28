@@ -1,7 +1,10 @@
 module One
   class MigrateUser < Operation
     include Model
+    include Trailblazer::Operation::Policy
+
     model Migration, :create
+    policy Migration::Policy, :create?
 
     contract do
       property :username, virtual: true

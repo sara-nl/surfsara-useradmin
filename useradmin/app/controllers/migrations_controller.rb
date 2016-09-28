@@ -1,15 +1,15 @@
 class MigrationsController < ApplicationController
   def new
-    hide_menu
     form One::MigrateUser
+    hide_menu
   end
 
   def create
-    hide_menu
     run One::MigrateUser do |_op|
       flash[:success] = t('.success')
       return redirect_to action: :success
     end
+    hide_menu
 
     render :new
   end

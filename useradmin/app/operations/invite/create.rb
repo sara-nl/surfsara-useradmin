@@ -4,7 +4,10 @@ require 'digest/sha1'
 class Invite < ApplicationRecord
   class Create < Operation
     include Model
+    include Trailblazer::Operation::Policy
+
     model Invite, :create
+    policy Invite::Policy, :create?
 
     contract do
       property :email, validates: {presence: true, email: true}

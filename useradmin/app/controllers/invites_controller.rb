@@ -28,15 +28,14 @@ class InvitesController < ApplicationController
   end
 
   def verify
-    hide_menu
     @form = form Invite::Accept
+    hide_menu
     render :expired unless @form.model
   end
 
   def accept
-    hide_menu
-
     res, op = Invite::Accept.run(params)
+    hide_menu
     handle_accept(res, op)
   end
 

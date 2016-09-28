@@ -1,7 +1,10 @@
 class Invite < ApplicationRecord
   class Accept < Operation
     include Model
+    include Trailblazer::Operation::Policy
+
     model Invite, :find
+    policy Invite::Policy, :accept?
 
     contract do
       property :accept_terms_of_service, virtual: true
