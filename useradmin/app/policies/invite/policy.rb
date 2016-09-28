@@ -21,7 +21,7 @@ class Invite < ApplicationRecord
     end
 
     def accepted?
-      true
+      model.accepted_by == current_user.edu_person_principal_name
     end
   end
 end
