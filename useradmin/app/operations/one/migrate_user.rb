@@ -67,7 +67,7 @@ module One
     end
 
     def migrate_user
-      user_client.migrate_user(one_user.id, current_user.remote_user)
+      admin_client.migrate_user(one_user.id, current_user.remote_user)
     end
 
     def credentials
