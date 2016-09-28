@@ -1,15 +1,13 @@
 class Invite < ApplicationRecord
-  class Index < Operation
-    include Collection
+  class Show < Operation
     include Trailblazer::Operation::Policy
 
-    policy Invite::Policy, :index?
+    policy Invite::Policy, :show?
 
     def model!(params)
       Invite
         .scoped_to(current_user)
-        .order(created_at: :desc)
-        .page(params[:page])
+        .find(params[:id])
     end
   end
 end

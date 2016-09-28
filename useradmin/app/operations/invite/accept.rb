@@ -1,7 +1,10 @@
 class Invite < ApplicationRecord
   class Accept < Operation
     include Model
+    include Trailblazer::Operation::Policy
+
     model Invite, :find
+    policy Invite::Policy, :accept?
 
     contract do
       property :accept_terms_of_service, virtual: true
@@ -32,7 +35,7 @@ class Invite < ApplicationRecord
     end
 
     def update_invite
-      @model.update!(accepted_at: Time.current, accepted_by: current_user.one_username)
+      @model.update!(accepted_at: Time.current, accepted_by: current_user.remote_user)
     end
 
     def current_user

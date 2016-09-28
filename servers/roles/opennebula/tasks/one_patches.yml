@@ -1,0 +1,18 @@
+- name: Fix REMOTE_USER header
+  lineinfile:
+    dest: /usr/lib/one/ruby/cloud/CloudAuth/RemoteCloudAuth.rb
+    regexp: "env\\['(HTTP_)?REMOTE_USER'\\]"
+    line: "        remote_user   = env['HTTP_REMOTE_USER']"
+  notify: restart apache
+  tags:
+    - one
+
+- name: Patch authentication error
+  lineinfile:
+    dest: /usr/lib/one/sunstone/views/_login_x509.erb
+    regexp: "<span id=\"auth_error\">"
+    line: '          <span id="auth_error"><p>Unable to login.</p><p>If you have an account already, <a style="color: white" href="/useradmin/migrations/new">please migrate it here</a>.</p><p>Otherwise, <a style="color: white" href="#">contact an HPC Cloud administrator</a> to request an account.</p></span>'
+  notify: restart apache
+  tags:
+    - one
+    - abc

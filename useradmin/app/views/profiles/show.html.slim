@@ -14,14 +14,14 @@ dl
   h1.page-header= t('.debug')
 
   dt ONE username
-  dd = current_user.one_username
+  dd = current_user.proposed_one_username
   br
 
   dt ONE password
-  dd = current_user.one_password
+  dd = current_user.remote_user
   br
 
-  - current_user.shibboleth_headers.each do |k, v|
+  - Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }].each do |k, v|
     dt= k
     dd= v
     br

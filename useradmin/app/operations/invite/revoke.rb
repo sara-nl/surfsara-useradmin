@@ -1,10 +1,13 @@
 class Invite < ApplicationRecord
   class Revoke < Operation
     include Model
+    include Trailblazer::Operation::Policy
+
     model Invite, :find
+    policy Invite::Policy, :revoke?
 
     def process(_)
-      model.update!(revoked_at: Time.current, revoked_by: current_user.one_username)
+      model.update!(revoked_at: Time.current, revoked_by: current_user.remote_user)
     end
 
     private

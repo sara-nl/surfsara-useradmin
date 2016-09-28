@@ -20,9 +20,9 @@ describe One::CreateUser do
 
   context 'given the user does not have an account in OpenNebula' do
     before do
-      expect_any_instance_of(One::Client).to receive(:find_user).with(current_user.one_username)
+      expect_any_instance_of(One::Client).to receive(:user_by_password).with(current_user.remote_user)
       expect_any_instance_of(One::Client).to receive(:create_user)
-        .with(current_user.one_username, current_user.one_password)
+        .with(current_user.proposed_one_username, current_user.remote_user)
         .and_return(one_user)
       expect_any_instance_of(One::Client).to receive(:add_user_to_group).with(one_user.id, invite.group_id)
     end
@@ -62,7 +62,8 @@ describe One::CreateUser do
 
   context 'given the user already has an account in OpenNebula' do
     it 'adds the user to the group it was invited for' do
-      expect_any_instance_of(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)
+      expect_any_instance_of(One::Client)
+        .to receive(:user_by_password).with(current_user.remote_user).and_return(one_user)
       expect_any_instance_of(One::Client).to receive(:add_user_to_group).with(one_user.id, invite.group_id)
       run
     end
@@ -71,7 +72,8 @@ describe One::CreateUser do
       let(:one_user) { build(:one_user, group_ids: [group_id]) }
 
       it 'does not add the user to the group again' do
-        expect_any_instance_of(One::Client).to receive(:find_user).with(current_user.one_username).and_return(one_user)
+        expect_any_instance_of(One::Client)
+          .to receive(:user_by_password).with(current_user.remote_user).and_return(one_user)
         run
       end
     end

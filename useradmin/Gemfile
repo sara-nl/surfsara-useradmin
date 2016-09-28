@@ -28,6 +28,7 @@ group :development, :test do
   gem 'capybara-screenshot', require: false
   gem 'timecop'
   gem 'factory_girl'
+  gem 'database_cleaner'
 end
 
 group :development do

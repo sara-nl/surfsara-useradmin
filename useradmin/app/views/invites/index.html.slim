@@ -31,7 +31,7 @@
 
       - else
         tr
-          td colspan=6 = t('.none')
+          td colspan=6 = t('.empty')
 
   = will_paginate @model, renderer: BootstrapPagination::Rails, params: {current_user: nil}
 

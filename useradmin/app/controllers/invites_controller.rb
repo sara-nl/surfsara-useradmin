@@ -4,7 +4,7 @@ class InvitesController < ApplicationController
   end
 
   def show
-    @invite = Invite.scoped_to(current_user).find(params[:id])
+    present Invite::Show
   end
 
   def new
@@ -28,22 +28,20 @@ class InvitesController < ApplicationController
   end
 
   def verify
-    hide_menu
     @form = form Invite::Accept
+    hide_menu
     render :expired unless @form.model
   end
 
   def accept
-    hide_menu
-
     res, op = Invite::Accept.run(params)
+    hide_menu
     handle_accept(res, op)
   end
 
   def accepted
-    invite_token = InviteToken.new(params[:id])
-    @model = Invite.find_by!(accepted_by: current_user.one_username, token: invite_token.hashed)
-    hide_menu unless @model.role == Role.group_admin
+    present Invite::Accepted
+    hide_menu unless current_user.can_administer_groups?
   end
 
   private
@@ -52,10 +50,6 @@ class InvitesController < ApplicationController
     current_user.admin_groups
       .sort_by(&:name)
       .map { |g| [g.name, g.id] }
-  end
-
-  def hide_menu
-    @hide_menu = true
   end
 
   def handle_accept(res, op)

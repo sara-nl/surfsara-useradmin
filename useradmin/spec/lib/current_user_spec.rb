@@ -1,29 +1,13 @@
 require 'rails_helper'
 
 describe CurrentUser do
-  class RequestStub
-    attr_reader :headers
-
-    def initialize(headers = {})
-      @headers = headers
-    end
-
-    def get_header(name)
-      @headers.fetch(name)
-    end
-  end
-
-  let(:current_user) { CurrentUser.new(request) }
-  let(:request) do
-    RequestStub.new(
-      {
-        'REMOTE_USER' => 'isaac@university-example.org',
-        'Shib-uid' => 'isaac',
-        'Shib-commonName' => 'Sir Isaac Newton',
-        'Shib-homeOrganization' => 'university-example.org',
-        'Shib-eduPersonPrincipalName' => 'isaac@university-example.org',
-        'Shib-eduPersonEntitlement' => edu_person_entitlement,
-      }
+  let(:current_user) do
+    CurrentUser.new(
+      'isaac',
+      'Sir Isaac Newton',
+      'university-example.org',
+      'isaac@university-example.org',
+      edu_person_entitlement
     )
   end
   let(:edu_person_entitlement) { Rails.application.config.surfsara_admin_entitlement }
@@ -48,9 +32,9 @@ describe CurrentUser do
     end
   end
 
-  describe '#edu_person_principal_name' do
-    it 'returns the value of the Shib-eduPersonPrincipalName header' do
-      expect(current_user.edu_person_principal_name).to eq('isaac@university-example.org')
+  describe '#remote_user' do
+    it 'returns the value of the REMOTE_USER header' do
+      expect(current_user.remote_user).to eq('isaac@university-example.org')
     end
   end
 
@@ -60,15 +44,9 @@ describe CurrentUser do
     end
   end
 
-  describe '#one_username' do
+  describe '#proposed_one_username' do
     it 'returns a unique identifier for the OpenConext user' do
-      expect(current_user.one_username).to eq('isaac@university-example.org')
-    end
-  end
-
-  describe '#one_password' do
-    it 'returns the eduPersonPrincipalName of the OpenConext user' do
-      expect(current_user.one_password).to eq('isaac@university-example.org')
+      expect(current_user.proposed_one_username).to eq('isaac@university-example.org')
     end
   end
 
@@ -82,7 +60,7 @@ describe CurrentUser do
         .and_return(one_user)
     end
 
-    it 'returns the ONE user based on its unique identifier (eduPersonPrincipalName) in OpenConext' do
+    it 'returns the ONE user based on its unique identifier (REMOTE_USER) in OpenConext' do
       expect(current_user.one_user).to eq(one_user)
     end
   end
@@ -218,20 +196,6 @@ describe CurrentUser do
           expect(subject).to be_falsey
         end
       end
-    end
-  end
-
-  describe '#shibboleth_headers' do
-    it 'returns all HTTP headers starting with Shib-' do
-      expect(current_user.shibboleth_headers).to eq(
-        {
-          'Shib-uid' => 'isaac',
-          'Shib-commonName' => 'Sir Isaac Newton',
-          'Shib-homeOrganization' => 'university-example.org',
-          'Shib-eduPersonPrincipalName' => 'isaac@university-example.org',
-          'Shib-eduPersonEntitlement' => edu_person_entitlement,
-        }
-      )
     end
   end
 end

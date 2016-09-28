@@ -1,20 +1,20 @@
 h1.page-header
-  = t('.title', email: @invite.email)
+  = t('.title', email: @model.email)
 
 h3 = t('.general')
 table.table
   tr
     td = Invite.human_attribute_name(:sent_to)
-    td = @invite.email
+    td = @model.email
 
   tr
     td = Invite.human_attribute_name(:group_name)
-    td = "#{@invite.group_name} (group id: #{@invite.group_id})"
+    td = "#{@model.group_name} (group id: #{@model.group_id})"
 
   tr
     td = Invite.human_attribute_name(:status)
     td
-      strong = t("invite.status.#{@invite.status}")
+      strong = t("invite.status.#{@model.status}")
 
 h3 = t('.history.title')
 table.table
@@ -27,23 +27,23 @@ table.table
   tbody
     tr
       td = t('.history.event.sent')
-      td = @invite.created_by
-      td = l(@invite.created_at, format: :long)
+      td = @model.created_by
+      td = l(@model.created_at, format: :long)
 
-    - if @invite.accepted?
+    - if @model.accepted?
       tr
         td = t('history.event.accepted')
-        td = @invite.accepted_by
-        td = l(@invite.accepted_at, format: :long)
+        td = @model.accepted_by
+        td = l(@model.accepted_at, format: :long)
 
-    - if @invite.revoked?
+    - if @model.revoked?
       tr
         td = t('.history.event.revoked')
-        td = @invite.revoked_by
-        td = l(@invite.revoked_at, format: :long)
+        td = @model.revoked_by
+        td = l(@model.revoked_at, format: :long)
 
-    - if @invite.expired?
+    - if @model.expired?
       tr
         td = t('.history.event.expired')
         td = t('.history.expired_by')
-        td = l(@invite.expired_at, format: :long)
+        td = l(@model.expired_at, format: :long)

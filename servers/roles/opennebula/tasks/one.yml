@@ -8,15 +8,6 @@
   tags:
     - one
 
-- name: Fix REMOTE_USER header
-  lineinfile:
-    dest: /usr/lib/one/ruby/cloud/CloudAuth/RemoteCloudAuth.rb
-    regexp: "env\\['(HTTP_)?REMOTE_USER'\\]"
-    line: "        remote_user   = env['HTTP_REMOTE_USER']"
-  notify: restart apache
-  tags:
-    - one
-
 - name: Restart opennebula/apache
   service: name={{ item }} state=restarted
   when: env in ['development', 'acceptance'] and enable_remote_auth.changed

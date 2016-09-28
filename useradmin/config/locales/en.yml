@@ -4,6 +4,20 @@ en:
       header:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+    not_authenticated:
+      title: Access denied
+      explanation: You must be logged into SURFconext to view this page.
+    not_authorized:
+      title: Access denied
+      explanation: You are not authorized to view this page.
+
+  layouts:
+    application:
+      welcome_html: "Welcome! You are logged in as <strong>%{name}</strong> "
+      menu:
+        invites: Invites
+        migrations: Migrations
+        profile: Profile
 
   actions:
     cancel: Cancel
@@ -19,7 +33,7 @@ en:
       title: Invites
       user_without_groups_notice_html: You don't have any HPC groups to manage invites for.
       new_invite: New invite
-      none: There are no invites yet.
+      empty: There are no invites yet.
       confirm_revoke: Are you sure you want to revoke this invite? The user will no longer be able to accept it.
     show:
       title: Invite - %{email}
@@ -65,6 +79,30 @@ en:
       to_opennebula: Visit OpenNebula
       manage_invites: Manage invites
 
+  migrations:
+    new:
+      title: Migrate your HPC Cloud account
+      description_html: Enter your HPC Cloud credentials here to link your SURFconext account to your HPC Cloud account.
+      username: Username
+      password: Password
+      submit: Migrate my account
+      terms_header: Terms of Service
+      accept_terms_of_service_html: >
+        I agree to the <a href='https://doc.hpccloud.surfsara.nl/HPCCloudAUP' target='_blank'>terms of service</a>
+      error_header:
+        one: "1 error is keeping your HPC Cloud account from being migrated:"
+        other: "%{count} errors are keeping your HPC Cloud account from being migrated:"
+    create:
+      success: Your HPC Cloud account has been successfully migrated
+    success:
+      title: Account migrated!
+      description_html: You can now log in to HPC Cloud using your SURFconext account.
+      to_opennebula: Visit OpenNebula
+      manage_invites: Manage invites
+    index:
+      title: Migrations
+      empty: There are no migrations yet.
+
   invite_mailer:
     invitation:
       title: HPC Cloud invitation
@@ -92,6 +130,10 @@ en:
         zero: invites
         one: invite
         other: invites
+      migration:
+        zero: migrations
+        one: migration
+        other: migrations
     attributes:
       invite:
         email: Email address
@@ -100,6 +142,10 @@ en:
         created_at: Sent at
         accepted_at: Accepted at
         accepted_by: Accepted by
+      migration:
+        one_username: OpenNebula username
+        accepted_by: Accepted by
+        accepted_at: Accepted at
 
   activemodel:
     errors:
@@ -110,3 +156,11 @@ en:
               not_accepted: is required
             base:
               duplicate: 'One or more invites are already pending/accepted for this email, group & role. Sending another invite will not revoke any previous invites.'
+
+        migration:
+          attributes:
+            base:
+              could_not_be_authenticated: 'Could not login to HPC Cloud with given username and password'
+              account_already_linked: 'An HPC Cloud account is already linked to your current SURFconext account'
+            accept_terms_of_service:
+              not_accepted: is required

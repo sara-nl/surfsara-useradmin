@@ -1,13 +1,12 @@
-class Invite < ApplicationRecord
+class Migration < ApplicationRecord
   class Index < Operation
     include Collection
     include Trailblazer::Operation::Policy
 
-    policy Invite::Policy, :index?
+    policy Migration::Policy, :index?
 
     def model!(params)
-      Invite
-        .scoped_to(current_user)
+      Migration
         .order(created_at: :desc)
         .page(params[:page])
     end
