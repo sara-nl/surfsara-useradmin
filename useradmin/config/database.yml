@@ -19,10 +19,10 @@ acceptance:
   host: 127.0.0.1
   database: useradmin_acceptance
   username: useradmin
-  password: <%= `cat /etc/useradmin/db_password` %>
+  password: <%= `cat /etc/useradmin/db_password 2>/dev/null` %>
 
 production:
   <<: *default
   database: useradmin_production
   username: useradmin
-  password: <%= `cat /etc/useradmin/db_password` %>
+  password: <%= `cat /etc/useradmin/db_password 2>/dev/null` %>
