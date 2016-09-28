@@ -27,7 +27,7 @@ RSpec.configure do |c|
       end
 
     to_shib_headers(user).each do |k, v|
-      Capybara.current_session.driver.header(k ,v)
+      Capybara.current_session.driver.header(k, v)
     end
   end
 
