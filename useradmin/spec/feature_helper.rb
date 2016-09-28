@@ -12,3 +12,40 @@ Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara::Webkit.configure do |config|
   config.allow_url("netdna.bootstrapcdn.com")
 end
+
+RSpec.configure do |c|
+  c.use_transactional_fixtures = false
+
+  c.before do |example|
+    trait = example.metadata[:current_user]
+
+    user =
+      if trait.present?
+        build(:current_user, trait)
+      else
+        build(:current_user)
+      end
+
+
+    if example.metadata[:js].present?
+      to_shib_headers(user).map do |k, v|
+        page.driver.header k, v
+      end
+    else
+      Capybara.register_driver :rack_test do |app|
+        Capybara::RackTest::Driver.new(app, headers: to_shib_headers(user))
+      end
+    end
+  end
+end
+
+def to_shib_headers(user)
+  {
+    'REMOTE_USER' => user.edu_person_entitlement,
+    'Shib-uid' => user.uid,
+    'Shib-commonName' => user.common_name,
+    'Shib-homeOrganization' => user.home_organization,
+    'Shib-eduPersonEntitlement' => user.edu_person_entitlement,
+    'Shib-eduPersonPrincipalName' => user.edu_person_principal_name
+  }
+end

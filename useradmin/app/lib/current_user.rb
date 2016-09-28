@@ -1,12 +1,16 @@
 CurrentUser = Struct.new(:uid, :common_name, :home_organization, :edu_person_principal_name, :edu_person_entitlement) do
   def self.from_request(request)
     new(
-      request.get_header('Shib-uid'),
-      request.get_header('Shib-commonName'),
-      request.get_header('Shib-homeOrganization'),
-      request.get_header('Shib-eduPersonPrincipalName'),
-      request.get_header('Shib-eduPersonEntitlement'),
+      get_request_header(request, 'Shib-uid'),
+      get_request_header(request, 'Shib-commonName'),
+      get_request_header(request, 'Shib-homeOrganization'),
+      get_request_header(request, 'Shib-eduPersonPrincipalName'),
+      get_request_header(request, 'Shib-eduPersonEntitlement'),
     )
+  end
+
+  def self.get_request_header(request, header)
+    request.get_header(header) || request.get_header('HTTP_' + header.upcase.tr('-', '_'))
   end
 
   def proposed_one_username

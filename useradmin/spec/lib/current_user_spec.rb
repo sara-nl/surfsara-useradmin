@@ -1,29 +1,13 @@
 require 'rails_helper'
 
 describe CurrentUser do
-  class RequestStub
-    attr_reader :headers
-
-    def initialize(headers = {})
-      @headers = headers
-    end
-
-    def get_header(name)
-      @headers.fetch(name)
-    end
-  end
-
-  let(:current_user) { CurrentUser.from_request(request) }
-  let(:request) do
-    RequestStub.new(
-      {
-        'REMOTE_USER' => 'isaac@university-example.org',
-        'Shib-uid' => 'isaac',
-        'Shib-commonName' => 'Sir Isaac Newton',
-        'Shib-homeOrganization' => 'university-example.org',
-        'Shib-eduPersonPrincipalName' => 'isaac@university-example.org',
-        'Shib-eduPersonEntitlement' => edu_person_entitlement,
-      }
+  let(:current_user) do
+    CurrentUser.new(
+      'isaac',
+      'Sir Isaac Newton',
+      'university-example.org',
+      'isaac@university-example.org',
+      edu_person_entitlement
     )
   end
   let(:edu_person_entitlement) { Rails.application.config.surfsara_admin_entitlement }

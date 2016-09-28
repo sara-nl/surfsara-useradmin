@@ -8,7 +8,7 @@ describe InvitesController, :feature do
   let(:current_user) { build(:current_user) }
 
   context 'invite' do
-    let!(:invite) do
+    before do
       Invite::Create.(
         invite: {email: 'foo@bar.com', group_id: 1, role: Role.group_admin},
         current_user: current_user
@@ -40,10 +40,10 @@ describe InvitesController, :feature do
       expect(page).to have_content 'Invite - user@example.com'
     end
 
-    it 'revokes invites' do
-      visit '/invites'
+    it 'revokes invites', :js do
+      visit invites_path
       click_on 'Revoke'
-      expect(page).to have_content ['foo@bar.com', 'users', 'Group Administrator', 'Revoked'].join('')
+      expect(page).to have_content ['foo@bar.com', 'users', 'Group Administrator', 'Revoked'].join(' ')
     end
   end
 
