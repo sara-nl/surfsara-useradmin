@@ -1,5 +1,3 @@
-require 'digest/sha1'
-
 class Invite < ApplicationRecord
   class Index < Operation
     include Collection
