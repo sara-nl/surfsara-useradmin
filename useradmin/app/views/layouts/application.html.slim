@@ -14,8 +14,7 @@ html
           = link_to image_tag('logo.png'), root_path
 
         .surfsara-buttons
-          | Welcome! You are logged in as
-          strong = " #{current_user.common_name} "
+          = t('.welcome_html', name: current_user.common_name)
           - if current_user.role
             i = "(#{t(current_user.role, scope: 'role')})"
 
@@ -29,9 +28,9 @@ html
           .col-sm-2
             .well.well-sm
               ul.nav.nav-pills.nav-stacked
-                li class=(params[:controller] == 'invites' ? 'active' : '') = link_to 'Invites', invites_path
-                li class=(params[:controller] == 'migrations' ? 'active' : '') = link_to 'Migrations', migrations_path
-                li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to 'Profile', profile_path
+                li class=(params[:controller] == 'invites' ? 'active' : '') = link_to t('.menu.invites'), invites_path
+                li class=(params[:controller] == 'migrations' ? 'active' : '') = link_to t('.menu.migrations'), migrations_path
+                li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to t('.menu.profile'), profile_path
 
         div class=(@hide_menu ? 'col-sm-12' : 'col-sm-10')
           = yield

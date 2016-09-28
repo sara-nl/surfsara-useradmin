@@ -5,6 +5,14 @@ en:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
 
+  layouts:
+    application:
+      welcome_html: "Welcome! You are logged in as <strong>%{name}</strong> "
+      menu:
+        invites: Invites
+        migrations: Migrations
+        profile: Profile
+
   actions:
     cancel: Cancel
     revoke: Revoke
