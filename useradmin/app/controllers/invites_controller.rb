@@ -4,7 +4,7 @@ class InvitesController < ApplicationController
   end
 
   def show
-    @invite = Invite.scoped_to(current_user).find(params[:id])
+    present Invite::Show
   end
 
   def new
@@ -40,8 +40,7 @@ class InvitesController < ApplicationController
   end
 
   def accepted
-    invite_token = InviteToken.new(params[:id])
-    @model = Invite.find_by!(accepted_by: current_user.edu_person_principal_name, token: invite_token.hashed)
+    present Invite::Accepted
     hide_menu unless current_user.can_administer_groups?
   end
 
