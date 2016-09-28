@@ -26,7 +26,7 @@ describe MigrationsController, :feature do
       it 'shows an error' do
         visit '/migrations/new'
         click_on 'Migrate my account'
-        expect(page).to have_content(/1 error is keeping your HPC Cloud account from being migrated/)
+        expect(page).to have_content(/3 errors are keeping your HPC Cloud account from being migrated/)
       end
     end
   end

@@ -7,8 +7,8 @@ module One
     policy Migration::Policy, :create?
 
     contract do
-      property :username, virtual: true
-      property :password, virtual: true
+      property :username, virtual: true, validates: {presence: true}
+      property :password, virtual: true, validates: {presence: true}
       property :accept_terms_of_service, virtual: true
 
       validate :accept_terms_of_service do
