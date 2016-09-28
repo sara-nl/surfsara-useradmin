@@ -1,26 +1,12 @@
-CurrentUser = Struct.new(:request) do
-  def uid
-    request.get_header('Shib-uid')
-  end
-
-  def common_name
-    request.get_header('Shib-commonName')
-  end
-
-  def home_organization
-    request.get_header('Shib-homeOrganization')
-  end
-
-  def edu_person_principal_name
-    request.get_header('Shib-eduPersonPrincipalName')
-  end
-
-  def edu_person_entitlement
-    request.get_header('Shib-eduPersonEntitlement')
-  end
-
-  def shibboleth_headers
-    Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }]
+CurrentUser = Struct.new(:uid, :common_name, :home_organization, :edu_person_principal_name, :edu_person_entitlement) do
+  def self.from_request(request)
+    new(
+      request.get_header('Shib-uid'),
+      request.get_header('Shib-commonName'),
+      request.get_header('Shib-homeOrganization'),
+      request.get_header('Shib-eduPersonPrincipalName'),
+      request.get_header('Shib-eduPersonEntitlement'),
+    )
   end
 
   def proposed_one_username

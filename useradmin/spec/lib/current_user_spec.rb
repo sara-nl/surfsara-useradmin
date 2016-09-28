@@ -13,7 +13,7 @@ describe CurrentUser do
     end
   end
 
-  let(:current_user) { CurrentUser.new(request) }
+  let(:current_user) { CurrentUser.from_request(request) }
   let(:request) do
     RequestStub.new(
       {
@@ -218,20 +218,6 @@ describe CurrentUser do
           expect(subject).to be_falsey
         end
       end
-    end
-  end
-
-  describe '#shibboleth_headers' do
-    it 'returns all HTTP headers starting with Shib-' do
-      expect(current_user.shibboleth_headers).to eq(
-        {
-          'Shib-uid' => 'isaac',
-          'Shib-commonName' => 'Sir Isaac Newton',
-          'Shib-homeOrganization' => 'university-example.org',
-          'Shib-eduPersonPrincipalName' => 'isaac@university-example.org',
-          'Shib-eduPersonEntitlement' => edu_person_entitlement,
-        }
-      )
     end
   end
 end

@@ -21,7 +21,7 @@ dl
   dd = current_user.edu_person_principal_name
   br
 
-  - current_user.shibboleth_headers.each do |k, v|
+  - Hash[request.headers.select { |k, _| k.starts_with?('Shib-') }].each do |k, v|
     dt= k
     dd= v
     br
