@@ -14,4 +14,3 @@ class Migration < ApplicationRecord
     end
   end
 end
-
