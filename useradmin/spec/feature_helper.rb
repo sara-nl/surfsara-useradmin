@@ -18,22 +18,23 @@ RSpec.configure do |c|
 
   c.before do |example|
     trait = example.metadata[:current_user]
+    unless trait == :logged_out
+      user =
+        if trait.present?
+          build(:current_user, trait)
+        else
+          build(:current_user)
+        end
 
-    user =
-      if trait.present?
-        build(:current_user, trait)
-      else
-        build(:current_user)
+      to_shib_headers(user).each do |k, v|
+        Capybara.current_session.driver.header(k, v)
       end
-
-    to_shib_headers(user).each do |k, v|
-      Capybara.current_session.driver.header(k, v)
     end
   end
 
   def to_shib_headers(user)
     {
-      'REMOTE_USER' => user.edu_person_entitlement,
+      'REMOTE_USER' => user.edu_person_principal_name,
       'Shib-uid' => user.uid,
       'Shib-commonName' => user.common_name,
       'Shib-homeOrganization' => user.home_organization,

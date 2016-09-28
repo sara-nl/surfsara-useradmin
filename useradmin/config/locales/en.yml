@@ -4,6 +4,12 @@ en:
       header:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+    not_authenticated:
+      title: Access denied
+      explanation: You must be logged into SURFconext to view this page.
+    not_authorized:
+      title: Access denied
+      explanation: You are not authorized to view this page.
 
   layouts:
     application:
