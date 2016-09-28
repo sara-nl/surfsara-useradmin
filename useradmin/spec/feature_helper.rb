@@ -26,26 +26,19 @@ RSpec.configure do |c|
         build(:current_user)
       end
 
-
-    if example.metadata[:js].present?
-      to_shib_headers(user).map do |k, v|
-        page.driver.header k, v
-      end
-    else
-      Capybara.register_driver :rack_test do |app|
-        Capybara::RackTest::Driver.new(app, headers: to_shib_headers(user))
-      end
+    to_shib_headers(user).each do |k, v|
+      Capybara.current_session.driver.header(k ,v)
     end
   end
-end
 
-def to_shib_headers(user)
-  {
-    'REMOTE_USER' => user.edu_person_entitlement,
-    'Shib-uid' => user.uid,
-    'Shib-commonName' => user.common_name,
-    'Shib-homeOrganization' => user.home_organization,
-    'Shib-eduPersonEntitlement' => user.edu_person_entitlement,
-    'Shib-eduPersonPrincipalName' => user.edu_person_principal_name
-  }
+  def to_shib_headers(user)
+    {
+      'REMOTE_USER' => user.edu_person_entitlement,
+      'Shib-uid' => user.uid,
+      'Shib-commonName' => user.common_name,
+      'Shib-homeOrganization' => user.home_organization,
+      'Shib-eduPersonEntitlement' => user.edu_person_entitlement,
+      'Shib-eduPersonPrincipalName' => user.edu_person_principal_name
+    }
+  end
 end
