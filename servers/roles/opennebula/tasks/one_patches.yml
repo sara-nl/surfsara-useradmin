@@ -15,4 +15,3 @@
   notify: restart apache
   tags:
     - one
-    - abc

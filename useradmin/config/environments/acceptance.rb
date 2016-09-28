@@ -91,7 +91,7 @@ Rails.application.configure do
   }
 
   config.one_client = ActiveSupport::OrderedOptions.new
-  config.one_client.credentials = "useradmin:useradmin"
+  config.one_client.credentials = `cat /etc/useradmin/one_credentials`
   config.one_client.endpoint = "http://10.100.155.4:2633/RPC2"
 
   config.invites = ActiveSupport::OrderedOptions.new

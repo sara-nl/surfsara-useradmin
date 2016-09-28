@@ -1,5 +1,10 @@
+- name: Register db password
+  shell: cat /etc/useradmin/db_password
+  register: db_password
+  tags: postgres
+
 - name: create database user
-  postgresql_user: user={{ postgres.database.user }} password={{ postgres.database.password }} role_attr_flags={{ postgres.database.user_roles }}
+  postgresql_user: user={{ postgres.database.user }} password={{ db_password.stdout }} role_attr_flags={{ postgres.database.user_roles }}
   become_user: postgres
   tags: postgres
 

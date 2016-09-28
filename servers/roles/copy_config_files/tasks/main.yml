@@ -1,0 +1,23 @@
+- name: Ensure useradmin config dir exists
+  file:
+    path: /etc/useradmin
+    state: directory
+    owner: surfsara
+    group: root
+    mode: 0770
+
+- name: Copy db_password file
+  copy:
+    src: db_password
+    dest: /etc/useradmin/db_password
+    owner: surfsara
+    group: root
+    mode: 0770
+
+- name: Copy one_credentials file
+  copy:
+    src: one_credentials
+    dest: /etc/useradmin/one_credentials
+    owner: surfsara
+    group: root
+    mode: 0770
