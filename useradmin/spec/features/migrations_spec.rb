@@ -41,10 +41,10 @@ describe MigrationsController, :feature do
       end
     end
 
-    xcontext 'given the current user it not a SURFsara admin' do
+    context 'given the current user it not a SURFsara admin', current_user: :member do
       it 'denies access' do
         visit '/migrations'
-        expect(page).to have_content('Forbidden')
+        expect(page).to have_content('You are not authorized to perform this action')
       end
     end
   end
