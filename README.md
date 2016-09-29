@@ -232,7 +232,6 @@ migrations.created_at   - datetime - Timestamp when the migration was completed
 migrations.updated_at   - datetime - Timestamp of the last time the record was updated
 ```
 
-
 ## OpenNebula Logs
 
 In addition to the detailed information UserAdmin provides on the Invite and Migration resources all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log` on the OpenNebula server. 
