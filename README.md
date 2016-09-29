@@ -5,18 +5,18 @@
 ### OSX - Prerequisites
 
 #### Xcode:
-```
-    open macappstores://itunes.apple.com/us/app/xcode/id497799835
-    xcode-select --install
+```sh
+open macappstores://itunes.apple.com/us/app/xcode/id497799835
+xcode-select --install
 ```
 
 #### Homebrew:
-```
+```sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 #### Rbenv:
-```
+```sh
 brew install rbenv                      # Ruby Version Manager
 brew install rbenv-communal-gems        # Prevent many gem installs
 brew install ruby-build                 # for installing ruby versions
@@ -27,7 +27,7 @@ Follow `rbenv` post install messages.
 
 #### Other:
 
-```
+```sh
 brew install postgres
 brew install qt5       # for capybara-webkit
 ```
@@ -40,14 +40,14 @@ Download from `https://www.virtualbox.org/wiki/Downloads`
 
 ### Vagrant: 
 
-```
+```sh
 brew install vagrant
 vagrant plugin install vagrant-vbguest
 ```
 
 ### Ansible:
 
-```
+```sh
 brew install ansible
 ansible-galaxy install carlosbuenosvinos.ansistrano-deploy
 ```
@@ -56,14 +56,14 @@ ansible-galaxy install carlosbuenosvinos.ansistrano-deploy
 
 ### Checkout repository
 
-```
+```sh
 git clone git@github.com:zilverline/surfsara-useradmin.git
 cd surfsara-useradmin
 ```
 
 ### OpenNebula VM
 
-```
+```sh
 cd servers
 vagrant up opennebula
 ./ansible-dev opennebula.yml
@@ -76,7 +76,7 @@ Visit `http://192.178.111.170` to see opennebula running.
 
 ### Rails server
 
-```
+```sh
 cd useradmin
 rbenv install
 bundle install
@@ -118,15 +118,17 @@ See `servers/group_vars/useradmin-acceptance` for `ansistrano_*` configurations.
 
 ## Server Provisioning
 
-### Encrypted secrets
+Accept environment is used as a fully working reference environment. Replace `acceptance` with `production` to provision the production environment. 
 
-TODO
+### Users
 
-### Environment specific configurations
+Users will be created in the provisioning process.
 
-See `useradmin/config/environments/acceptance.rb` for environment specific configurations.
+- `surfsara` is responsible for running the application server.
+- `postgres` is responsible for running the database server. 
 
-### Acceptance Environment
+
+### Configuration with ansible
 
 - See `servers/inv/acceptance` for targeted servers.
 - See `servers/group_vars/` for relevent configurations in:
@@ -135,7 +137,7 @@ See `useradmin/config/environments/acceptance.rb` for environment specific confi
     - `useradmin.yml`
     - `useradmin-acceptance.yml`
 
-```
+```sh
 cd servers
 ansible-playbook opennebula.yml -i inv/acceptance
 ansible-playbook useradmin.yml -i inv/acceptance
@@ -144,6 +146,62 @@ ansible-playbook useradmin.yml -i inv/acceptance
 - OpenNebula runs at https://_USERADMIN_HOSTNAME_/
 - UserAdmin app runs at https://_USERADMIN_HOSTNAME_/useradmin
 - Mails aren't actually sent but captured by mailcatcher which runs at https://_USERADMIN_HOSTNAME_:1080
+
+### Secrets
+
+Secrets are read from files on the server.
+
+- `/etc/useradmin/db_password`
+    - should contain the database password
+    - should only be readable by the `postgres` and `surfsara` users.
+
+- `/etc/useradmin/one_credentials`
+    - contains the OpenNebula API user credentials in `username:api_token` format. i.e. `useradmin:hl234jklhvksdr3` 
+    - should only be readable by the `surfsara` user.
+
+### Rails application environment configurations
+
+See `useradmin/config/environments/acceptance.rb` as a reference of environment configurations.Relevant configurations to change are:
+
+- Mailer host for linking in emails:
+```rb
+  config.action_mailer.default_url_options = {
+    host: 'https://useradmin.cloudconext-sara.surf-hosted.nl'
+  }
+```
+
+- Mailer host for images in emails:
+```rb
+  config.action_mailer.asset_host = 'https://useradmin.cloudconext-sara.surf-hosted.nl'
+```
+
+- SMTP server settings:
+```rb
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'example.com',
+    user_name:            '<username>',
+    password:             '<password>',
+    authentication:       'plain',
+    enable_starttls_auto: true  
+  }
+```
+
+- OpenNebula API endpoint:
+```rb
+  config.one_client.endpoint = "http://10.100.155.4:2633/RPC2"
+```
+
+- Invite expiration time:
+```rb
+  config.invites.expire_after = 5.minutes
+```
+
+- SURFsara admin entitlement flag received from SURFconext:
+```rb
+  config.surfsara_admin_entitlement = "urn:mace:dir:entitlement:common-lib-terms-example"
+```
 
 ## Database columns
 
@@ -177,7 +235,7 @@ migrations.updated_at   - datetime - Timestamp of the last time the record was u
 
 ## OpenNebula Logs
 
-In addition to the detailed information UserAdmin provides on the Invite resource all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log`. 
+In addition to the detailed information UserAdmin provides on the Invite and Migration resources all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log` on the OpenNebula server. 
 
 Migrating a user to a SURFconext account looks like:
 
