@@ -147,7 +147,7 @@ ansible-playbook useradmin.yml -i inv/acceptance
 
 ## Database columns
 
-The useradmin database contains a single table `invites` with the following fields:
+### Invites: Every invite has one record in this column
 
 ```
 invites.email       - string   - The email the invite has been sent to
@@ -156,13 +156,24 @@ invites.group_id    - integer  - Identifier of the group as it is known in OpenN
 invites.group_name  - string   - Name of the group as it is known in OpenNebula
 invites.role        - string   - Role within the group the invite is for [Group Admin/Member]
 invites.created_at  - datetime - Timestamp when the invite was sent
-invites.created_by  - string   - OpenNebula username of the invite creator
+invites.created_by  - string   - SURFconext REMOTE_USER of the invite creator
 invites.accepted_at - datetime - Timestamp when the invite was accepted
-invites.accepted_by - string   - OpenNebula username of the invite acceptor
+invites.accepted_by - string   - SURFconext REMOTE_USER of the invite acceptor
 invites.revoked_at  - datetime - Timestamp when the invite was revoked
-invites.revoked_by  - string   - OpenNebula username of the invite revoker
+invites.revoked_by  - string   - SURFconext REMOTE_USER of the invite revoker
 invites.updated_at  - datetime - Timestamp of the last time the record was updated
 ```
+
+### Migrations: Logs migrations as they happen.
+
+```
+migrations.one_username - string   - The username of the OpenNebula account being migrated
+migrations.accepted_by  - string   - SURFconext REMOTE_USER that accepted the terms of service
+migrations.accepted_at  - datetime - Timestamp when the terms of service were accepted
+migrations.created_at   - datetime - Timestamp when the migration was completed
+migrations.updated_at   - datetime - Timestamp of the last time the record was updated
+```
+
 
 ## OpenNebula Logs
 
