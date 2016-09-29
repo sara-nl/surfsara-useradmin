@@ -264,5 +264,6 @@ The following data should be backed up:
 - The postgres database containing the application data (invites and migrations)
 - `/var/www/useradmin/shared/log/*` contains the rails logs
 - `/var/log/apache2/*` contains the apache and passenger logs
-- `/var/log/shibboleth/` contains the shibboleth logs
-- `/var/log/postgresql/` contains the database logs
+- `/var/log/shibboleth/*` contains the shibboleth logs
+- `/var/log/postgresql/*` contains the database logs
+- `/etc/useradmin/*` contains secrets
