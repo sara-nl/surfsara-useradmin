@@ -4,9 +4,10 @@ virtual_host: useradmin.cloudconext-sara.surf-hosted.nl
 
 surfconext:
   idp:
-    sso_entity_id: https://engine.surfconext.nl/authentication/idp/metadata
-    sso_url: http://{{ virtual_host }}:8080/idp/SingleSignOnService
+    sso_entity_id: "https://engine.surfconext.nl/authentication/idp/metadata" # SURFconext metadata url
+    sso_url: "http://{{ virtual_host }}:8080/idp/SingleSignOnService" # Shibboleth single sign on service url
 
+# Postgres DB configs. Should match those in 
 postgres:
   version: "9.4"
   database:
@@ -17,10 +18,10 @@ postgres:
     user_roles: "LOGIN,CREATEDB"
 
 one:
-  sunstone_url: http://10.100.155.4
-  xml_rpc_url: http://10.100.155.4:2633
+  sunstone_url: http://10.100.155.4 # OpenNebula Sunstone URL (preferably internal LAN IP)
+  xml_rpc_url: http://10.100.155.4:2633 # OpenNebula XML-RPC API URL (preferably internal LAN IP)
 
-# Ansistrano
+# Ansistrano (https://github.com/ansistrano/deploy)
 ansistrano_deploy_from: "{{ playbook_dir }}/../useradmin/" # Where my local project is (relative or absolute path)
 ansistrano_deploy_to: "/var/www/useradmin/" # Base path to deploy to.
 ansistrano_version_dir: "releases" # Releases folder name
@@ -37,5 +38,5 @@ ansistrano_rsync_extra_params: "" # Extra parameters to use when deploying with 
 ansistrano_rsync_set_remote_user: yes # See [ansible synchronize module](http://docs.ansible.com/ansible/synchronize_module.html). Options are yes, no.
 
 # Hooks: custom tasks if you need them
-ansistrano_before_symlink_tasks_file: "{{ playbook_dir }}/roles/useradmin/tasks/ansistrano/before_symlink.yml"
-ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/roles/useradmin/tasks/ansistrano/after_symlink.yml"
+ansistrano_before_symlink_tasks_file: "{{ playbook_dir }}/roles/useradmin/tasks/ansistrano/before_symlink.yml" # Run deployment tasks just before switching to the new version
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/roles/useradmin/tasks/ansistrano/after_symlink.yml" # Run deployment tasks right after switching to the new version
