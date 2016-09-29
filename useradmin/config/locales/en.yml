@@ -160,7 +160,7 @@ en:
         migration:
           attributes:
             base:
-              could_not_be_authenticated: 'Could not login to HPC Cloud with given username and password'
-              account_already_linked: 'An HPC Cloud account is already linked to your current SURFconext account'
+              could_not_be_authenticated: 'Could not authenticate with the HPC Cloud. Either the username or password was wrong or this account was already migrated.'
+              account_already_linked: 'An HPC Cloud account is already linked to your current SURFconext account.'
             accept_terms_of_service:
               not_accepted: is required
