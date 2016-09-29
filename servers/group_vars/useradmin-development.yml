@@ -18,3 +18,8 @@ postgres:
 one:
   sunstone_url: http://192.168.111.170
   xml_rpc_url: http://192.168.111.170:2633
+
+
+ssl:
+  cert: /etc/apache2/ssl/cert.pem
+  key: /etc/apache2/ssl/key.pem

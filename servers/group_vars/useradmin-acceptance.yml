@@ -21,6 +21,11 @@ one:
   sunstone_url: http://10.100.155.4 # OpenNebula Sunstone URL (preferably internal LAN IP)
   xml_rpc_url: http://10.100.155.4:2633 # OpenNebula XML-RPC API URL (preferably internal LAN IP)
 
+# SSL certificate locations for configuration in apache
+ssl:
+  cert: /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/fullchain.pem
+  key: /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/privkey.pem
+
 # Ansistrano (https://github.com/ansistrano/deploy)
 ansistrano_deploy_from: "{{ playbook_dir }}/../useradmin/" # Where my local project is (relative or absolute path)
 ansistrano_deploy_to: "/var/www/useradmin/" # Base path to deploy to.

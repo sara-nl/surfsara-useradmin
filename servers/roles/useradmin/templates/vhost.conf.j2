@@ -14,17 +14,11 @@
   DocumentRoot /var/www/useradmin/current/public
 
   SSLEngine on
-
-  {% if env == 'development' %}
-    SSLCertificateFile    /etc/apache2/ssl/cert.pem
-    SSLCertificateKeyFile /etc/apache2/ssl/key.pem
-  {% endif %}
+  SSLCertificateFile {{ ssl.cert }}
+  SSLCertificateKeyFile {{ ssl.key }}
 
   {% if env == 'acceptance' %}
-    SSLCertificateFile /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
-    ServerName useradmin.cloudconext-sara.surf-hosted.nl
   {% endif %}
 
   <Location />
@@ -63,17 +57,11 @@ Listen 2633
   ServerName {{ virtual_host }}
 
   SSLEngine on
-
-  {% if env == 'development' %}
-    SSLCertificateFile    /etc/apache2/ssl/cert.pem
-    SSLCertificateKeyFile /etc/apache2/ssl/key.pem
-  {% endif %}
+  SSLCertificateFile {{ ssl.cert }}
+  SSLCertificateKeyFile {{ ssl.key }}
 
   {% if env == 'acceptance' %}
-    SSLCertificateFile /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/useradmin.cloudconext-sara.surf-hosted.nl/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
-    ServerName useradmin.cloudconext-sara.surf-hosted.nl
   {% endif %}
 
   <LocationMatch "^/.*">
