@@ -232,7 +232,19 @@ migrations.created_at   - datetime - Timestamp when the migration was completed
 migrations.updated_at   - datetime - Timestamp of the last time the record was updated
 ```
 
-## OpenNebula Logs
+## OpenNebula
+
+### Core Changes
+
+Two small patches need to be done in OpenNebula Sunstone. In non-production environments these are provisioned with ansible. See: `servers/roles/opennebula/tasks/one_patches.yml`. Production requires these same modifications in:
+
+- `/usr/lib/one/ruby/cloud/CloudAuth/RemoteCloudAuth.rb`
+  - Replace `env['REMOTE_USER']` with `env['HTTP_REMOTE_USER']`. Required due to apache adding `HTTP_` to headers.
+
+- `/usr/lib/one/sunstone/views/_login_x509.erb`:
+  - Change the `<span id="auth_error">` line to include a notice for migrating users. See `one_patches.yml:14` for the most recent version of this code. 
+
+### Logs
 
 In addition to the detailed information UserAdmin provides on the Invite and Migration resources all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log` on the OpenNebula server. 
 
@@ -256,7 +268,7 @@ Thu Sep 22 08:07:10 2016 [Z0][ReM][D]: Req:8672 UID:4 GroupAddAdmin invoked , 10
 Thu Sep 22 08:07:10 2016 [Z0][ReM][D]: Req:8672 UID:4 GroupAddAdmin result SUCCESS, 103
 ```
 
-# Backup data and logs
+## Backup data and logs
 
 The following data should be backed up:
 

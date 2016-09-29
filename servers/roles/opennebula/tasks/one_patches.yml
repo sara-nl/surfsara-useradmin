@@ -11,7 +11,7 @@
   lineinfile:
     dest: /usr/lib/one/sunstone/views/_login_x509.erb
     regexp: "<span id=\"auth_error\">"
-    line: '          <span id="auth_error"><p>Unable to login.</p><p>If you have an account already, <a style="color: white" href="/useradmin/migrations/new">please migrate it here</a>.</p><p>Otherwise, <a style="color: white" href="#">contact an HPC Cloud administrator</a> to request an account.</p></span>'
+    line: '          <span id="auth_error"><p>Unable to login.</p><p>If you have an account already, <a style="color: white" href="/useradmin/migrations/new">please migrate it here</a>.</p><p>Otherwise, <a style="color: white" href="/useradmin/">contact an HPC Cloud administrator</a> to request an account.</p></span>'
   notify: restart apache
   tags:
     - one
