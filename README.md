@@ -256,3 +256,13 @@ Thu Sep 22 08:07:10 2016 [Z0][ReM][D]: Req:160 UID:4 GroupInfo result SUCCESS, "
 Thu Sep 22 08:07:10 2016 [Z0][ReM][D]: Req:8672 UID:4 GroupAddAdmin invoked , 103, 18
 Thu Sep 22 08:07:10 2016 [Z0][ReM][D]: Req:8672 UID:4 GroupAddAdmin result SUCCESS, 103
 ```
+
+# Backup data and logs
+
+The following data should be backed up:
+
+- The postgres database containing the application data (invites and migrations)
+- `/var/www/useradmin/shared/log/*` contains the rails logs
+- `/var/log/apache2/*` contains the apache and passenger logs
+- `/var/log/shibboleth/` contains the shibboleth logs
+- `/var/log/postgresql/` contains the database logs
