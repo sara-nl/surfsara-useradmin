@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "useradmin@surfsara.nl"
+  default from: "noreply@surfsara.nl"
   layout 'mailer'
 end

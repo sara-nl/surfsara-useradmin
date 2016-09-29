@@ -20,7 +20,9 @@ RSpec.describe InviteMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq(['useradmin@surfsara.nl'])
+      expect(mail.from).to eq(['noreply@surfsara.nl'])
+      expect(mail.return_path).to eq('isaac@university-example.org')
+      expect(mail.reply_to).to eq(['isaac@university-example.org'])
     end
 
     it 'contains the activation link' do
