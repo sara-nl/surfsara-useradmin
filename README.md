@@ -234,6 +234,15 @@ migrations.updated_at   - datetime - Timestamp of the last time the record was u
 
 ## OpenNebula
 
+### API user
+
+The useradmin app requires an account in OpenNebula to make XML-RPC API calls. In order to execute the necessary commands, the follow ACL permissions are required:
+- *Applies to:* User useradmin (Or whatever the useradmin's username is)
+- *Affected resources:* Users, Groups, Security Groups
+- *Resource ID / Owned by:* All  
+- *Allowed operations*: use, manage, admin, create
+- *Zone:* All
+
 ### Core Changes
 
 Two small patches need to be done in OpenNebula Sunstone. In non-production environments these are provisioned with ansible. See: `servers/roles/opennebula/tasks/one_patches.yml`. Production requires these same modifications in:
