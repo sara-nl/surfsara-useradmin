@@ -1,5 +1,5 @@
 test:
-  host: locahost
+  host: localhost
   adapter: postgresql
   pool: 100
   encoding: utf8
