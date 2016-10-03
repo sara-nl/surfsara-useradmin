@@ -3,12 +3,9 @@ services:
   - postgresql
 addons:
   postgresql: "9.4"
-  apt:
-    sources:
-      - ubuntu-sdk-team
-    packages:
-      - libqt5webkit5-dev
-      - qtdeclarative5-dev
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libqt5webkit5-dev
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp useradmin/config/database.yml.travis useradmin/config/database.yml
