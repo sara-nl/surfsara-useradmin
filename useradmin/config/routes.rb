@@ -14,5 +14,7 @@ Rails.application.routes.draw do
 
   resource :profile
 
+  get 'splash', to: 'pages#splash'
+
   root 'invites#index'
 end
