@@ -241,7 +241,7 @@ Two small patches need to be done in OpenNebula Sunstone. In non-production envi
 - `/usr/lib/one/ruby/cloud/CloudAuth/RemoteCloudAuth.rb`
   - Replace `env['REMOTE_USER']` with `env['HTTP_REMOTE_USER']`. Required due to apache adding `HTTP_` to headers.
 
-- `/usr/lib/one/sunstone/views/_login_x509.erb`:
+- `/usr/lib/one/sunstone/views/_login_x509.erb`
   - Change the `<span id="auth_error">` line to include a notice for migrating users. See `one_patches.yml:14` for the most recent version of this code. 
 
 ### Logs
@@ -278,3 +278,10 @@ The following data should be backed up:
 - `/var/log/shibboleth/*` contains the shibboleth logs
 - `/var/log/postgresql/*` contains the database logs
 - `/etc/useradmin/*` contains secrets
+
+## Restoring the Backup
+
+- Provision a new server following the steps mentioned in 'Server Provisioning'
+- Restore secrets to `/etc/useradmin/*`
+- Restore the postgres database
+- Deploy the application following the steps mentioned in 'Deployment'
