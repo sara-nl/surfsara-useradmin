@@ -3,7 +3,14 @@ services:
   - postgresql
 addons:
   postgresql: "9.4"
+  apt:
+    packages:
+      - libqt5webkit5-dev
+      - qtdeclarative5-dev
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp useradmin/config/database.yml.travis useradmin/config/database.yml
-script: cd useradmin && bundle install && bundle exec rspec spec
+env:
+  global:
+    - QMAKE=/usr/lib/x86_64-linux-gnu/qt4/bin/qmake
+script: cd useradmin && bundle install && xvfb-run bundle exec rspec spec
