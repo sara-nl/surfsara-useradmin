@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
   helper_method :current_user
   def current_user
-    CurrentUser.from_request(request)
+    @current_user ||= CurrentUser.from_request(request)
   end
 
   # :nocov:
