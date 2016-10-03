@@ -243,6 +243,14 @@ The useradmin app requires an account in OpenNebula to make XML-RPC API calls. I
 - *Allowed operations*: use, manage, admin, create
 - *Zone:* All
 
+### Configuration
+
+Some configuration is required for remote authentication to function correctly:
+
+- Enable remote authentication: In `/etc/one/sunstone-server.conf` configure `:auth: remote`
+- Show password column in admin view: In `/etc/one/sunstone-views/admin.yaml` under `tabs.users_tab.table_columns` enable column 5 (Password)
+- Disable password management: For all files in `/etc/one/sunstone-views/` make sure `User.update_password` and `Settings.change_password` are set to false
+
 ### Core Changes
 
 Two small patches need to be done in OpenNebula Sunstone. In non-production environments these are provisioned with ansible. See: `servers/roles/opennebula/tasks/one_patches.yml`. Production requires these same modifications in:
@@ -252,6 +260,10 @@ Two small patches need to be done in OpenNebula Sunstone. In non-production envi
 
 - `/usr/lib/one/sunstone/views/_login_x509.erb`
   - Change the `<span id="auth_error">` line to include a notice for migrating users. See `one_patches.yml:14` for the most recent version of this code. 
+
+### Firewall
+
+All traffic to OpenNebula should go through the useradmin proxy (Shibboleth). OpenNebula should not be directly exposed to the internet and only available for the IP address of the useradmin server. Preferably through a private LAN connection.  
 
 ### Logs
 
