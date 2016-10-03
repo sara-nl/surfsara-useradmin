@@ -13,10 +13,11 @@ html
         .surfsara-logo
           = link_to image_tag('logo.png'), root_path
 
-        .surfsara-buttons
-          = t('.welcome_html', name: current_user.common_name)
-          - if current_user.role
-            i = "(#{t(current_user.role, scope: 'role')})"
+        - if current_user.authenticated?
+          .surfsara-buttons
+            = t('.welcome_html', name: current_user.common_name)
+            - if current_user.role
+              i = "(#{t(current_user.role, scope: 'role')})"
 
       .messages
         - flash.each do |type, message|
