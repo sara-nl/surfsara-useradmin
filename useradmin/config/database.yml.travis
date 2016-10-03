@@ -1,0 +1,8 @@
+test:
+  host: locahost
+  adapter: postgresql
+  pool: 100
+  encoding: utf8
+  username: postgres
+  min_messages: warning
+  database: travis_ci_test

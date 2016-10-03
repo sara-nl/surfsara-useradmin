@@ -1,2 +1,7 @@
 language: ruby
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp useradmin/config/database.yml.travis useradmin/config/database.yml
 script: cd useradmin && bundle install && bundle exec rspec spec
