@@ -1,4 +1,4 @@
-- if current_user.role
+- if current_user.admin_groups.any?
   h1.page-header
     = t('.title')
     = link_to t('.new_invite'), new_invite_path, class: 'btn btn-primary pull-right'
