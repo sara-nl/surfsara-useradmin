@@ -83,22 +83,31 @@ en:
   migrations:
     new:
       title: Migrate your HPC Cloud account
-      description_html: Enter your HPC Cloud credentials here to link your SURFconext account to your HPC Cloud account.
-      username: Username
-      password: Password
+      description_html: |
+        <p>
+        This is step two of the migration of your SURFsara HPC Cloud login. You have already authenticated yourself with SURFconext and are now ready to migrate.
+        </p>
+        <p>
+        Below, fill in your old HPC Cloud credentials. You also need to read and agree to terms of service.
+        </p>
+
+      username: HPC Cloud username
+      password: Old HPC Cloud password
       submit: Migrate my account
       terms_header: Terms of Service
       accept_terms_of_service_html: >
-        I agree to the <a href='https://doc.hpccloud.surfsara.nl/HPCCloudAUP' target='_blank'>terms of service</a>
+        I have read and agree to the <a href='https://doc.hpccloud.surfsara.nl/HPCCloudAUP' target='_blank'>terms of service</a>.
       error_header:
         one: "1 error is keeping your HPC Cloud account from being migrated:"
         other: "%{count} errors are keeping your HPC Cloud account from being migrated:"
     create:
       success: Your HPC Cloud account has been successfully migrated
     success:
-      title: Account migrated!
-      description_html: You can now log in to HPC Cloud using your SURFconext account.
-      to_opennebula: Visit OpenNebula
+      title: Migration complete
+      description_html: |
+        <p>The migration of your SURFsara HPC Cloud login is complete and from now on your old password will no longer work. Next time you need to login, you will only need to authenticate yourself with SURFconext.</p>
+
+      to_opennebula: Proceed to the OpenNebula UI
       manage_invites: Manage invites
     index:
       title: Migrations
@@ -123,7 +132,7 @@ en:
       member_role_html: |
         <p>You are the member of a group. As a group member you can log in to OpenNebula and manage your VM's.</p>
       start_migrating: Start migrating my account
-      to_opennebula: Visit OpenNebula
+      to_opennebula: Proceed to the OpenNebula UI
       send_invite: Send invite
 
     splash:
@@ -152,7 +161,7 @@ en:
 
         <h2>Start migration</h2>
       start_migrating: Login to SURFconext
-      to_opennebula: Visit OpenNebula
+      to_opennebula: Proceed to the OpenNebula UI
 
   invite_mailer:
     invitation:
@@ -211,7 +220,7 @@ en:
         migration:
           attributes:
             base:
-              could_not_be_authenticated: 'Could not authenticate with the HPC Cloud. Either the username or password was wrong or this account was already migrated.'
+              could_not_be_authenticated: 'Could not authenticate with the HPC Cloud. Either the username or password was wrong or this account has already been migrated.'
               account_already_linked: 'An HPC Cloud account is already linked to your current SURFconext account.'
             accept_terms_of_service:
               not_accepted: is required
