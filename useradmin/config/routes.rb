@@ -16,5 +16,5 @@ Rails.application.routes.draw do
 
   get 'splash', to: 'pages#splash'
 
-  root 'invites#index'
+  root 'pages#index'
 end

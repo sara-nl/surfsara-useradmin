@@ -104,6 +104,27 @@ en:
       empty: There are no migrations yet.
 
   pages:
+    index:
+      title: Welcome to the HPC Cloud Useradmin
+      account_title: Your account
+      intro_html: |
+        <p>This application manages access to the HPC Cloud through SURFconext. Access can be granted in the following ways:</p>
+        <ul>
+          <li>Users with a non-SURFconext login can migrate their account. Their existing OpenNebula will be linked to their SURFconext identity.</li>
+          <li>New users can be invited to create an account. They can log into OpenNebula with their SURFconext credentials.</li>
+          <li>Existing users can be added to new groups. The group will be added to their existing OpenNebula account linked to their SURFconext credentials.</li>
+        </ul>
+        <p>If you feel like you're missing permissions please contact us.</p>
+      surfsara_admin_role_html: |
+        <p>You are a SURFsara admin. As a SURFsara admin you can manage invites for all groups and view migrations.</p>
+      group_admin_role_html: |
+        <p>You are a group admin. As a group admin you can manage invites for your groups.</p>
+      member_role_html: |
+        <p>You are the member of a group. As a group member you can log in to OpenNebula and manage your VM's.</p>
+      start_migrating: Start migrating my account
+      to_opennebula: Visit OpenNebula
+      send_invite: Send invite
+
     splash:
       title: HPC Cloud access via SURFConext
       explanation_html: |

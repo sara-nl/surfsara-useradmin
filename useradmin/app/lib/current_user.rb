@@ -30,6 +30,7 @@ CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :
   def role
     return Role.surfsara_admin if surfsara_admin?
     return Role.group_admin if group_admin?
+    return Role.member if member?
   end
 
   def surfsara_admin?
@@ -39,6 +40,12 @@ CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :
   def group_admin?
     return false if surfsara_admin?
     admin_groups.any?
+  end
+
+  def member?
+    return false if surfsara_admin?
+    return false if group_admin?
+    one_user.present?
   end
 
   def can_administer_groups?

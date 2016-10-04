@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
-  skip_before_action :stub_shibboleth, if: -> { Rails.env.development? }
-  skip_before_action :authenticate
-  skip_before_action :expose_current_user
+  skip_before_action :stub_shibboleth, :authenticate, :expose_current_user, only: :splash
+
+  def index
+  end
 
   def splash
     hide_menu
