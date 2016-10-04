@@ -129,12 +129,13 @@ en:
       title: HPC Cloud access via SURFConext
       explanation_html: |
         <p>
-        As of 1 October 2016, the HPC Cloud login will be replaced by a uniform SURFsara login based on SURFconext technology.
-        SURFconext is a national infrastructure by SURF and provides single sign on when used in combination with other
-        supported services.
+          As of 1 October 2016, the HPC Cloud login will be replaced by a uniform SURFsara login based on SURFconext technology.
+          SURFconext is a national infrastructure by SURF and provides single sign on when used in combination with other
+          supported services.
         </p>
         <p>
-        If you have an existing HPC Cloud account, you are required to migrate it.
+          If you have an existing HPC Cloud account you are required to migrate it.
+          Otherwise see <a href='https://www.surf.nl/en/services-and-products'>here</a> for information on SURFsara's resources.
         </p>
       start_migrating: Start migrating my account
 
