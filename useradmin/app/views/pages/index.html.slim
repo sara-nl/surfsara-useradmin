@@ -6,19 +6,19 @@ h2 = t('.account_title')
 
 - if current_user.surfsara_admin?
   = t('.surfsara_admin_role_html')
-  .btn-toolbar
+  .actions
     = link_to t('.send_invite'), new_invite_path, class: 'btn btn-lg btn-success'
     = link_to t('.to_opennebula'), '/', class: 'btn btn-lg btn-default'
 
-- elsif current_user.group_admin? 
+- elsif current_user.group_admin?
   = t('.group_admin_role_html')
-  .btn-toolbar
+  .actions
     = link_to t('.send_invite'), new_invite_path, class: 'btn btn-lg btn-success'
     = link_to t('.to_opennebula'), '/', class: 'btn btn-lg btn-default'
 
-- elsif current_user.member? 
+- elsif current_user.member?
   = t('.member_role_html')
-  .btn-toolbar
+  .actions
     = link_to t('.to_opennebula'), '/', class: 'btn btn-lg btn-success'
 
 - else
