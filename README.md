@@ -263,7 +263,9 @@ Two small patches need to be done in OpenNebula Sunstone. In non-production envi
 
 ### Firewall
 
-All traffic to OpenNebula should go through the useradmin proxy (Shibboleth). OpenNebula should not be directly exposed to the internet and only available for the IP address of the useradmin server. Preferably through a private LAN connection.  
+All traffic to OpenNebula should go through the useradmin proxy (Shibboleth).
+OpenNebula should not be directly exposed to the internet and only available for the IP address of the useradmin server.
+Preferably through a private LAN connection and over SSL.  
 
 ### Logs
 
