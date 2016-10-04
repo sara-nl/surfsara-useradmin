@@ -120,11 +120,20 @@ describe CurrentUser do
         end
       end
 
-      context 'and the current user is not an admin of any groups' do
-        before { expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return([]) }
+      context 'and the curent user is not known in OpenNebula' do
+        let(:one_user) { nil }
+        before { expect_any_instance_of(One::Client).to receive(:user_by_password).and_return(one_user) }
 
         it 'returns nil' do
           expect(subject).to be_nil
+        end
+      end
+
+      context 'and the current user is not an admin of any groups' do
+        before { expect_any_instance_of(One::Client).to receive(:groups_for_admin).with(one_user.id).and_return([]) }
+
+        it 'returns member' do
+          expect(subject).to eq(Role.member)
         end
       end
     end

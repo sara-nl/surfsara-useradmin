@@ -13,10 +13,11 @@ html
         .surfsara-logo
           = link_to image_tag('logo.png'), root_path
 
-        .surfsara-buttons
-          = t('.welcome_html', name: current_user.common_name)
-          - if current_user.role
-            i = "(#{t(current_user.role, scope: 'role')})"
+        - if current_user.authenticated?
+          .surfsara-buttons
+            = t('.welcome_html', name: current_user.common_name)
+            - if current_user.role
+              i = "(#{t(current_user.role, scope: 'role')})"
 
       .messages
         - flash.each do |type, message|
@@ -28,6 +29,7 @@ html
           .col-sm-2
             .well.well-sm
               ul.nav.nav-pills.nav-stacked
+                li class=(params[:controller] == 'pages' ? 'active' : '') = link_to t('.menu.home'), root_path
                 li class=(params[:controller] == 'invites' ? 'active' : '') = link_to t('.menu.invites'), invites_path if Invite::Policy.new(current_user).index?
                 li class=(params[:controller] == 'migrations' ? 'active' : '') = link_to t('.menu.migrations'), migrations_path if Migration::Policy.new(current_user).index?
                 li class=(params[:controller] == 'profiles' ? 'active' : '') = link_to t('.menu.profile'), profile_path

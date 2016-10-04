@@ -1,10 +1,12 @@
 CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :edu_person_entitlement) do
   def self.from_request(request)
+    remote_user = get_request_header(request, 'REMOTE_USER')
+    return AnonymousUser.new if remote_user.blank?
     new(
       get_request_header(request, 'Shib-uid'),
       get_request_header(request, 'Shib-commonName'),
       get_request_header(request, 'Shib-homeOrganization'),
-      get_request_header(request, 'REMOTE_USER'),
+      remote_user,
       get_request_header(request, 'Shib-eduPersonEntitlement'),
     )
   end
@@ -28,6 +30,7 @@ CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :
   def role
     return Role.surfsara_admin if surfsara_admin?
     return Role.group_admin if group_admin?
+    return Role.member if member?
   end
 
   def surfsara_admin?
@@ -39,8 +42,18 @@ CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :
     admin_groups.any?
   end
 
+  def member?
+    return false if surfsara_admin?
+    return false if group_admin?
+    one_user.present?
+  end
+
   def can_administer_groups?
     admin_groups.any?
+  end
+
+  def authenticated?
+    true
   end
 
   private

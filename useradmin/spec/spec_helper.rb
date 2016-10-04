@@ -10,6 +10,11 @@ SimpleCov.add_filter 'lib/tasks'
 SimpleCov.add_filter 'spec'
 SimpleCov.start
 
+if ENV['CI'] == 'true'
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock

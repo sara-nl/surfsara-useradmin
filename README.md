@@ -1,6 +1,8 @@
 # SURFsara HPC Cloud Useradmin
 
 [![Build Status](https://travis-ci.org/sara-nl/surfsara-useradmin.svg?branch=master)](https://travis-ci.org/sara-nl/surfsara-useradmin)
+[![Code Coverage](http://codecov.io/github/sara-nl/surfsara-useradmin/coverage.svg?branch=master)](http://codecov.io/github/sara-nl/surfsara-useradmin/coverage.svg?branch=master)
+
 
 ## Local Development
 

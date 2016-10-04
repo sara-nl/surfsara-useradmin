@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :stub_shibboleth, if: -> { Rails.env.development? }
+  before_action :stub_shibboleth
   before_action :authenticate
   before_action :expose_current_user
 
@@ -17,12 +17,12 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
   helper_method :current_user
   def current_user
-    CurrentUser.from_request(request)
+    @current_user ||= CurrentUser.from_request(request)
   end
 
   # :nocov:
   def stub_shibboleth
-    if remote_user.blank?
+    if Rails.env.development? && remote_user.blank?
       request.set_header('REMOTE_USER', 'isaac@university-example.org')
       request.set_header('Shib-uid', 'isaac')
       request.set_header('Shib-commonName', 'Sir Isaac Newton')
