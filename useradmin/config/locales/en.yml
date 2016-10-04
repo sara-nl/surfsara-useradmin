@@ -15,6 +15,7 @@ en:
     application:
       welcome_html: "Welcome! You are logged in as <strong>%{name}</strong> "
       menu:
+        home: Home
         invites: Invites
         migrations: Migrations
         profile: Profile
