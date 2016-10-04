@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Invite::Accept do
+  before do
+    allow_any_instance_of(One::Client).to receive(:groups).and_return(build_list(:one_group, 1))
+  end
+
   let(:run) { Invite::Accept.run(params) }
   let(:res) { run.first }
   let(:op) { run.last }

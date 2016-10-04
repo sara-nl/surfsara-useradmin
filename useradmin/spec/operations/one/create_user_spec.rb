@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe One::CreateUser do
+  before do
+    allow_any_instance_of(One::Client).to receive(:groups).and_return(build_list(:one_group, 1))
+  end
+
   let(:run) { One::CreateUser.run(current_user: current_user, invite: invite) }
   let(:res) { run.first }
   let(:op) { run.last }

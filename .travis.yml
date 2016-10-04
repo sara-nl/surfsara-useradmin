@@ -1,12 +1,19 @@
+sudo: required
+dist: trusty
 language: ruby
 services:
   - postgresql
 addons:
   postgresql: "9.4"
-before_install:
-  - sudo add-apt-repository --yes ppa:canonical-qt5-edgers/ubuntu1204-qt5
-  - sudo apt-get -qq update
-  - sudo apt-get install -y qtwebkit-opensource-src
+  apt:
+    sources:
+      - ubuntu-sdk-team
+    packages:
+      - libqt5webkit5-dev
+      - qtdeclarative5-dev
+env:
+  global:
+    - QMAKE=/usr/lib/x86_64-linux-gnu/qt4/bin/qmake
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp useradmin/config/database.yml.travis useradmin/config/database.yml

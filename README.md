@@ -1,5 +1,7 @@
 # SURFsara HPC Cloud Useradmin
 
+[![Build Status](https://travis-ci.org/sara-nl/surfsara-useradmin?branch=master)](https://travis-ci.org/sara-nl/surfsara-useradmin)
+
 ## Local Development
 
 ### OSX - Prerequisites

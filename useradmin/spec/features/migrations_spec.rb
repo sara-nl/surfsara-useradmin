@@ -8,6 +8,7 @@ describe MigrationsController, :feature do
     allow_any_instance_of(One::Client).to receive(:find_user).and_return(one_user)
     allow_any_instance_of(One::Client).to receive(:user_by_password).and_return(nil)
     allow_any_instance_of(One::Client).to receive(:migrate_user)
+    allow_any_instance_of(One::Client).to receive(:groups).and_return(build_list(:one_group, 1))
   end
 
   describe 'create' do
