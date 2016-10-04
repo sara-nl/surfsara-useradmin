@@ -40,7 +40,7 @@ Follow 'postgres' post install messages.
 
 Download from `https://www.virtualbox.org/wiki/Downloads`
 
-### Vagrant: 
+### Vagrant:
 
 ```sh
 brew install vagrant
@@ -120,14 +120,14 @@ See `servers/group_vars/useradmin-acceptance` for `ansistrano_*` configurations.
 
 ## Server Provisioning
 
-Accept environment is used as a fully working reference environment. Replace `acceptance` with `production` to provision the production environment. 
+Accept environment is used as a fully working reference environment. Replace `acceptance` with `production` to provision the production environment.
 
 ### Users
 
 Users will be created in the provisioning process.
 
 - `surfsara` is responsible for running the application server.
-- `postgres` is responsible for running the database server. 
+- `postgres` is responsible for running the database server.
 
 
 ### Configuration with ansible
@@ -158,7 +158,7 @@ Secrets are read from files on the server.
     - should only be readable by the `postgres` and `surfsara` users.
 
 - `/etc/useradmin/one_credentials`
-    - contains the OpenNebula API user credentials in `username:api_token` format. i.e. `useradmin:hl234jklhvksdr3` 
+    - contains the OpenNebula API user credentials in `username:api_token` format. i.e. `useradmin:hl234jklhvksdr3`
     - should only be readable by the `surfsara` user.
 
 ### Rails application environment configurations
@@ -186,7 +186,7 @@ See `useradmin/config/environments/acceptance.rb` as a reference of environment 
     user_name:            '<username>',
     password:             '<password>',
     authentication:       'plain',
-    enable_starttls_auto: true  
+    enable_starttls_auto: true
   }
 ```
 
@@ -241,7 +241,7 @@ migrations.updated_at   - datetime - Timestamp of the last time the record was u
 The useradmin app requires an account in OpenNebula to make XML-RPC API calls. In order to execute the necessary commands, the follow ACL permissions are required:
 - *Applies to:* User useradmin (Or whatever the useradmin's username is)
 - *Affected resources:* Users, Groups, Security Groups
-- *Resource ID / Owned by:* All  
+- *Resource ID / Owned by:* All
 - *Allowed operations*: use, manage, admin, create
 - *Zone:* All
 
@@ -261,17 +261,17 @@ Two small patches need to be done in OpenNebula Sunstone. In non-production envi
   - Replace `env['REMOTE_USER']` with `env['HTTP_REMOTE_USER']`. Required due to apache adding `HTTP_` to headers.
 
 - `/usr/lib/one/sunstone/views/_login_x509.erb`
-  - Change the `<span id="auth_error">` line to include a notice for migrating users. See `one_patches.yml:14` for the most recent version of this code. 
+  - Change the `<span id="auth_error">` line to include a notice for migrating users. See `one_patches.yml:14` for the most recent version of this code.
 
 ### Firewall
 
 All traffic to OpenNebula should go through the useradmin proxy (Shibboleth).
 OpenNebula should not be directly exposed to the internet and only available for the IP address of the useradmin server.
-Preferably through a private LAN connection and over SSL.  
+Preferably through a private LAN connection and over SSL.
 
 ### Logs
 
-In addition to the detailed information UserAdmin provides on the Invite and Migration resources all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log` on the OpenNebula server. 
+In addition to the detailed information UserAdmin provides on the Invite and Migration resources all API, CLI and Sunstone actions are logged in `/var/log/one/oned.log` on the OpenNebula server.
 
 Migrating a user to a SURFconext account looks like:
 
