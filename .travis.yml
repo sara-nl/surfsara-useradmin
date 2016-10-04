@@ -4,7 +4,7 @@ services:
 addons:
   postgresql: "9.4"
 before_install:
-  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+  - sudo add-apt-repository --yes ppa:canonical-qt5-edgers/ubuntu1204-qt5
   - sudo apt-get -qq update
   - sudo apt-get install -y libqt5webkit5-dev qtdeclarative5-dev
 before_script:
