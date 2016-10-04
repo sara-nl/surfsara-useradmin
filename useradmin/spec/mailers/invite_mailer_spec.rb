@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe InviteMailer, type: :mailer do
+  before do
+    allow_any_instance_of(One::Client).to receive(:groups).and_return(build_list(:one_group, 1))
+  end
+
   describe 'invite' do
     let(:invite) do
       Invite::Create.(

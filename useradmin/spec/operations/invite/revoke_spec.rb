@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Invite::Revoke do
+  before do
+    allow_any_instance_of(One::Client).to receive(:groups).and_return(build_list(:one_group, 1))
+  end
+
   let(:current_user) { build(:current_user) }
   let!(:invite) do
     Invite::Create.(
