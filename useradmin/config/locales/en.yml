@@ -127,18 +127,32 @@ en:
       send_invite: Send invite
 
     splash:
-      title: HPC Cloud access via SURFConext
+      title: SURFsara HPC Cloud login procedure changed
       explanation_html: |
-        <p>
-          As of 1 October 2016, the HPC Cloud login will be replaced by a uniform SURFsara login based on SURFconext technology.
-          SURFconext is a national infrastructure by SURF and provides single sign on when used in combination with other
-          supported services.
-        </p>
-        <p>
-          If you have an existing HPC Cloud account you are required to migrate it.
-          Otherwise see <a href='https://www.surf.nl/en/services-and-products'>here</a> for information on SURFsara's resources.
-        </p>
-      start_migrating: Start migrating my account
+        <p>As of 1 October, the login procedure for the SURFsara HPC Cloud has changed: you will now have to authenticate yourself via SURFconext.</p>
+
+        <h2>What do you need to do?</h2>
+        <p>You need to migrate your login to make it suitable for the new login method. This is a one-time task and involves the steps below.</p>
+        <p>If you have already migrated your HPC Cloud login, you should update your bookmarks to the new login page: <a href="https://oort.hpccloud.surfsara.nl" target="_blank">https://oort.hpccloud.surfsara.nl</a>.</p>
+        <p>This is an overview of the steps you have to take for the migration:</p>
+        <ol>
+          <li>login to SURFconext (see bottom of this page)</li>
+          <li>enter the username and password of your existing HPC Cloud login and accept the terms of service</li>
+          <li>your login is migrated and the old password can no longer be used</li>
+          <li>go to the OpenNebula login page and click 'Login'.</li>
+        </ol>
+
+        <h2>Exceptions</h2>
+        <p>If one of these apply to you, please contact an advisor:</p>
+        <ul>
+          <li>you have more than one HPC Cloud login</li>
+          <li>you do not have a SURFconect account</li>
+        </ul>
+        <p>For exceptions and more information about this process can be found in our HPC Cloud documentation.</p>
+
+        <h2>Start migration</h2>
+      start_migrating: Login to SURFconext
+      to_opennebula: Visit OpenNebula
 
   invite_mailer:
     invitation:

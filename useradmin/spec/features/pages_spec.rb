@@ -11,7 +11,7 @@ describe PagesController, :feature do
   describe 'splash page' do
     it 'allows the user to migrate their account' do
       visit splash_path
-      expect(page).to have_link('Start migrating my account')
+      expect(page).to have_link('Login to SURFconext')
     end
   end
 end
