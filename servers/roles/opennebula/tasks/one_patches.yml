@@ -7,11 +7,22 @@
   tags:
     - one
 
-- name: Patch authentication error
+- name: Copy custom login file
+  copy:
+    src: _login_x509_custom.erb
+    dest: /usr/lib/one/sunstone/views/_login_x509_custom.erb
+    owner: oneadmin
+    group: oneadmin
+    mode: 0644
+  notify: restart apache
+  tags:
+    - one
+
+- name: Show custom login file
   lineinfile:
-    dest: /usr/lib/one/sunstone/views/_login_x509.erb
-    regexp: "<span id=\"auth_error\">"
-    line: '          <span id="auth_error"><p>Unable to login.</p><p>If you have an account already, <a style="color: white" href="/useradmin/migrations/new">please migrate it here</a>.</p><p>Otherwise, <a style="color: white" href="/useradmin/">contact an HPC Cloud administrator</a> to request an account.</p></span>'
+    dest: /usr/lib/one/sunstone/views/login.erb
+    regexp: "<%= erb :_login_x509"
+    line: '<%= erb :_login_x509_custom %>'
   notify: restart apache
   tags:
     - one
