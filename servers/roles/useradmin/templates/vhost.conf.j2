@@ -21,7 +21,7 @@
     Include /etc/letsencrypt/options-ssl-apache.conf
   {% endif %}
 
-  <Location ~ "/useradmin/(splash|assets/*|favicon.ico)">
+  <Location ~ "/useradmin/(splash|assets/*|favicon.*)">
     Satisfy Any
     Allow from all
     AuthType None
