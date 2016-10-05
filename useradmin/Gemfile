@@ -7,7 +7,6 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'slim-rails'
 gem 'trailblazer'
 gem 'trailblazer-rails'
