@@ -4,6 +4,7 @@ FactoryGirl.define do
     common_name 'Sir Isaac Newton'
     home_organization 'university-example.org'
     remote_user 'isaac@university-example.org'
+    remote_ip '127.0.0.1'
 
     surfsara_admin
 

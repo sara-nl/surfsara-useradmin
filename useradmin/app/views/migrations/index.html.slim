@@ -9,6 +9,7 @@ table.table.table-striped
       th = Migration.human_attribute_name(:one_username)
       th = Migration.human_attribute_name(:accepted_by)
       th = Migration.human_attribute_name(:accepted_at)
+      th = Migration.human_attribute_name(:accepted_from_ip)
 
   tbody
     - if @model.any?
@@ -17,6 +18,7 @@ table.table.table-striped
           td = migration.one_username
           td = migration.accepted_by
           td = l(migration.accepted_at, format: :long)
+          td = migration.accepted_from_ip
 
     - else
       tr

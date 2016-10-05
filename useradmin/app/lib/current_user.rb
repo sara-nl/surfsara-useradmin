@@ -1,4 +1,4 @@
-CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :edu_person_entitlement) do
+CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :edu_person_entitlement, :remote_ip) do
   def self.from_request(request)
     remote_user = get_request_header(request, 'REMOTE_USER')
     return AnonymousUser.new if remote_user.blank?
@@ -8,6 +8,7 @@ CurrentUser = Struct.new(:uid, :common_name, :home_organization, :remote_user, :
       get_request_header(request, 'Shib-homeOrganization'),
       remote_user,
       get_request_header(request, 'Shib-eduPersonEntitlement'),
+      request.remote_ip,
     )
   end
 

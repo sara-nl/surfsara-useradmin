@@ -20,11 +20,14 @@ module One
       validate(params[:migration]) do
         return unless authenticate_user
         return unless check_password_available
-        @model.accepted_at = Time.current
-        @model.accepted_by = current_user.remote_user
-        @model.one_username = @contract.username
 
-        @model.save! && migrate_user
+        @model.update!(
+          accepted_at: Time.current,
+          accepted_by: current_user.remote_user,
+          accepted_from_ip: current_user.remote_ip,
+          one_username: @contract.username
+        )
+        migrate_user
       end
     end
 
