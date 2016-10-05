@@ -26,3 +26,12 @@
   notify: restart apache
   tags:
     - one
+
+- name: Hide Sign Out button
+  lineinfile:
+    dest: /usr/lib/one/sunstone/views/index.erb
+    line: "    <style>.is-submenu-item.is-dropdown-submenu-item .logout { display: none; }</style>"
+    insertbefore: "</head>"
+  notify: restart apache
+  tags:
+    - one
