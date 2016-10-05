@@ -17,7 +17,7 @@ describe MigrationsController, :feature do
         visit '/migrations/new'
         fill_in 'migration[username]', with: 'existing.user'
         fill_in 'migration[password]', with: 'foobar'
-        check 'I agree to the terms of service'
+        check 'I have read and agree to the terms of service'
         click_on 'Migrate my account'
         expect(page).to have_content(/account has been successfully migrated/)
       end
