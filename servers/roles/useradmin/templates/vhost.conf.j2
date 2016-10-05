@@ -21,6 +21,13 @@
     Include /etc/letsencrypt/options-ssl-apache.conf
   {% endif %}
 
+  <Location ~ "/useradmin/(splash|assets/*)">
+    Satisfy Any
+    Allow from all
+    AuthType None
+    Require all granted
+  </Location>
+
   <Location />
     AuthType shibboleth
     ShibRequestSetting requireSession 1
