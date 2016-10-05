@@ -23,27 +23,32 @@ table.table
       th = t('.history.header.what')
       th = t('.history.header.who')
       th = t('.history.header.when')
+      th = t('.history.header.ip_address')
 
   tbody
     tr
       td = t('.history.event.sent')
       td = @model.created_by
       td = l(@model.created_at, format: :long)
+      td -
 
     - if @model.accepted?
       tr
-        td = t('history.event.accepted')
+        td = t('.history.event.accepted')
         td = @model.accepted_by
         td = l(@model.accepted_at, format: :long)
+        td = @model.accepted_from_ip
 
     - if @model.revoked?
       tr
         td = t('.history.event.revoked')
         td = @model.revoked_by
         td = l(@model.revoked_at, format: :long)
+        td -
 
     - if @model.expired?
       tr
         td = t('.history.event.expired')
         td = t('.history.expired_by')
         td = l(@model.expired_at, format: :long)
+        td -

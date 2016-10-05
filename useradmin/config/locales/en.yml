@@ -42,6 +42,7 @@ en:
       history:
         title: History
         header:
+          ip_address: IP address
           what: What
           who: Who (OpenNebula username or 'system')
           when: When
@@ -206,6 +207,7 @@ en:
         one_username: OpenNebula username
         accepted_by: Accepted by
         accepted_at: Accepted at
+        accepted_from_ip: Accepted from IP address
 
   activemodel:
     errors:
