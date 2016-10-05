@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927143137) do
+ActiveRecord::Schema.define(version: 20161005123837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,22 +20,24 @@ ActiveRecord::Schema.define(version: 20160927143137) do
     t.string   "token"
     t.string   "accepted_by"
     t.datetime "accepted_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "group_id"
     t.string   "group_name"
     t.string   "role"
     t.datetime "revoked_at"
     t.string   "revoked_by"
     t.string   "created_by"
+    t.string   "accepted_from_ip"
   end
 
   create_table "migrations", force: :cascade do |t|
-    t.string   "one_username", null: false
-    t.string   "accepted_by",  null: false
-    t.datetime "accepted_at",  null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "one_username",     null: false
+    t.string   "accepted_by",      null: false
+    t.datetime "accepted_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "accepted_from_ip"
   end
 
 end

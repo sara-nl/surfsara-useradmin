@@ -35,7 +35,11 @@ class Invite < ApplicationRecord
     end
 
     def update_invite
-      @model.update!(accepted_at: Time.current, accepted_by: current_user.remote_user)
+      @model.update!(
+        accepted_at: Time.current,
+        accepted_by: current_user.remote_user,
+        accepted_from_ip: current_user.remote_ip
+      )
     end
 
     def current_user

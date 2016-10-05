@@ -57,6 +57,7 @@ describe One::MigrateUser do
         migration = Migration.last
         expect(migration.one_username).to eq(existing_username)
         expect(migration.accepted_by).to eq(current_user.remote_user)
+        expect(migration.accepted_from_ip).to eq(current_user.remote_ip)
       end
     end
   end

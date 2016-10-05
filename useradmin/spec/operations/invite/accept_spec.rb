@@ -34,6 +34,7 @@ describe Invite::Accept do
       expect(res).to be_truthy
       expect(op.model.accepted_at).to eq accepted_at
       expect(op.model.accepted_by).to eq current_user.remote_user
+      expect(op.model.accepted_from_ip).to eq current_user.remote_ip
     end
 
     context 'given the invite has already been accepted' do
