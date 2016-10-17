@@ -2,6 +2,7 @@
 admins:
   - bforma
   - svdiepen
+  - mvdijk
 
 passenger:
   max_pool_size: 1
