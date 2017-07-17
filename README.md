@@ -76,7 +76,7 @@ sudo su -
 service opennebula start
 ```
 
-Visit `http://192.178.111.170` to see opennebula running.
+Visit `http://192.168.111.170` to see opennebula running.
 
 ### Rails server
 
