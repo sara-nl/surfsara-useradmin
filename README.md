@@ -42,6 +42,12 @@ Follow 'postgres' post install messages.
 
 Download from `https://www.virtualbox.org/wiki/Downloads`
 
+Or:
+
+```sh
+brew cask install virtualbox
+```
+
 ### Vagrant:
 
 ```sh
