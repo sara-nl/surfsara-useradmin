@@ -45,7 +45,7 @@ Download from `https://www.virtualbox.org/wiki/Downloads`
 ### Vagrant:
 
 ```sh
-brew install vagrant
+brew cask install vagrant
 vagrant plugin install vagrant-vbguest
 ```
 
