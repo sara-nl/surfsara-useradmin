@@ -89,6 +89,7 @@ Visit `http://192.168.111.170` to see opennebula running.
 ```sh
 cd useradmin
 rbenv install
+gem install bundler
 bundle install
 rbenv rehash
 rails s
