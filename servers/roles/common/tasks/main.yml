@@ -18,6 +18,7 @@
     - python-software-properties
     - curl
     - vim
+    - ntp
     - python-pycurl
     - python-lxml
     - debconf-utils
