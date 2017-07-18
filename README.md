@@ -28,6 +28,13 @@ brew install ruby-build                 # for installing ruby versions
 
 Follow `rbenv` post install messages.
 
+#### Database:
+```sh
+createuser -D -s -R
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
 #### Other:
 
