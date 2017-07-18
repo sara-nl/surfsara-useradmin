@@ -2,8 +2,8 @@
 - hosts: useradmin
   become: yes
   roles:
-    - { role: 'copy_config_files', when: env == 'development', tags: 'copy_config_files' }
     - common
+    - { role: 'copy_config_files', when: env == 'development', tags: 'copy_config_files' }
     - git
     - postgres
     - ruby
