@@ -28,6 +28,13 @@ brew install ruby-build                 # for installing ruby versions
 
 Follow `rbenv` post install messages.
 
+#### Database:
+```sh
+createuser -D -s -R
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
 #### Other:
 
@@ -42,10 +49,16 @@ Follow 'postgres' post install messages.
 
 Download from `https://www.virtualbox.org/wiki/Downloads`
 
+Or:
+
+```sh
+brew cask install virtualbox
+```
+
 ### Vagrant:
 
 ```sh
-brew install vagrant
+brew cask install vagrant
 vagrant plugin install vagrant-vbguest
 ```
 
@@ -76,13 +89,14 @@ sudo su -
 service opennebula start
 ```
 
-Visit `http://192.178.111.170` to see opennebula running.
+Visit `http://192.168.111.170` to see opennebula running.
 
 ### Rails server
 
 ```sh
 cd useradmin
 rbenv install
+gem install bundler
 bundle install
 rbenv rehash
 rails s
